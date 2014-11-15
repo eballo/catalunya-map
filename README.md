@@ -3,7 +3,7 @@ Interactive vectorial map of Catalunya based on a SVG/VML and the library Rapha√
 
 ## Demo
 
-[Demo](http://map.catalunyamedieval.es)
+[Demo](http://map.demo.catalunyamedieval.es)
 
 ## Sources
 - [Mapa SVG de Catalunya](http://commons.wikimedia.org/wiki/File:Mapa_comarcal_de_Catalunya.svg)
