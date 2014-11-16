@@ -1,4 +1,4 @@
-/* ------ main css file --------*/
+/* ------ genaral css file --------*/
 
 body {
 	background: #fff;
@@ -13,20 +13,18 @@ h1 {
 p {
 	padding-bottom: 30px;
 }
-.agile img {
-	border: none;
-	margin-top: 10px;
-}
-.agile {
-	padding: 50px;
-	font-size: 15px;
-}
+
 a {
 	color: #66bbdd;
 	text-decoration: none;
 }
 a:hover {
 	text-decoration: underline;
+}
+
+#container {
+	margin:20px auto;
+
 }
 
 .description {
