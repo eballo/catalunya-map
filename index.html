@@ -1,32 +1,36 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Interactive Map of Catalunya SVG/VML and RaphaëlJs - Demo</title>
+	<title>Interactive Map of Catalunya SVG/VML and RaphaëlJs - Demo V2.0</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="description" content="SVG/VML Interactive Catalunya Map">
 	<meta name="author" content="Enric Ballo">
 
 	<script type="text/javascript" src="js/raphael-min.js"></script>
+	<script type="text/javascript" src="js/scale.raphael.js"></script>
 	<script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
 
 	<script type="text/javascript" src="js/catalunya-map-path.js"></script>
 	<script type="text/javascript" src="js/catalunya-map-init.js"></script>
 
-	<link rel="stylesheet" href="css/catalunya-map.css">
 	<link rel="stylesheet" href="css/main.css">
+	<link rel="stylesheet" href="css/catalunya-map.css">
 
 </head>
 <body>
 
-	<h1>Interactive Map of Catalunya SVG/VML and RaphaëlJs - Demo</h1>
+	<h1>Interactive Map of Catalunya SVG/VML and RaphaëlJs - Demo v2.0</h1>
 	<h4> :: Catalunya Medieval Project - <a href="http://www.catalunyamedieval.es/" target="_blank" title="Catalunya Medieval">www.catalunyamedieval.es</a> ::</h4>
 	
 	<a href="https://github.com/eballo/catalunya-map"><img style="position: absolute; top: 0; right: 0; border: 0;" src="img/forkme_right_darkblue.png" alt="Fork me on GitHub"></a>
+	
+	<div id="container">
+	
+		<div class="mapWrapper">
+			<div id="map"></div>
+		</div>
 
-
-	<div id="map"></div>
-
-	<table class="description" cellspacing="10" cellpadding="10">
+		<table class="description" cellspacing="10" cellpadding="10">
 		<tbody>
 			<tr>
 				<td>
@@ -48,6 +52,10 @@
 			</tr>
 		</tbody>
 	</table>
+
+	</div>
+
+	
 	
 </body>
 </html>
