@@ -29,5 +29,8 @@ V1.0
 V2.0
 - Resize functionality using [raphael-scale.js](http://www.shapevent.com/scaleraphael/)
 
+V2.1
+- Debug information and better resize example
+
 v3.0
 - Add Comarca Names and tooltips capital (currently in development)

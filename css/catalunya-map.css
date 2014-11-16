@@ -16,3 +16,9 @@
 svg>text,svg>path {
 	cursor: pointer;
 }
+
+#debugInfo{
+	position: fixed;
+    top: 10px;
+    right: 50px;
+}
