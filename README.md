@@ -1,6 +1,10 @@
 # Interactive Map of Catalunya SVG/VML and RaphaëlJs - Demo
 Interactive vectorial map of Catalunya based on a SVG/VML and the library RaphaëlJs.
 
+
+<img src="https://github.com/eballo/catalunya-map/blob/master/screenshot-v3.0.png" alt="screen-shot" align="center" />
+
+
 ## Demo
 
 - [Demo v1.0](http://demo.catalunyamedieval.es/map1)
