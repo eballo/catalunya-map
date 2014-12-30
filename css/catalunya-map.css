@@ -12,11 +12,6 @@
 	clear:both;
 }
 
-/* change cursor on map and his own text. */
-svg>text,svg>path {
-	cursor: pointer;
-}
-
 #debugInfo{
 	position: fixed;
     top: 10px;

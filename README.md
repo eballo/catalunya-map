@@ -4,9 +4,9 @@ Interactive vectorial map of Catalunya based on a SVG/VML and the library Rapha√
 ## Demo
 
 - [Demo v1.0](http://demo.catalunyamedieval.es/map1)
-- [Demo v2.0](http://demo.catalunyamedieval.es/map2)
+- [Demo v2.1](http://demo.catalunyamedieval.es/map2)
 
-#How to create a Map using a SVG file
+##How to create a Map using a SVG file
 
 1. Given a [SVG file](http://demo.catalunyamedieval.es/map1/src/Mapa_comarcal_de_Catalunya.svg) you can rename it to xml [XML file](http://demo.catalunyamedieval.es/map1/xml/Mapa_comarcal_de_Catalunya.svg.xml)
 2. Inside the xml file you will see a d="..." like this one
@@ -22,6 +22,13 @@ Interactive vectorial map of Catalunya based on a SVG/VML and the library Rapha√
 - [raphael-scale.js](http://www.shapevent.com/scaleraphael/)
 - [JQuery](http://jquery.com/)
 
+## Inspiration Links
+- [http://codecanyon.net/item/interactive-svg-usa-map/full_screen_preview/1021095](http://codecanyon.net/item/interactive-svg-usa-map/full_screen_preview/1021095)
+- [http://blog.comersis.com/articles/SVG-Raphael-map/](http://blog.comersis.com/articles/SVG-Raphael-map/)
+- [http://www.jonathan-petitcolas.com/2013/07/18/create-clickable-svg-france-regions-map.html](http://www.jonathan-petitcolas.com/2013/07/18/create-clickable-svg-france-regions-map.html)
+- [http://migrationsmap.net/#/NLD/arrivals](http://migrationsmap.net/#/NLD/arrivals)
+- [http://newsignature.github.io/us-map/](http://newsignature.github.io/us-map/)
+
 ## Versions
 V1.0 
 - Just the map
@@ -33,4 +40,6 @@ V2.1
 - Debug information and better resize example
 
 v3.0
-- Add Comarca Names and tooltips capital (currently in development)
+- Add Comarca and capital names
+
+##License
