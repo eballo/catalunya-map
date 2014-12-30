@@ -43,4 +43,7 @@ V2.1
 v3.0
 - Add Comarca and capital names
 
+V4.0
+- Add Comarca Info 
+
 ##License
