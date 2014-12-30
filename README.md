@@ -48,6 +48,6 @@ v3.0
 - Add Comarca and capital names
 
 V4.0
-- Add Comarca Info 
+- Add Comarca Info (development)
 
 ##License
