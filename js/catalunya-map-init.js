@@ -24,8 +24,8 @@ $(function () {
     var responsive = true;
 
     var comarcaAttr = {          //comarca style configuration
-        fill : colorOut,
-        stroke : '#abacae',
+        fill : colorOut,         //out color
+        stroke : '#abacae',      //soft grey
         'stroke-width' : 0.8,
         'stroke-linejoin' : 'round',
         'font-family': 'Verdana',
@@ -35,8 +35,20 @@ $(function () {
         'z-index' : 10
     };
 
-    var nomComcarcaAttr = {      //nom comarca style configuration 
-        fill : '#000000',
+    var nomComcarcaAttr_in = {      //nom comarca style configuration for hover in
+        fill : '#3300FF',           //dark blue
+        stroke : '#000000',         //black
+        'stroke-width' : 0.4,
+        'font-family': 'Verdana',
+        'font-size': '7px',
+        'font-weight': 'bold',
+        'cursor': 'pointer',
+        'z-index' : 20
+    };
+
+    var nomComcarcaAttr_out = {      //nom comarca style configuration for hover out
+        fill : '#686868',            // grey
+        'stroke-width' : 0,
         'font-family': 'Verdana',
         'font-size': '7px',
         'font-weight': 'bold',
@@ -45,7 +57,7 @@ $(function () {
     };
 
     var nomCapitalAttr = {       //nom capital comarca style configuration
-       fill : '#000000',
+       fill : '#FF9900',         //orange
        "font-family": "Arial, sans-serif",
        "font-size": "8px",
        'cursor': 'pointer',
@@ -135,14 +147,14 @@ $(function () {
             obj.push(paper.path(mappaths[comarca].path).attr(comarcaAttr));
             
             // object 1 and 2 (comarca name / capital comarca name)
-            obj.push(paper.text(mappaths[comarca].nx/scale, mappaths[comarca].ny/scale, mappaths[comarca].name).attr(nomComcarcaAttr));
+            obj.push(paper.text(mappaths[comarca].nx/scale, mappaths[comarca].ny/scale, mappaths[comarca].name).attr(nomComcarcaAttr_out));
             obj.push(paper.text(mappaths[comarca].cx/scale, mappaths[comarca].cy/scale, mappaths[comarca].capital).attr(nomCapitalAttr));
 
             obj[0].node.id = i;
             obj[0].toBack();
             
             obj[1].toFront();
-            obj[1].toFront();
+            obj[2].toFront();
 
             //Initial status hiden
             obj[1].hide();
@@ -172,8 +184,8 @@ $(function () {
      */
     function hoverIn() {
 
-        this[0].animate({ fill : colorIn }, 100);
-        //this[1].show();
+        this[0].animate({ fill : colorIn }, 100);       
+        this[1].attr(nomComcarcaAttr_in);
         this[2].show();
 
     }
@@ -184,10 +196,9 @@ $(function () {
      */
     function hoverOut() {
 
-        this[0].animate({ fill : comarcaAttr.fill }, 100);
-        //this[1].hide();
+        this[0].animate({ fill : colorOut }, 100);
+        this[1].attr(nomComcarcaAttr_out);
         this[2].hide();
-
     }
 
     /**
