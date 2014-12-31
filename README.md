@@ -2,7 +2,7 @@
 Interactive vectorial map of Catalunya based on a SVG/VML and the library RaphaëlJs.
 
 
-<img src="https://github.com/eballo/catalunya-map/blob/master/screenshot-v3.0.png" alt="screen-shot" align="center" />
+<img src="https://github.com/eballo/catalunya-map/blob/master/screenshot/screenshot-v3.1.png" alt="screen-shot" align="center" />
 
 
 ## Demo
