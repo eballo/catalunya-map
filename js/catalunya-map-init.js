@@ -38,7 +38,7 @@ $(function () {
     var nomComcarcaAttr = {      //nom comarca style configuration 
         fill : '#000000',
         'font-family': 'Verdana',
-        'font-size': '8px',
+        'font-size': '7px',
         'font-weight': 'bold',
         'cursor': 'pointer',
         'z-index' : 20
