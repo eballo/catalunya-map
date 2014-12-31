@@ -45,9 +45,9 @@ V2.1
 - Debug information and better resize example
 
 v3.0
-- Add Comarca and capital names
+- Add comarca and capital names
 
 V4.0
-- Add Comarca Info (development)
+- Add Comarca Info (currently in development)
 
 ##License
