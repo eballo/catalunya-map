@@ -22,6 +22,7 @@ $(function () {
 
     var debug = false;            //enable/disable debug mode
     var responsive = true;
+    var useText = true;
 
     var comarcaAttr = {          //comarca style configuration
         fill : colorOut,         //out color
@@ -150,6 +151,10 @@ $(function () {
             obj.push(paper.text(mappaths[comarca].nx/scale, mappaths[comarca].ny/scale, mappaths[comarca].name).attr(nomComcarcaAttr_out));
             obj.push(paper.text(mappaths[comarca].cx/scale, mappaths[comarca].cy/scale, mappaths[comarca].capital).attr(nomCapitalAttr));
 
+            obj[0].info = mappaths[comarca].info;
+            obj[1].info = mappaths[comarca].info;
+            obj[2].info = mappaths[comarca].info;
+
             obj[0].node.id = i;
             obj[0].toBack();
             
@@ -162,6 +167,24 @@ $(function () {
 
             // Change the color of each comarca animation hover event
             obj.hover(hoverIn, hoverOut, obj, obj);
+
+            if(useText){
+                // on click event
+                obj[0].click(function(){
+                    var txt = this.info;
+                    onMapClick(txt);
+                });
+
+                obj[1].click(function(){
+                    var txt = this.info;
+                    onMapClick(txt);
+                });
+
+                obj[2].click(function(){
+                    var txt = this.info;
+                    onMapClick(txt);
+                });
+            }
 
             i++;
         }
@@ -176,6 +199,14 @@ $(function () {
             resizeMap(paper);
         }
 
+    }
+
+    /**
+     * On Map click show the information text
+     * @return {[type]} [description]
+     */
+    function onMapClick(text){
+        $('#text').html(text);
     }
 
     /**

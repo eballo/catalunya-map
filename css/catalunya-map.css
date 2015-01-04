@@ -3,8 +3,6 @@
 .mapWrapper {
 	margin:0 auto;
 	position:relative;
-	height: 425px;
-	width: 400px;
 }
 
 #map {
@@ -16,4 +14,10 @@
 	position: fixed;
     top: 10px;
     right: 50px;
+}
+
+#text{
+	float:right;
+	width:200px;
+	overflow: auto;
 }
