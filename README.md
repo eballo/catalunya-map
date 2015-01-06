@@ -2,7 +2,7 @@
 Interactive vectorial map of Catalunya based on a SVG/VML and the library RaphaÃ«lJs.
 
 
-<img src="https://github.com/eballo/catalunya-map/blob/master/screenshot/screenshot-v3.1.png" alt="screen-shot" align="center" />
+<img src="https://github.com/eballo/catalunya-map/blob/master/screenshot/screenshot-v4.png" alt="screen-shot" align="center" />
 
 
 ## Demo
@@ -12,6 +12,7 @@ Interactive vectorial map of Catalunya based on a SVG/VML and the library RaphaÃ
 - [Demo v2.1](http://demo.catalunyamedieval.es/map21)
 - [Demo v3.0](http://demo.catalunyamedieval.es/map3)
 - [Demo v3.1](http://demo.catalunyamedieval.es/map31)
+- [Demo v4.0](http://demo.catalunyamedieval.es/map4)
 
 ##How to create a Map using a SVG file
 
@@ -54,6 +55,6 @@ v3.1
 - Add colors on mouse hover
 
 V4.0
-- Add Comarca Info (currently in development)
+- Add Comarca Info box on mouse click
 
 ##License
