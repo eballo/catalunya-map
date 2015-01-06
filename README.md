@@ -24,6 +24,32 @@ Interactive vectorial map of Catalunya based on a SVG/VML and the library Rapha�
 3. Create a mappath array with all the values seen in the last point like this [path file](http://demo.catalunyamedieval.es/map1/js/catalunya-map-path.js)
 4. Use RaphaëlJs to draw the map like this [path file](http://demo.catalunyamedieval.es/map1/js/catalunya-map-init.js)
 
+## How to use this map
+
+1. Add this code in the head
+
+	<script type="text/javascript" src="js/raphael-min.js"></script>
+	<script type="text/javascript" src="js/scale.raphael.js"></script>
+	<script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
+
+	<script type="text/javascript" src="js/catalunya-map-path.js"></script>
+	<script type="text/javascript" src="js/catalunya-map-init.js"></script>
+
+	<link rel="stylesheet" href="css/main.css">
+	<link rel="stylesheet" href="css/catalunya-map.css">
+
+2. Add this code in the body
+
+		<div class="mapWrapper">
+			<div id="map"></div>
+			<div id="text">
+				<div id="comarcaName"><h1>Informaci&oacute;</h1></div>
+				<div id="contentText">Seleccionar una comarca del mapa i fer clic per veure el seu contingut</div>
+			</div>
+		</div>
+
+3. Reload the page and all you should be able to see the map
+
 ## Sources
 - [Mapa SVG de Catalunya](http://commons.wikimedia.org/wiki/File:Mapa_comarcal_de_Catalunya.svg)
 - [RaphaëlJs](http://raphaeljs.com)
