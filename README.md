@@ -64,6 +64,7 @@ Interactive vectorial map of Catalunya based on a SVG/VML and the library Rapha√
 - [http://newsignature.github.io/us-map/](http://newsignature.github.io/us-map/)
 
 ## Versions
+
 V1.0 
 - Just the map
 
@@ -84,3 +85,5 @@ V4.0
 - Add Comarca Info box on mouse click
 
 ##License
+
+- [GNU GENERAL PUBLIC LICENSE](http://demo.catalunyamedieval.es/LICENSE.txt)
