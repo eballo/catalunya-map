@@ -17,6 +17,8 @@ $(function () {
     var mapInitWidth=425;        //initial map width
     var mapInitHeight=400;       //initial map height
 
+    var textInitWidth = 250;     //initial text width
+
     var mapWidth=mapInitWidth;   //map width variable
     var mapHeight=mapInitHeight; //map height variable
 
@@ -151,9 +153,13 @@ $(function () {
             obj.push(paper.text(mappaths[comarca].nx/scale, mappaths[comarca].ny/scale, mappaths[comarca].name).attr(nomComcarcaAttr_out));
             obj.push(paper.text(mappaths[comarca].cx/scale, mappaths[comarca].cy/scale, mappaths[comarca].capital).attr(nomCapitalAttr));
 
-            obj[0].info = mappaths[comarca].info;
-            obj[1].info = mappaths[comarca].info;
-            obj[2].info = mappaths[comarca].info;
+            obj[0].comarcaName = mappaths[comarca].name;
+            obj[1].comarcaName = mappaths[comarca].name;
+            obj[2].comarcaName = mappaths[comarca].name;
+
+            obj[0].contentText = mappaths[comarca].info;
+            obj[1].contentText = mappaths[comarca].info;
+            obj[2].contentText = mappaths[comarca].info;
 
             obj[0].node.id = i;
             obj[0].toBack();
@@ -171,18 +177,21 @@ $(function () {
             if(useText){
                 // on click event
                 obj[0].click(function(){
-                    var txt = this.info;
-                    onMapClick(txt);
+                    var comarcaName = this.comarcaName;
+                    var contentText = this.contentText;
+                    onMapClick(comarcaName, contentText);
                 });
 
                 obj[1].click(function(){
-                    var txt = this.info;
-                    onMapClick(txt);
+                    var comarcaName = this.comarcaName;
+                    var contentText = this.contentText;
+                    onMapClick(comarcaName, contentText);
                 });
 
                 obj[2].click(function(){
-                    var txt = this.info;
-                    onMapClick(txt);
+                    var comarcaName = this.comarcaName;
+                    var contentText = this.contentText;
+                    onMapClick(comarcaName, contentText);
                 });
             }
 
@@ -205,8 +214,9 @@ $(function () {
      * On Map click show the information text
      * @return {[type]} [description]
      */
-    function onMapClick(text){
-        $('#text').html(text);
+    function onMapClick(comarcaName, contentText){
+        $('#comarcaName').html('<h1>' + comarcaName + '</h1>');
+        $('#contentText').html(contentText);
     }
 
     /**
@@ -251,7 +261,7 @@ $(function () {
         });
 
         $(".mapWrapper").css({
-            'width': mapWidth + 'px',
+            'width': mapWidth + textInitWidth + 'px',
             'height': mapHeight + 'px'
         });
 
