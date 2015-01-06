@@ -28,15 +28,15 @@ Interactive vectorial map of Catalunya based on a SVG/VML and the library Rapha√
 
 1. Add this code in the head
 
-	<script type="text/javascript" src="js/raphael-min.js"></script>
-	<script type="text/javascript" src="js/scale.raphael.js"></script>
-	<script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
+	     <script type="text/javascript" src="js/raphael-min.js"></script>
+	     <script type="text/javascript" src="js/scale.raphael.js"></script>
+	     <script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
 
-	<script type="text/javascript" src="js/catalunya-map-path.js"></script>
-	<script type="text/javascript" src="js/catalunya-map-init.js"></script>
+	     <script type="text/javascript" src="js/catalunya-map-path.js"></script>
+	     <script type="text/javascript" src="js/catalunya-map-init.js"></script>
 
-	<link rel="stylesheet" href="css/main.css">
-	<link rel="stylesheet" href="css/catalunya-map.css">
+	     <link rel="stylesheet" href="css/main.css">
+	     <link rel="stylesheet" href="css/catalunya-map.css">
 
 2. Add this code in the body
 
