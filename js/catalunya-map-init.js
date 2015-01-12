@@ -182,13 +182,19 @@ $(function () {
                     onMapClick(comarcaName, contentText);
                 });
 
-                obj[0].touchstart(function(){
+                obj[1].click(function(){
                     var comarcaName = this.comarcaName;
                     var contentText = this.contentText;
                     onMapClick(comarcaName, contentText);
                 });
 
-                obj[1].click(function(){
+                obj[2].click(function(){
+                    var comarcaName = this.comarcaName;
+                    var contentText = this.contentText;
+                    onMapClick(comarcaName, contentText);
+                });
+
+                obj[0].touchstart(function(){
                     var comarcaName = this.comarcaName;
                     var contentText = this.contentText;
                     onMapClick(comarcaName, contentText);
@@ -198,13 +204,7 @@ $(function () {
                     var comarcaName = this.comarcaName;
                     var contentText = this.contentText;
                     onMapClick(comarcaName, contentText);
-                });      
-
-                obj[2].click(function(){
-                    var comarcaName = this.comarcaName;
-                    var contentText = this.contentText;
-                    onMapClick(comarcaName, contentText);
-                });
+                }); 
 
                 obj[2].touchstart(function(){
                     var comarcaName = this.comarcaName;
