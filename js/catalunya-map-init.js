@@ -12,10 +12,11 @@ $(function () {
     //---------------------------
     var colorIn = '#d1eafe';     //color when the mouse is over
     var colorOut = '#fff';       //color when the mouse is not over
-    var scale = 1.5;             //scale value
+    var scale = 0.8;             //scale value
+    var scaletext = 0.823;             //scale value
 
-    var mapInitWidth=425;        //initial map width
-    var mapInitHeight=400;       //initial map height
+    var mapInitWidth=825;        //initial map width
+    var mapInitHeight=800;       //initial map height
 
     var textInitWidth = 250;     //initial text width
 
@@ -43,7 +44,7 @@ $(function () {
         stroke : '#000000',         //black
         'stroke-width' : 0.4,
         'font-family': 'Verdana',
-        'font-size': '7px',
+        'font-size': '12px',
         'font-weight': 'bold',
         'cursor': 'pointer',
         'z-index' : 20
@@ -53,7 +54,7 @@ $(function () {
         fill : '#686868',            // grey
         'stroke-width' : 0,
         'font-family': 'Verdana',
-        'font-size': '7px',
+        'font-size': '12px',
         'font-weight': 'bold',
         'cursor': 'pointer',
         'z-index' : 20
@@ -62,7 +63,7 @@ $(function () {
     var nomCapitalAttr = {       //nom capital comarca style configuration
        fill : '#FF9900',         //orange
        "font-family": "Arial, sans-serif",
-       "font-size": "8px",
+       "font-size": "10px",
        'cursor': 'pointer',
        'z-index': 30
    };
@@ -125,6 +126,7 @@ $(function () {
         mcat.cat39 = paper.set();
         mcat.cat40 = paper.set();
         mcat.cat41 = paper.set();
+        mcat.cat42 = paper.set();
     }
 
     /**
@@ -148,10 +150,11 @@ $(function () {
             // raphael object
             // object 0 (the map)
             obj.push(paper.path(mappaths[comarca].path).attr(comarcaAttr));
+            obj.animate({transform: "t0,-200"});
             
             // object 1 and 2 (comarca name / capital comarca name)
-            obj.push(paper.text(mappaths[comarca].nx/scale, mappaths[comarca].ny/scale, mappaths[comarca].name).attr(nomComcarcaAttr_out));
-            obj.push(paper.text(mappaths[comarca].cx/scale, mappaths[comarca].cy/scale, mappaths[comarca].capital).attr(nomCapitalAttr));
+            obj.push(paper.text(mappaths[comarca].nx/scaletext, mappaths[comarca].ny/scaletext, mappaths[comarca].name).attr(nomComcarcaAttr_out));
+            obj.push(paper.text(mappaths[comarca].cx/scaletext, mappaths[comarca].cy/scaletext, mappaths[comarca].capital).attr(nomCapitalAttr));
 
             obj[0].comarcaName = mappaths[comarca].name;
             obj[1].comarcaName = mappaths[comarca].name;
@@ -331,8 +334,8 @@ $(function () {
         if (winWidth >= 960) {
             console.log('WindowWith > 960');
             
-            mapWidth = mapInitWidth * 1.5;
-            mapHeight = mapInitHeight * 1.5;
+            mapWidth = mapInitWidth * 0.8;
+            mapHeight = mapInitHeight * 0.8;
             paper.scaleAll(scale);
             resizeMap(paper);
             

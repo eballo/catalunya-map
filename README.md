@@ -88,6 +88,9 @@ V4.0
 V4.1
 - add touchStart for tablets (ipad)
 
+v5.0
+- Add Comarca del Moianes [Source image](https://commons.wikimedia.org/wiki/File:Localitzaci%C3%B3_del_Moian%C3%A8s.svg.png)
+
 ##License
 
 - [GNU GENERAL PUBLIC LICENSE](http://demo.catalunyamedieval.es/LICENSE.txt)
