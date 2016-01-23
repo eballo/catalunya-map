@@ -89,7 +89,7 @@ V4.1
 - add touchStart for tablets (ipad)
 
 v5.0
-- Add Comarca del Moianes [Source image](https://commons.wikimedia.org/wiki/File:Localitzaci%C3%B3_del_Moian%C3%A8s.svg.png)
+- Add Comarca del Moianes : Source image Mapa_comarcal_de_Catalunya_v2.svg (Thanks for your Contribution Hector)
 
 ##License
 
