@@ -13,7 +13,6 @@ $(function () {
     var colorIn = '#d1eafe';     //color when the mouse is over
     var colorOut = '#fff';       //color when the mouse is not over
     var scale = 0.8;             //scale value
-    var scaletext = 0.823;             //scale value
 
     var mapInitWidth=825;        //initial map width
     var mapInitHeight=800;       //initial map height
@@ -153,8 +152,8 @@ $(function () {
             obj.animate({transform: "t0,-200"});
             
             // object 1 and 2 (comarca name / capital comarca name)
-            obj.push(paper.text(mappaths[comarca].nx/scaletext, mappaths[comarca].ny/scaletext, mappaths[comarca].name).attr(nomComcarcaAttr_out));
-            obj.push(paper.text(mappaths[comarca].cx/scaletext, mappaths[comarca].cy/scaletext, mappaths[comarca].capital).attr(nomCapitalAttr));
+            obj.push(paper.text(mappaths[comarca].nx, mappaths[comarca].ny, mappaths[comarca].name).attr(nomComcarcaAttr_out));
+            obj.push(paper.text(mappaths[comarca].cx, mappaths[comarca].cy, mappaths[comarca].capital).attr(nomCapitalAttr));
 
             obj[0].comarcaName = mappaths[comarca].name;
             obj[1].comarcaName = mappaths[comarca].name;
