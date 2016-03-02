@@ -92,6 +92,10 @@ V4.1
 v5.0
 - Add Comarca del Moianes : Source image Mapa_comarcal_de_Catalunya_v2.svg (Thanks for your Contribution Hector)
 
+v5.1
+- reposition of all the names
+- new screenshot
+
 ##License
 
 - [GNU GENERAL PUBLIC LICENSE](http://demo.catalunyamedieval.es/LICENSE.txt)
