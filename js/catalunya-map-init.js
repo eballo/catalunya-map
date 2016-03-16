@@ -26,6 +26,9 @@ $(function () {
     var responsive = true;
     var useText = true;
 
+    var onClick = false;         //enable/disable onclick open link
+    var newWindow = false;       //enable/disable open a page in a new window for onClick functionality
+
     var comarcaAttr = {          //comarca style configuration
         fill : colorOut,         //out color
         stroke : '#abacae',      //soft grey
@@ -163,6 +166,10 @@ $(function () {
             obj[1].contentText = mappaths[comarca].info;
             obj[2].contentText = mappaths[comarca].info;
 
+            obj[0].comarcaLink = mappaths[comarca].url;
+            obj[1].comarcaLink = mappaths[comarca].url;
+            obj[2].comarcaLink = mappaths[comarca].url;
+
             obj[0].node.id = i;
             obj[0].toBack();
             
@@ -181,37 +188,43 @@ $(function () {
                 obj[0].click(function(){
                     var comarcaName = this.comarcaName;
                     var contentText = this.contentText;
-                    onMapClick(comarcaName, contentText);
+                    var comarcaLink = this.comarcaLink;
+                    onMapClick(comarcaName, contentText, comarcaLink);
                 });
 
                 obj[1].click(function(){
                     var comarcaName = this.comarcaName;
                     var contentText = this.contentText;
-                    onMapClick(comarcaName, contentText);
+                    var comarcaLink = this.comarcaLink;
+                    onMapClick(comarcaName, contentText, comarcaLink);
                 });
 
                 obj[2].click(function(){
                     var comarcaName = this.comarcaName;
                     var contentText = this.contentText;
-                    onMapClick(comarcaName, contentText);
+                    var comarcaLink = this.comarcaLink;
+                    onMapClick(comarcaName, contentText, comarcaLink);
                 });
 
                 obj[0].touchstart(function(){
                     var comarcaName = this.comarcaName;
                     var contentText = this.contentText;
-                    onMapClick(comarcaName, contentText);
+                    var comarcaLink = this.comarcaLink;
+                    onMapClick(comarcaName, contentText, comarcaLink);
                 });
 
                 obj[1].touchstart(function(){
                     var comarcaName = this.comarcaName;
                     var contentText = this.contentText;
-                    onMapClick(comarcaName, contentText);
+                    var comarcaLink = this.comarcaLink;
+                    onMapClick(comarcaName, contentText, comarcaLink);
                 }); 
 
                 obj[2].touchstart(function(){
                     var comarcaName = this.comarcaName;
                     var contentText = this.contentText;
-                    onMapClick(comarcaName, contentText);
+                    var comarcaLink = this.comarcaLink;
+                    onMapClick(comarcaName, contentText, comarcaLink);
                 });
             }
 
@@ -234,9 +247,18 @@ $(function () {
      * On Map click show the information text
      * @return {[type]} [description]
      */
-    function onMapClick(comarcaName, contentText){
-        $('#comarcaName').html('<h1>' + comarcaName + '</h1>');
-        $('#contentText').html(contentText);
+    function onMapClick(comarcaName, contentText, comarcaLink){
+        if(onClick){
+            //console.log(comarcaLink);
+            if(newWindow){
+                window.open(comarcaLink);
+            }else{
+                window.location=comarcaLink;
+            }
+        }else{
+            $('#comarcaName').html('<h1>' + comarcaName + '</h1>');
+            $('#contentText').html(contentText);
+        }
     }
 
     /**
