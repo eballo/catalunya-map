@@ -28,7 +28,7 @@ $(function () {
     var mapWidth  = mapInitWidth;  //map width variable
     var mapHeight = mapInitHeight; //map height variable
 
-    var debug      = false;       //enable/disable debug mode
+    var debug      = true;       //enable/disable debug mode
     var responsive = true;
     var useText    = true;
 
@@ -137,6 +137,23 @@ $(function () {
         mcat.cat41 = paper.set();
         mcat.cat42 = paper.set();
     }
+    
+     /**
+     * Function that create a text list of all the comarques
+     * 
+     */
+    function createLlistaComarques(){
+        if(debug){
+            console.log('create llista comarques ...');
+        }
+        
+        // clear the existing list
+        $('#llistaComarques li').remove();
+        var i = 0;
+        for (var comarca in mappaths) {
+          $("<li>"+mappaths[comarca].name+"</li>").appendTo("ul.list");
+        }
+    }
 
     /**
      * Function that create the map based in the mappaths array
@@ -148,8 +165,6 @@ $(function () {
         if(debug){
             console.log('CreateMap ...');
         }
-        
-        createArrayComarcas();
         
         var i = 0;
         for (var comarca in mappaths) {
@@ -370,6 +385,8 @@ $(function () {
                 console.log('WindowWith > 960');
             }
             
+            hideListShowMap();
+            
             mapWidth = mapInitWidth * 0.8;
             mapHeight = mapInitHeight * 0.8;
             paper.scaleAll(scale);
@@ -381,16 +398,21 @@ $(function () {
                 console.log('768 =< WindowWith < 960 ');
             }
             
+            hideMapShowList();
+            
             mapWidth =  mapInitWidth;
             mapHeight = mapWidth/ratio;
             paper.scaleAll(scale/2);
             resizeMap(paper);
+            
 
         }
         else if (winWidth < 768 && winWidth >= 480) {
             if(debug){
                 console.log('480 =< WindowWith < 768 ');
             }
+            
+            hideMapShowList();
             
             mapWidth = mapInitWidth;
             mapHeight = mapWidth/ratio;
@@ -401,6 +423,8 @@ $(function () {
                 console.log('480 < WindowWith');
             }
             
+            hideMapShowList();
+            
             mapWidth = mapInitWidth /2;
             mapHeight = mapWidth/ratio;
             resizeMap(paper);
@@ -408,6 +432,16 @@ $(function () {
         }
 
         showValues();
+    }
+    
+    function hideMapShowList(){
+        $('.mapWrapper').hide();
+        $('.llistaComarques').show();
+    }
+    
+    function hideListShowMap(){
+        $('.llistaComarques').hide();
+        $('.mapWrapper').show();
     }
 
     /**
@@ -455,7 +489,14 @@ $(function () {
             console.log('Window With : ' + winWidth);
         }
         
+        //create array
+        createArrayComarcas();
+        
+        //create map
         createMap(paper);
+        
+        //create list
+        createLlistaComarques();
     }
 
     //When the page is load call the loadMapAndText function
