@@ -392,7 +392,6 @@ $(function () {
             if(debug){
                 console.log('WindowWith > 960');
             }
-            
             hideListShowMap();
             
             mapWidth = mapInitWidth * 0.8;
@@ -405,14 +404,12 @@ $(function () {
             if(debug){
                 console.log('768 =< WindowWith < 960 ');
             }
-            
             hideMapShowList();
             
-            mapWidth =  mapInitWidth;
-            mapHeight = mapWidth/ratio;
-            paper.scaleAll(scale/2);
-            resizeMap(paper);
-            
+            //mapWidth =  mapInitWidth;
+            //mapHeight = mapWidth/ratio;
+            //paper.scaleAll(scale/2);
+            //resizeMap(paper);
 
         }
         else if (winWidth < 768 && winWidth >= 480) {
@@ -420,22 +417,22 @@ $(function () {
                 console.log('480 =< WindowWith < 768 ');
             }
             
-            hideMapShowList();
+            //mapWidth = mapInitWidth;
+            //mapHeight = mapWidth/ratio;
+            //resizeMap(paper);
             
-            mapWidth = mapInitWidth;
-            mapHeight = mapWidth/ratio;
-            resizeMap(paper);
+            hideMapShowList();
         }
         else if (winWidth < 480) {
             if(debug){
                 console.log('480 < WindowWith');
             }
             
-            hideMapShowList();
+            //mapWidth = mapInitWidth /2;
+            //mapHeight = mapWidth/ratio;
+            //resizeMap(paper);
             
-            mapWidth = mapInitWidth /2;
-            mapHeight = mapWidth/ratio;
-            resizeMap(paper);
+            hideMapShowList();
 
         }
 
@@ -505,6 +502,7 @@ $(function () {
         
         //create list
         createLlistaComarques();
+        
     }
 
     //When the page is load call the loadMapAndText function

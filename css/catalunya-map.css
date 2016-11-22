@@ -16,10 +16,6 @@
     right: 50px;
 }
 
-.llistaComarques{
-    
-}
-
 /** Text */
 
 #text{
@@ -100,5 +96,32 @@
    float: right;
    color: inherit;
    margin-right: 15px;
+}
+
+
+/* 
+-can be for 7 inch tablets
+-This CSS will apply for devices with the minimum width of 480 pixels
+ */
+@media only screen and (min-width: 480px) {
+    .mapWrapper{
+        visibility: hidden;
+    }
+    .llistaComarques{
+        visibility: visible;
+    }
+}
+/*
+-10 inch tablets
+-This CSS will apply for devices with the minimum width of 768 pixels
+*/
+@media only screen and (min-width: 960px) {
+    .mapWrapper{
+        visibility: visible;
+    }
+    .llistaComarques{
+        visibility: hidden;
+    }
+     
 }
 
