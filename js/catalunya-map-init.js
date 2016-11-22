@@ -147,11 +147,19 @@ $(function () {
             console.log('create llista comarques ...');
         }
         
-        // clear the existing list
-        $('#llistaComarques li').remove();
-        var i = 0;
+        var llistaComarques =[];
         for (var comarca in mappaths) {
-          $("<li>"+mappaths[comarca].name+"</li>").appendTo("ul.list");
+            llistaComarques.push({ name: mappaths[comarca].name, url:mappaths[comarca].url });
+        }
+        
+        // Order the list by name
+        llistaComarques = llistaComarques.sort(function (a, b) {
+            return a.name.localeCompare( b.name );
+        });
+        
+        // Create list with bootstrap styles
+        for(i=0;i<llistaComarques.length;i++){
+          $("<li class='list-group-item'><a href='"+llistaComarques[i].url+"' class='list-group-item'>"+llistaComarques[i].name+"</a></li>").appendTo("ul.list");
         }
     }
 
