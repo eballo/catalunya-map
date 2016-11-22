@@ -28,7 +28,7 @@ $(function () {
     var mapWidth  = mapInitWidth;  //map width variable
     var mapHeight = mapInitHeight; //map height variable
 
-    var debug      = true;       //enable/disable debug mode
+    var debug      = false;       //enable/disable debug mode
     var responsive = true;
     var useText    = true;
 
