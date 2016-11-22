@@ -82,6 +82,10 @@
     pointer-events: none;
 }
 
+.llistat-edificis li:nth-child(odd){
+    background: #fff6eb;
+}
+
 .llistat-edificis li a {
     display: block;
     padding: 2px;
