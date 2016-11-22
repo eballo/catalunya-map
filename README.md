@@ -109,6 +109,8 @@ v6.0
 - add Droid Sans Font
 - change colors
 - update Raphael JS and jQuery versions
+- add bootstrap
+- add all buildings
 
 ##License
 
