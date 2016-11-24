@@ -92,11 +92,8 @@ Interactive vectorial map of Catalunya based on a SVG/VML and the library Rapha√
 
 ## Versions
 
-| Version | Content |
-
-| -------------- | ------------- |
-|V1.0            | - Just the map|
-
+V1.0 
+- Just the map
 
 V2.0
 - Resize functionality using [raphael-scale.js](http://www.shapevent.com/scaleraphael/)
