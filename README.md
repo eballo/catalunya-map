@@ -6,7 +6,9 @@ Interactive vectorial map of Catalunya based on a SVG/VML and the library Rapha√
 
 ## Current versions
 * Rapha√´l JS - 2.2.1
+* ScaleRaphael - 0.8
 * jQuery - 3.1.1
+* Bootstrap - 3.3.7
 
 ## Demo
 
@@ -90,8 +92,11 @@ Interactive vectorial map of Catalunya based on a SVG/VML and the library Rapha√
 
 ## Versions
 
-V1.0 
-- Just the map
+| Version | Content |
+
+| -------------- | ------------- |
+|V1.0            | - Just the map|
+
 
 V2.0
 - Resize functionality using [raphael-scale.js](http://www.shapevent.com/scaleraphael/)
