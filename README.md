@@ -33,29 +33,45 @@ Interactive vectorial map of Catalunya based on a SVG/VML and the library RaphaÃ
 3. Create a mappath array with all the values seen in the last point like this [path file](http://demo.catalunyamedieval.es/map1/js/catalunya-map-path.js)
 4. Use RaphaÃ«lJs to draw the map like this [path file](http://demo.catalunyamedieval.es/map1/js/catalunya-map-init.js)
 
-## How to use this map
+## How to use this map (last version)
 
 1. Add this code in the head
 
+         <!-- Jquery & Raphaeljs -->
+         <script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
 	     <script type="text/javascript" src="js/raphael-min.js"></script>
 	     <script type="text/javascript" src="js/scale.raphael.js"></script>
-	     <script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
-
+	     
+         <!-- Bootstrap -->
+         <script type="text/javascript" src="js/bootstrap.min.js"></script>
+         <link rel="stylesheet" href="css/bootstrap-theme.min.css">
+         <link rel="stylesheet" href="css/bootstrap.min.css">
+         
+         <!-- catalunya-map files -->
 	     <script type="text/javascript" src="js/catalunya-map-path.js"></script>
 	     <script type="text/javascript" src="js/catalunya-map-init.js"></script>
 
 	     <link rel="stylesheet" href="css/main.css">
 	     <link rel="stylesheet" href="css/catalunya-map.css">
+         
 
 2. Add this code in the body
 
+	<div id="container row">
+	
 		<div class="mapWrapper">
-			<div id="map"></div>
-			<div id="text">
-				<div id="comarcaName"><h1>Informaci&oacute;</h1></div>
+            <div id="text" class="col-md-4">
+				<div id="comarcaName"><h1>Catalunya Medieval</h1></div>
 				<div id="contentText">Seleccionar una comarca del mapa i fer clic per veure el seu contingut</div>
 			</div>
+			<div id="map" class="col-md-8"></div>
 		</div>
+        
+        <div class="llistaComarques col-md-12">
+            <ul class="list list-group"></ul>
+        </div>
+
+    </div>
 
 3. Reload the page and all you should be able to see the map
 
