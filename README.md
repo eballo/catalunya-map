@@ -134,6 +134,10 @@ v6.0
 v6.1
 - Fix responsive design
 
+##Webs using this map:
+- [blog cimasdestacables](http://cimasdestacables.blogspot.com/p/mapa-comarcal-de-catalunya.html)
+- [catalunya medieval](http://www.catalunyamedieval.es)
+
 ##License
 
 - [GNU GENERAL PUBLIC LICENSE](http://demo.catalunyamedieval.es/LICENSE.txt)
