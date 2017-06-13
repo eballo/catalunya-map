@@ -1,66 +1,89 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Interactive Map of Catalunya SVG/VML and RaphaëlJs - Demo V5.2</title>
+	<title>Interactive Map of Catalunya SVG/VML and RaphaëlJs - Demo V6.1</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="description" content="SVG/VML Interactive Catalunya Map">
 	<meta name="author" content="Enric Ballo">
+    <meta name="viewport" content="width=device-width">
 
 	<script type="text/javascript" src="js/raphael-min.js"></script>
 	<script type="text/javascript" src="js/scale.raphael.js"></script>
-	<script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
-
-	<script type="text/javascript" src="js/catalunya-map-path.js"></script>
-	<script type="text/javascript" src="js/catalunya-map-init.js"></script>
-
+	<script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    
+    <link href="https://fonts.googleapis.com/css?family=Droid+Sans" rel="stylesheet">
+    
+    <link rel="stylesheet" href="css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
 	<link rel="stylesheet" href="css/main.css">
 	<link rel="stylesheet" href="css/catalunya-map.css">
 
 </head>
 <body>
 
-	<h1>Interactive Map of Catalunya SVG/VML and RaphaëlJs - Demo v5.2</h1>
-	<h4> :: Catalunya Medieval Project - <a href="http://www.catalunyamedieval.es/" target="_blank" title="Catalunya Medieval">www.catalunyamedieval.es</a> ::</h4>
+	<h1 class="page-header">Interactive Map of Catalunya SVG/VML and RaphaëlJs - Demo v6.1</h1>
 	
 	<a href="https://github.com/eballo/catalunya-map"><img style="position: absolute; top: 0; right: 0; border: 0;" src="img/forkme_right_darkblue.png" alt="Fork me on GitHub"></a>
 	
-	<div id="container">
+	<div id="container row">
 	
 		<div class="mapWrapper">
-			<div id="map"></div>
-			<div id="text">
-				<div id="comarcaName"><h1>Informaci&oacute;</h1></div>
+            <div id="text" class="col-md-4">
+				<div id="comarcaName"><h1>Catalunya Medieval</h1></div>
 				<div id="contentText">Seleccionar una comarca del mapa i fer clic per veure el seu contingut</div>
 			</div>
+			<div id="map" class="col-md-8"></div>
 		</div>
+        
+        <div class="llistaComarques col-md-12">
+            <ul class="list list-group"></ul>
+        </div>
 
+    </div>
 
-		<table class="description" cellspacing="10" cellpadding="10">
-		<tbody>
-			<tr>
-				<td>
-					<strong>CAT</strong> 
-					<p>Mapa interactiu de Catalunya creat a partir d'un SVG/VML i fent ús de la llibreria <a href="http://raphaeljs.com" target="_blank">RaphaëlJs</a>.</p>
-				</td>
-				<td>
-					<strong>EN</strong>
-					<p>Interactive vectorial map of Catalonia based on a SVG/VML and the library <a href="http://raphaeljs.com" target="_blank">RaphaëlJs</a>.</p>
-				</td>
-				<td>
-					<strong>ES</strong>
-					<p>Mapa interactivo de Cataluña creado a partir de un SVG/VML y usando la libreria <a href="http://raphaeljs.com" target="_blank">RaphaëlJs</a>.</p>
-				</td>
-				<td>
-					<strong>NL</strong>
-					<p>Interactieve vectoriële kaart van Catalonië op basis van een SVG/VML en de bibliotheek <a href="http://raphaeljs.com" target="_blank">RaphaëlJs</a>.</p>
-				</td>
-			</tr>
-		</tbody>
-		</table>
-
-		<div id="debugInfo"></div>
-
-	</div>
+    <div id="debugInfo"></div>
+    
+    <h4 class="page-header"> :: Catalunya Medieval Project - <a href="http://www.catalunyamedieval.es/" target="_blank" title="Catalunya Medieval">www.catalunyamedieval.es</a> ::</h4>
+    
+    <div class="row">
+        <div class="col-sm-6 col-md-3">
+            <div class="thumbnail">
+              <div class="caption">
+                <h3>CAT</h3>
+                <p>Mapa interactiu de Catalunya creat a partir d'un SVG/VML i fent ús de la llibreria <a href="http://raphaeljs.com" target="_blank">RaphaëlJs</a>.</p>
+              </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-md-3">
+            <div class="thumbnail">
+              <div class="caption">
+                <h3>EN</h3>
+                <p>Interactive vectorial map of Catalonia based on a SVG/VML and the library <a href="http://raphaeljs.com" target="_blank">RaphaëlJs</a>.</p>
+              </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-md-3">
+            <div class="thumbnail">
+              <div class="caption">
+                <h3>ES</h3>
+                <p>Mapa interactivo de Cataluña creado a partir de un SVG/VML y usando la libreria <a href="http://raphaeljs.com" target="_blank">RaphaëlJs</a>.</p>
+              </div>
+            </div>
+        </div>  
+        <div class="col-sm-6 col-md-3">
+            <div class="thumbnail">
+              <div class="caption">
+                <h3>NL</h3>
+                <p>Interactieve vectoriële kaart van Catalonië op basis van een SVG/VML en de bibliotheek <a href="http://raphaeljs.com" target="_blank">RaphaëlJs</a>.</p>
+              </div>
+            </div>
+        </div>    
+    </div>
 	
 </body>
+    <footer>
+    	<script type="text/javascript" src="js/catalunya-map-path.js"></script>
+	    <script type="text/javascript" src="js/catalunya-map-init.js"></script>
+    </footer>
 </html>

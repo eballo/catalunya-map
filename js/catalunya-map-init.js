@@ -1,37 +1,43 @@
 /**
- * Catalunya 2015 - Open Source Map
+ * Catalunya 2015 - Open Source Catalunya Map
  * 
  * Author : Enric Ballo
  * 
  */
-
+ 
 $(function () {
 
     //---------------------------    
     // Configuration values
     //---------------------------
-    var colorIn = '#d1eafe';     //color when the mouse is over
-    var colorOut = '#fff';       //color when the mouse is not over
-    var scale = 0.8;             //scale value
+    
+    var softBrown = '#c7ab89';  //color for the limit line of comarca (clear brown)
+    var darkBrown = '#a07a49';  //color for the text of comarca (dark brown)
+    var softGrey  = '#fee8cb';
+    
+    var colorIn  = softGrey;   //color when the mouse is over
+    var colorOut = '#fff';      //color when the mouse is not over
 
-    var mapInitWidth=825;        //initial map width
-    var mapInitHeight=800;       //initial map height
+    var scale    = 0.8;         //scale value
+
+    var mapInitWidth  = 825;    //initial map width
+    var mapInitHeight = 800;    //initial map height
 
     var textInitWidth = 250;     //initial text width
 
-    var mapWidth=mapInitWidth;   //map width variable
-    var mapHeight=mapInitHeight; //map height variable
+    var mapWidth  = mapInitWidth;  //map width variable
+    var mapHeight = mapInitHeight; //map height variable
 
-    var debug = false;            //enable/disable debug mode
+    var debug      = false;       //enable/disable debug mode
     var responsive = true;
-    var useText = true;
+    var useText    = true;
 
     var onClick = false;         //enable/disable onclick open link
     var newWindow = false;       //enable/disable open a page in a new window for onClick functionality
-
+    
     var comarcaAttr = {          //comarca style configuration
-        fill : colorOut,         //out color
-        stroke : '#abacae',      //soft grey
+        fill : colorOut,         
+        stroke : softBrown,      
         'stroke-width' : 0.8,
         'stroke-linejoin' : 'round',
         'font-family': 'Verdana',
@@ -42,7 +48,7 @@ $(function () {
     };
 
     var nomComcarcaAttr_in = {      //nom comarca style configuration for hover in
-        fill : '#3300FF',           //dark blue
+        fill : darkBrown,           
         stroke : '#000000',         //black
         'stroke-width' : 0.4,
         'font-family': 'Verdana',
@@ -53,7 +59,7 @@ $(function () {
     };
 
     var nomComcarcaAttr_out = {      //nom comarca style configuration for hover out
-        fill : '#686868',            // grey
+        fill : darkBrown,            
         'stroke-width' : 0,
         'font-family': 'Verdana',
         'font-size': '12px',
@@ -84,9 +90,10 @@ $(function () {
      * Create the Array of Comarcas
      */
     function createArrayComarcas(){
-
-        console.log('createArrayComarcas ...');
-
+        if(debug){
+            console.log('createArrayComarcas ...');
+        }
+        
         mcat.cat1 = paper.set();
         mcat.cat2 = paper.set();
         mcat.cat3 = paper.set();
@@ -130,6 +137,31 @@ $(function () {
         mcat.cat41 = paper.set();
         mcat.cat42 = paper.set();
     }
+    
+     /**
+     * Function that create a text list of all the comarques
+     * 
+     */
+    function createLlistaComarques(){
+        if(debug){
+            console.log('create llista comarques ...');
+        }
+        
+        var llistaComarques =[];
+        for (var comarca in mappaths) {
+            llistaComarques.push({ name: mappaths[comarca].name, url:mappaths[comarca].url });
+        }
+        
+        // Order the list by name
+        llistaComarques = llistaComarques.sort(function (a, b) {
+            return a.name.localeCompare( b.name );
+        });
+        
+        // Create list with bootstrap styles
+        for(i=0;i<llistaComarques.length;i++){
+          $("<li class='list-group-item'><a href='"+llistaComarques[i].url+"' class='list-group-item'>"+llistaComarques[i].name+"</a></li>").appendTo("ul.list");
+        }
+    }
 
     /**
      * Function that create the map based in the mappaths array
@@ -138,10 +170,9 @@ $(function () {
      * 
      */
     function createMap(paper) {
-
-        console.log('CreateMap ...');
-
-        createArrayComarcas();
+        if(debug){
+            console.log('CreateMap ...');
+        }
         
         var i = 0;
         for (var comarca in mappaths) {
@@ -291,12 +322,15 @@ $(function () {
      * 
      */
     function resizeMap(paper){
-
-        console.log('resizeMap ...');
-
+        if(debug){
+            console.log('resizeMap ...');
+        }
+        
         paper.changeSize(mapWidth, mapHeight, true, false);
-        console.log('resize map with : ' + mapWidth + ' height : ' + mapHeight);
-
+        if(debug){
+            console.log('resize map with : ' + mapWidth + ' height : ' + mapHeight);
+        }
+        
         $(".map").css({
             'width': mapWidth + 'px',
             'height': mapHeight + 'px'
@@ -348,12 +382,17 @@ $(function () {
      * @return {[type]} [description]
      */
     function responsiveResize(){
-        console.log('responsiveResize ...');
-
+        if(debug){
+            console.log('responsiveResize ...');
+        }
+        
         winWidth = win.width();
         
         if (winWidth >= 960) {
-            console.log('WindowWith > 960');
+            if(debug){
+                console.log('WindowWith > 960');
+            }
+            hideListShowMap();
             
             mapWidth = mapInitWidth * 0.8;
             mapHeight = mapInitHeight * 0.8;
@@ -362,31 +401,52 @@ $(function () {
             
         }
         else if (winWidth < 960 && winWidth >= 768) {
-            console.log('768 =< WindowWith < 960 ');
-
-            mapWidth =  mapInitWidth;
-            mapHeight = mapWidth/ratio;
-            paper.scaleAll(scale/2);
-            resizeMap(paper);
+            if(debug){
+                console.log('768 =< WindowWith < 960 ');
+            }
+            hideMapShowList();
+            
+            //mapWidth =  mapInitWidth;
+            //mapHeight = mapWidth/ratio;
+            //paper.scaleAll(scale/2);
+            //resizeMap(paper);
 
         }
         else if (winWidth < 768 && winWidth >= 480) {
-            console.log('480 =< WindowWith < 768 ');
-
-            mapWidth = mapInitWidth;
-            mapHeight = mapWidth/ratio;
-            resizeMap(paper);
+            if(debug){
+                console.log('480 =< WindowWith < 768 ');
+            }
+            
+            //mapWidth = mapInitWidth;
+            //mapHeight = mapWidth/ratio;
+            //resizeMap(paper);
+            
+            hideMapShowList();
         }
         else if (winWidth < 480) {
-            console.log('480 < WindowWith');
-
-            mapWidth = mapInitWidth /2;
-            mapHeight = mapWidth/ratio;
-            resizeMap(paper);
+            if(debug){
+                console.log('480 < WindowWith');
+            }
+            
+            //mapWidth = mapInitWidth /2;
+            //mapHeight = mapWidth/ratio;
+            //resizeMap(paper);
+            
+            hideMapShowList();
 
         }
 
         showValues();
+    }
+    
+    function hideMapShowList(){
+        $('.mapWrapper').hide();
+        $('.llistaComarques').show();
+    }
+    
+    function hideListShowMap(){
+        $('.llistaComarques').hide();
+        $('.mapWrapper').show();
     }
 
     /**
@@ -394,10 +454,9 @@ $(function () {
      * @return {[type]} [description]
      */
     function showValues(){
-        console.log('showValues ...');
-        console.log("Win Width: " + winWidth + " Map with: " + mapWidth + " Map Height: " + mapHeight + " Ratio: " + ratio);
-        
         if(debug){
+            console.log('showValues ...');
+            console.log("Win Width: " + winWidth + " Map with: " + mapWidth + " Map Height: " + mapHeight + " Ratio: " + ratio);
             $("#debugInfo").html("Win Width: " + winWidth + " Map with: " + mapWidth + " Map Height: " + mapHeight + " Ratio: " + ratio);
         }
     }
@@ -407,25 +466,43 @@ $(function () {
      * @return {[type]} [description]
      */
     function loadMapAndText() {
-
-        console.log('loadMapAndText ...');
-        console.log('Create map with : ' + mapWidth + ' height : ' + mapHeight);
-
+        if(debug){
+            console.log('loadMapAndText ...');
+            console.log('Create map with : ' + mapWidth + ' height : ' + mapHeight);
+        }
+        
         paper = new ScaleRaphael('map', mapWidth, mapHeight);
 
         //apply the scale value
-        console.log('scale map : ' + scale);
+        if(debug){
+            console.log('scale map : ' + scale);
+        }
+        
         paper.scaleAll(scale);
 
         oMapWidth = mapWidth;
         ratio = mapWidth/mapHeight;
-        console.log('ratio : ' + ratio);
+        
+        if(debug){
+            console.log('ratio : ' + ratio);
+        }
 
         win = $(window);
         winWidth = win.width();
-        console.log('Window With : ' + winWidth);
-
+        
+        if(debug){
+            console.log('Window With : ' + winWidth);
+        }
+        
+        //create array
+        createArrayComarcas();
+        
+        //create map
         createMap(paper);
+        
+        //create list
+        createLlistaComarques();
+        
     }
 
     //When the page is load call the loadMapAndText function

@@ -2,8 +2,13 @@
 Interactive vectorial map of Catalunya based on a SVG/VML and the library RaphaÃ«lJs.
 
 
-<img src="https://github.com/eballo/catalunya-map/blob/master/screenshot/screenshot-v5.0.png" alt="screen-shot" align="center" />
+<img src="https://github.com/eballo/catalunya-map/blob/master/screenshot/screenshot-v6.0.png" alt="screen-shot" align="center" />
 
+## Current versions
+* RaphaÃ«l JS - 2.2.1
+* ScaleRaphael - 0.8
+* jQuery - 3.1.1
+* Bootstrap - 3.3.7
 
 ## Demo
 
@@ -17,6 +22,8 @@ Interactive vectorial map of Catalunya based on a SVG/VML and the library RaphaÃ
 - [Demo v5.0](http://demo.catalunyamedieval.es/map50)
 - [Demo v5.1](http://demo.catalunyamedieval.es/map51)
 - [Demo v5.2](http://demo.catalunyamedieval.es/map52)
+- [Demo v6.0](http://demo.catalunyamedieval.es/map60)
+- [Demo v6.1](http://demo.catalunyamedieval.es/map61)
 
 ##How to create a Map using a SVG file
 
@@ -28,29 +35,45 @@ Interactive vectorial map of Catalunya based on a SVG/VML and the library RaphaÃ
 3. Create a mappath array with all the values seen in the last point like this [path file](http://demo.catalunyamedieval.es/map1/js/catalunya-map-path.js)
 4. Use RaphaÃ«lJs to draw the map like this [path file](http://demo.catalunyamedieval.es/map1/js/catalunya-map-init.js)
 
-## How to use this map
+## How to use this map (last version)
 
 1. Add this code in the head
 
+         <!-- Jquery & Raphaeljs -->
+         <script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
 	     <script type="text/javascript" src="js/raphael-min.js"></script>
 	     <script type="text/javascript" src="js/scale.raphael.js"></script>
-	     <script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
-
+	     
+         <!-- Bootstrap -->
+         <script type="text/javascript" src="js/bootstrap.min.js"></script>
+         <link rel="stylesheet" href="css/bootstrap-theme.min.css">
+         <link rel="stylesheet" href="css/bootstrap.min.css">
+         
+         <!-- catalunya-map files -->
 	     <script type="text/javascript" src="js/catalunya-map-path.js"></script>
 	     <script type="text/javascript" src="js/catalunya-map-init.js"></script>
 
 	     <link rel="stylesheet" href="css/main.css">
 	     <link rel="stylesheet" href="css/catalunya-map.css">
+         
 
 2. Add this code in the body
 
+	<div id="container row">
+	
 		<div class="mapWrapper">
-			<div id="map"></div>
-			<div id="text">
-				<div id="comarcaName"><h1>Informaci&oacute;</h1></div>
+            <div id="text" class="col-md-4">
+				<div id="comarcaName"><h1>Catalunya Medieval</h1></div>
 				<div id="contentText">Seleccionar una comarca del mapa i fer clic per veure el seu contingut</div>
 			</div>
+			<div id="map" class="col-md-8"></div>
 		</div>
+        
+        <div class="llistaComarques col-md-12">
+            <ul class="list list-group"></ul>
+        </div>
+
+    </div>
 
 3. Reload the page and all you should be able to see the map
 
@@ -100,6 +123,20 @@ v5.1
 
 v5.2
 - add property onClick and newWindow (requested functionality by Hector)
+
+v6.0
+- add Droid Sans Font
+- change colors
+- update Raphael JS and jQuery versions
+- add bootstrap
+- add all buildings
+
+v6.1
+- Fix responsive design
+
+##Webs using this map:
+- [blog cimasdestacables](http://cimasdestacables.blogspot.com/p/mapa-comarcal-de-catalunya.html)
+- [catalunya medieval](http://www.catalunyamedieval.es)
 
 ##License
 
