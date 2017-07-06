@@ -1,4 +1,4 @@
-# Interactive Map of Catalunya SVG/VML and RaphaëlJs - Demo
+# Interactive Map of Catalunya
 Interactive vectorial map of Catalunya based on a SVG/VML and the library RaphaëlJs.
 
 
