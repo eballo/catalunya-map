@@ -60,7 +60,7 @@ Interactive vectorial map of Catalunya based on a SVG/VML and the library Rapha√
     ...
     </header>
 
-Explanation of each file:
+Explanation:
     catalunya-map-v2.css : custom css theme (v1/v2)
 
 
@@ -75,7 +75,7 @@ Explanation of each file:
     ...
     </footer>
 
-Explanation of each file:
+Explanation :
 
     catalunya-map-path.js       : js file that have the javascript array with all the data
     catalunya-map.js            : js file that have the object to create maps
