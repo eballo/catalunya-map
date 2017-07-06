@@ -46,7 +46,7 @@ Interactive vectorial map of Catalunya based on a SVG/VML and the library Rapha√
 
 				 ...
 
-				 <meta name="viewport" content="width=device-width">
+         <meta name="viewport" content="width=device-width">
 
          <!-- Jquery & Raphaeljs -->
          <script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
@@ -62,7 +62,7 @@ Interactive vectorial map of Catalunya based on a SVG/VML and the library Rapha√
 	       <link rel="stylesheet" href="css/catalunya-map.css">
 
 				 ...
-
+ 
 				 </header>
 
 1.2 footer
@@ -166,6 +166,7 @@ v7.0
 - update readme
 - create diferent configuration option files (v1,v2)
 - beautifyed all code
+
 
 ##Webs using this map:
 - [blog cimasdestacables](http://cimasdestacables.blogspot.com/p/mapa-comarcal-de-catalunya.html)
