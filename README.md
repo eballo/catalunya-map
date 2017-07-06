@@ -74,6 +74,8 @@ Interactive vectorial map of Catalunya based on a SVG/VML and the library Rapha√
 
 2. Add this code in the body
 
+		<body>
+    ...
     <div id="container row">
       <div class="mapWrapper">
         <div id="text" class="col-md-4">
@@ -88,6 +90,8 @@ Interactive vectorial map of Catalunya based on a SVG/VML and the library Rapha√
 				</div>
 			</div>
     </div>
+    ...
+		</body>
 
 3. Reload the page and all you should be able to see the map
 
