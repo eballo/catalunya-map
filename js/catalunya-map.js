@@ -1,22 +1,22 @@
 /**
- * Catalunya Medieval 2015 - Open Source Catalunya Map
- * 
+ * Catalunya Medieval 2015-2017 - Open Source Catalunya Map
+ *
  * Author  : Enric Ballo
  * version : 6.2
- * 
+ *
  */
 ;$(function (window) {
 
    //---------------------------
-	
+
 	var Catmap =  (function(){
 	 	function Catmap(opts){
 	 		this.config = opts;
 	 		this.paper;
 	 	    this.winWidth;
 	 	    this.win;
-	 	    this.obj;	
-	 	
+	 	    this.obj;
+
 	 	    //Array of comarcas
 	 	    this.mcat = {};
 	 	}
@@ -28,70 +28,70 @@
 	 		        if(this.config.debug){
 	 		            console.log('createArrayComarcas ...');
 	 		        }
-	 		        
-	 		        this.mcat.cat1 = paper.set();
-	 		        this.mcat.cat2 = paper.set();
-	 		        this.mcat.cat3 = paper.set();
-	 		        this.mcat.cat4 = paper.set();
-	 		       	this.mcat.cat5 = paper.set();
-	 		       	this.mcat.cat6 = paper.set();
-	 		       	this.mcat.cat7 = paper.set();
-	 		       	this.mcat.cat8 = paper.set();
-	 		       	this.mcat.cat9 = paper.set();
-	 		       	this.mcat.cat10 = paper.set();
-	 		      	this.mcat.cat11 = paper.set();
-	 		     	this.mcat.cat12 = paper.set();
-	 		    	this.mcat.cat13 = paper.set();
-	 		   		this.mcat.cat14 = paper.set();
-			 		this.mcat.cat15 = paper.set();
-			 		this.mcat.cat16 = paper.set();
-			 		this.mcat.cat17 = paper.set();
-			 		this.mcat.cat18 = paper.set();
-			 		this.mcat.cat19 = paper.set();
-			 		this.mcat.cat20 = paper.set();
-			 		this.mcat.cat21 = paper.set();
-			 		this.mcat.cat22 = paper.set();
-			 		this.mcat.cat23 = paper.set();
-			 		this.mcat.cat24 = paper.set();
-			 		this.mcat.cat25 = paper.set();
-			 		this.mcat.cat26 = paper.set();
-			 		this.mcat.cat27 = paper.set();
-			 		this.mcat.cat28 = paper.set();
-			 		this.mcat.cat29 = paper.set();
-			 		this.mcat.cat30 = paper.set();
-			 		this.mcat.cat31 = paper.set();
-			 		this.mcat.cat32 = paper.set();
-			 		this.mcat.cat33 = paper.set();
-			 		this.mcat.cat34 = paper.set();
-			 		this.mcat.cat35 = paper.set();
-			 		this.mcat.cat36 = paper.set();
-			 		this.mcat.cat37 = paper.set();
-			 		this.mcat.cat38 = paper.set();
-			 		this.mcat.cat39 = paper.set();
-			 		this.mcat.cat40 = paper.set();
-			 		this.mcat.cat41 = paper.set();
-			 		this.mcat.cat42 = paper.set();
+
+              this.mcat.cat1 = paper.set();
+              this.mcat.cat2 = paper.set();
+              this.mcat.cat3 = paper.set();
+              this.mcat.cat4 = paper.set();
+              this.mcat.cat5 = paper.set();
+              this.mcat.cat6 = paper.set();
+              this.mcat.cat7 = paper.set();
+              this.mcat.cat8 = paper.set();
+              this.mcat.cat9 = paper.set();
+              this.mcat.cat10 = paper.set();
+              this.mcat.cat11 = paper.set();
+              this.mcat.cat12 = paper.set();
+              this.mcat.cat13 = paper.set();
+              this.mcat.cat14 = paper.set();
+              this.mcat.cat15 = paper.set();
+              this.mcat.cat16 = paper.set();
+              this.mcat.cat17 = paper.set();
+              this.mcat.cat18 = paper.set();
+              this.mcat.cat19 = paper.set();
+              this.mcat.cat20 = paper.set();
+              this.mcat.cat21 = paper.set();
+              this.mcat.cat22 = paper.set();
+              this.mcat.cat23 = paper.set();
+              this.mcat.cat24 = paper.set();
+              this.mcat.cat25 = paper.set();
+              this.mcat.cat26 = paper.set();
+              this.mcat.cat27 = paper.set();
+              this.mcat.cat28 = paper.set();
+              this.mcat.cat29 = paper.set();
+              this.mcat.cat30 = paper.set();
+              this.mcat.cat31 = paper.set();
+              this.mcat.cat32 = paper.set();
+              this.mcat.cat33 = paper.set();
+              this.mcat.cat34 = paper.set();
+              this.mcat.cat35 = paper.set();
+              this.mcat.cat36 = paper.set();
+              this.mcat.cat37 = paper.set();
+              this.mcat.cat38 = paper.set();
+              this.mcat.cat39 = paper.set();
+              this.mcat.cat40 = paper.set();
+              this.mcat.cat41 = paper.set();
+              this.mcat.cat42 = paper.set();
 	 		    },
-	 		    
+
 	 		     /**
 	 		     * Function that create a text list of all the comarques
-	 		     * 
+	 		     *
 	 		     */
 	 			createLlistaComarques:function (){
 	 		        if(this.config.debug){
 	 		            console.log('create llista comarques ...');
 	 		        }
-	 		        
+
 	 		        var llistaComarques =[];
 	 		        for (var comarca in mappaths) {
 	 		            llistaComarques.push({ name: mappaths[comarca].name, url:mappaths[comarca].url });
 	 		        }
-	 		        
+
 	 		        // Order the list by name
 	 		        llistaComarques = llistaComarques.sort(function (a, b) {
 	 		            return a.name.localeCompare( b.name );
 	 		        });
-	 		        
+
 	 		        // Create list with bootstrap styles
 	 		        for(i=0;i<llistaComarques.length;i++){
 	 		          $("<li class='list-group-item'><a href='"+llistaComarques[i].url+"' class='list-group-item'>"+llistaComarques[i].name+"</a></li>").appendTo("ul.list");
@@ -100,18 +100,18 @@
 
 	 		    /**
 	 		     * Function that create the map based in the mappaths array
-	 		     * 
+	 		     *
 	 		     * @param  {[type]} paper [the raphaelJs paper object]
-	 		     * 
+	 		     *
 	 		     */
 	 		   createMap:function (paper) {
-	 			   
+
 	 			  var self = this;
-	 			   
+
 	 		        if(this.config.debug){
 	 		            console.log('CreateMap ...');
 	 		        }
-	 		        
+
 	 		        var i = 0;
 	 		        for (var comarca in mappaths) {
 
@@ -122,7 +122,7 @@
 	 		            // object 0 (the map)
 	 		            obj.push(paper.path(mappaths[comarca].path).attr(this.config.comarcaAttr));
 	 		            obj.animate({transform: "t0,-200"});
-	 		            
+
 	 		            // object 1 and 2 (comarca name / capital comarca name)
 	 		            obj.push(paper.text(mappaths[comarca].nx, mappaths[comarca].ny, mappaths[comarca].name).attr(this.config.nomComcarcaAttr_out));
 	 		            obj.push(paper.text(mappaths[comarca].cx, mappaths[comarca].cy, mappaths[comarca].capital).attr(this.config.nomCapitalAttr));
@@ -141,7 +141,7 @@
 
 	 		            obj[0].node.id = i;
 	 		            obj[0].toBack();
-	 		            
+
 	 		            obj[1].toFront();
 	 		            obj[2].toFront();
 
@@ -187,7 +187,7 @@
 	 		                    var contentText = this.contentText;
 	 		                    var comarcaLink = this.comarcaLink;
 	 		                    self.onMapClick(comarcaName, contentText, comarcaLink);
-	 		                }); 
+	 		                });
 
 	 		                obj[2].touchstart(function(){
 	 		                    var comarcaName = this.comarcaName;
@@ -231,12 +231,12 @@
 	 		    },
 
 	 		    /**
-	 		     * hoverIn 
+	 		     * hoverIn
 	 		     * @return {[type]} [description]
 	 		     */
 	 		   hoverIn:function () {
 
-	 		        this[0].animate({ fill : '#fee8cb' }, 100);       
+	 		        this[0].animate({ fill : '#fee8cb' }, 100);
 	 		        this[1].attr(this.config.nomComcarcaAttr_in);
 	 		        this[2].show();
 
@@ -255,23 +255,23 @@
 
 	 		    /**
 	 		     * resize the map on change
-	 		     * 
+	 		     *
 	 		     * @param  {[type]} paper [the raphaelJs paper object]
-	 		     * 
+	 		     *
 	 		     */
 	 		   resizeMap:function (paper){
-	 			   
+
 	 			   var self = this;
-	 			   
+
 	 		        if(this.config.debug){
 	 		            console.log('resizeMap ...');
 	 		        }
-	 		        
+
 	 		        paper.changeSize(this.config.mapWidth, this.config.mapHeight, true, false);
 	 		        if(this.config.debug){
 	 		            console.log('resize map with : ' + this.config.mapWidth + ' height : ' + this.config.mapHeight);
 	 		        }
-	 		        
+
 	 		        $(".map").css({
 	 		            'width': this.config.mapWidth + 'px',
 	 		            'height': this.config.mapHeight + 'px'
@@ -323,33 +323,33 @@
 	 		     * @return {[type]} [description]
 	 		     */
 	 		   responsiveResize:function (){
-	 			   
+
 	 			  var self = this;
-	 			   
+
 	 		        if(this.config.debug){
 	 		            console.log('responsiveResize ...');
 	 		        }
-	 		        
+
 	 		        winWidth = win.width();
-	 		        
+
 	 		        if (winWidth >= 960) {
 	 		            if(this.config.debug){
 	 		                console.log('WindowWith > 960');
 	 		            }
 	 		            self.hideListShowMap();
-	 		            
+
 	 		            this.config.mapWidth = this.config.mapInitWidth * 0.8;
 	 		            this.config.mapHeight = this.config.mapInitHeight * 0.8;
 	 		            paper.scaleAll(this.config.scale);
 	 		            self.resizeMap(paper);
-	 		            
+
 	 		        }
 	 		        else if (winWidth < 960 && winWidth >= 768) {
 	 		            if(this.config.debug){
 	 		                console.log('768 =< WindowWith < 960 ');
 	 		            }
 	 		            self.hideMapShowList();
-	 		            
+
 	 		            //this.config.mapWidth =  mapInitWidth;
 	 		            //this.config.mapHeight = this.config.mapWidth/ratio;
 	 		            //paper.scaleAll(this.config.scale/2);
@@ -360,34 +360,34 @@
 	 		            if(this.config.debug){
 	 		                console.log('480 =< WindowWith < 768 ');
 	 		            }
-	 		            
+
 	 		            //this.config.mapWidth = mapInitWidth;
 	 		            //this.config.mapHeight = this.config.mapWidth/ratio;
 	 		            //resizeMap(paper);
-	 		            
+
 	 		            self.hideMapShowList();
 	 		        }
 	 		        else if (winWidth < 480) {
 	 		            if(this.config.debug){
 	 		                console.log('480 < WindowWith');
 	 		            }
-	 		            
+
 	 		            //this.config.mapWidth = mapInitWidth /2;
 	 		            //this.config.mapHeight = this.config.mapWidth/ratio;
 	 		            //resizeMap(paper);
-	 		            
+
 	 		            self.hideMapShowList();
 
 	 		        }
 
 	 		        self.showValues();
 	 		    },
-	 		    
+
 	 		   hideMapShowList:function (){
 	 		        $('.mapWrapper').hide();
 	 		        $('.llistaComarques').show();
 	 		    },
-	 		    
+
 	 		   hideListShowMap:function (){
 	 		        $('.llistaComarques').hide();
 	 		        $('.mapWrapper').show();
@@ -406,65 +406,64 @@
 	 		    },
 
 	 		    /**
-	 		     * Load the map and the text 
+	 		     * Load the map and the text
 	 		     * @return {[type]} [description]
 	 		     */
 	 		   loadMapAndText:function () {
-	 			   
+
 	 			  var self = this;
-	 			   
+
 	 		        if(this.config.debug){
 	 		            console.log('loadMapAndText ...');
 	 		            console.log('Create map with : ' + this.config.mapWidth + ' height : ' + this.config.mapHeight);
 	 		        }
-	 		        
+
 	 		        paper = new ScaleRaphael('map', this.config.mapWidth, this.config.mapHeight);
 
 	 		        //apply the this.config.scale value
 	 		        if(this.config.debug){
 	 		            console.log('scale map : ' + this.config.scale);
 	 		        }
-	 		        
+
 	 		        paper.scaleAll(this.config.scale);
 
 	 		        ratio = this.config.mapWidth/this.config.mapHeight;
-	 		        
+
 	 		        if(this.config.debug){
 	 		            console.log('ratio : ' + ratio);
 	 		        }
 
 	 		        win = $(window);
 	 		        winWidth = win.width();
-	 		        
+
 	 		        if(this.config.debug){
 	 		            console.log('Window With : ' + winWidth);
 	 		        }
-	 		        
+
 	 		        //create array
 	 		        self.createArrayComarcas();
-	 		        
+
 	 		        //create map
 	 		        self.createMap(paper);
-	 		        
+
 	 		        //create list
 	 		        self.createLlistaComarques();
-	 		        
+
 	 		    }
-	 			
+
 	 	}
-		
+
 	 	return Catmap;
-		
-	}()); 
+
+	}());
 
 	Catmap.create = function(opts){
 	 	return new Catmap(opts);
 	 };
 
 	 window.Catmap = Catmap;
-	 
-}(window));	
+
+}(window));
 
 //When the page is load call the loadMapAndText function
 //window.onload  = loadMapAndText();
-

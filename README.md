@@ -25,6 +25,7 @@ Interactive vectorial map of Catalunya based on a SVG/VML and the library Rapha√
 - [Demo v6.0](http://demo.catalunyamedieval.es/map60)
 - [Demo v6.1](http://demo.catalunyamedieval.es/map61)
 - [Demo v6.2](http://demo.catalunyamedieval.es/map62)
+- [Demo v7.0](http://demo.catalunyamedieval.es/map7)
 
 ##How to create a Map using a SVG file
 
@@ -42,26 +43,26 @@ Interactive vectorial map of Catalunya based on a SVG/VML and the library Rapha√
 
          <!-- Jquery & Raphaeljs -->
          <script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
-	     <script type="text/javascript" src="js/raphael-min.js"></script>
-	     <script type="text/javascript" src="js/scale.raphael.js"></script>
-	     
+	       <script type="text/javascript" src="js/raphael-min.js"></script>
+	       <script type="text/javascript" src="js/scale.raphael.js"></script>
+
          <!-- Bootstrap -->
          <script type="text/javascript" src="js/bootstrap.min.js"></script>
          <link rel="stylesheet" href="css/bootstrap-theme.min.css">
          <link rel="stylesheet" href="css/bootstrap.min.css">
-         
-         <!-- catalunya-map files -->
-	     <script type="text/javascript" src="js/catalunya-map-path.js"></script>
-	     <script type="text/javascript" src="js/catalunya-map-init.js"></script>
 
-	     <link rel="stylesheet" href="css/main.css">
-	     <link rel="stylesheet" href="css/catalunya-map.css">
-         
+         <!-- catalunya-map files -->
+	       <script type="text/javascript" src="js/catalunya-map-path.js"></script>
+	       <script type="text/javascript" src="js/catalunya-map-init.js"></script>
+
+	       <link rel="stylesheet" href="css/main.css">
+	       <link rel="stylesheet" href="css/catalunya-map.css">
+
 
 2. Add this code in the body
 
 	<div id="container row">
-	
+
 		<div class="mapWrapper">
             <div id="text" class="col-md-4">
 				<div id="comarcaName"><h1>Catalunya Medieval</h1></div>
@@ -69,7 +70,7 @@ Interactive vectorial map of Catalunya based on a SVG/VML and the library Rapha√
 			</div>
 			<div id="map" class="col-md-8"></div>
 		</div>
-        
+
         <div class="llistaComarques col-md-12">
             <ul class="list list-group"></ul>
         </div>
@@ -93,7 +94,7 @@ Interactive vectorial map of Catalunya based on a SVG/VML and the library Rapha√
 
 ## Versions
 
-V1.0 
+V1.0
 - Just the map
 
 V2.0

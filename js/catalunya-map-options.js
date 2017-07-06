@@ -1,15 +1,15 @@
-//---------------------------    
+//---------------------------
 // Configuration values
 //---------------------------
 
 (function(window, catmap) {
-	
+
 catmap.MAP_OPTIONS = {
 
 	    softBrown : '#c7ab89',  //color for the limit line of comarca (clear brown)
 	    darkBrown : '#a07a49',  //color for the text of comarca (dark brown)
 	    softGrey  : '#fee8cb',
-	    
+
 	    colorIn  : '#fee8cb',   //color when the mouse is over
 	    colorOut : '#fff',     //color when the mouse is not over
 
@@ -29,10 +29,10 @@ catmap.MAP_OPTIONS = {
 
 	    onClick    : false,      //enable/disable onclick open link
 	    newWindow  : false,      //enable/disable open a page in a new window for onClick functionality
-	    
+
 	    comarcaAttr : {          //comarca style configuration
-	        fill : '#fff',         
-	        stroke : '#c7ab89',      
+	        fill : '#fff',
+	        stroke : '#c7ab89',
 	        'stroke-width' : 0.8,
 	        'stroke-linejoin' : 'round',
 	        'font-family': 'Verdana',
@@ -43,7 +43,7 @@ catmap.MAP_OPTIONS = {
 	    },
 
 	    nomComcarcaAttr_in : {      //nom comarca style configuration for hover in
-	        fill : '#a07a49',           
+	        fill : '#a07a49',
 	        stroke : '#000000',     //black
 	        'stroke-width' : 0.4,
 	        'font-family': 'Verdana',
@@ -54,7 +54,7 @@ catmap.MAP_OPTIONS = {
 	    },
 
 	    nomComcarcaAttr_out : {      //nom comarca style configuration for hover out
-	        fill : '#a07a49',            
+	        fill : '#a07a49',
 	        'stroke-width' : 0,
 	        'font-family': 'Verdana',
 	        'font-size': '12px',
@@ -62,7 +62,7 @@ catmap.MAP_OPTIONS = {
 	        'cursor': 'pointer',
 	        'z-index' : 20
 	    },
-	    
+
 	    nomCapitalAttr : {       //nom capital comarca style configuration
 	       fill : '#FF9900',     //orange
 	       "font-family": "Arial, sans-serif",
