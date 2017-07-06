@@ -74,24 +74,22 @@ Interactive vectorial map of Catalunya based on a SVG/VML and the library Rapha√
 
 2. Add this code in the body
 
-		 <body>
-     ...
-     <div id="container row">
-       <div class="mapWrapper">
-         <div id="text" class="col-md-4">
-           <div id="comarcaName">
-             <h1>Catalunya Medieval</h1></div>
-             <div id="contentText">Seleccionar una comarca del mapa i fer clic per veure el seu contingut</div>
-           </div>
-           <div id="map" class="col-md-8"></div>
-         </div>
-  				<div class="llistaComarques col-md-12">
-           <ul class="list list-group"></ul>
-	  			</div>
-		  	</div>
-     </div>
-     ...
-	  	</body>
+				<div id="container row">
+
+					<div class="mapWrapper">
+						<div id="text" class="col-md-4">
+							<div id="comarcaName">
+								<h1>Catalunya Medieval</h1></div>
+							<div id="contentText">Seleccionar una comarca del mapa i fer clic per veure el seu contingut</div>
+						</div>
+						<div id="map" class="col-md-8"></div>
+					</div>
+
+					<div class="llistaComarques col-md-12">
+						<ul class="list list-group"></ul>
+					</div>
+
+				</div>
 
 3. Reload the page and all you should be able to see the map
 
