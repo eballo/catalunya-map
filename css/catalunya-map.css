@@ -44,7 +44,7 @@
 #comarcaName h1{
     text-align: left;
     font-family: 'Droid Sans', sans-serif;
-    font-style: normal;   
+    font-style: normal;
     font-size: 14pt;
     letter-spacing: -1px;
     padding: 0;
@@ -99,7 +99,7 @@
 }
 
 
-/* 
+/*
 -can be for 7 inch tablets
 -This CSS will apply for devices with the minimum width of 480 pixels
  */
@@ -122,6 +122,5 @@
     .llistaComarques{
         visibility: hidden;
     }
-     
-}
 
+}
