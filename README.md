@@ -53,14 +53,14 @@ Interactive vectorial map of Catalunya based on a SVG/VML and the library Rapha√
 		<script type="text/javascript" src="js/raphael-min.js"></script>
 		<script type="text/javascript" src="js/scale.raphael.js"></script>
 
-		<!-- Bootstrap -->
+    <!-- Bootstrap -->
     <script type="text/javascript" src="js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="css/bootstrap.min.css">
 
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="css/catalunya-map.css">
-
+    
     ...
     </header>
 
