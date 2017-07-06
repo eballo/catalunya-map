@@ -43,28 +43,26 @@ Interactive vectorial map of Catalunya based on a SVG/VML and the library Rapha√
 
 1.1 header
 
-				<header>
+    <header>
+    ...
 
-				 ...
+		<meta name="viewport" content="width=device-width">
 
-         <meta name="viewport" content="width=device-width">
+		<!-- Jquery & Raphaeljs -->
+		<script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
+		<script type="text/javascript" src="js/raphael-min.js"></script>
+		<script type="text/javascript" src="js/scale.raphael.js"></script>
 
-         <!-- Jquery & Raphaeljs -->
-         <script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
-	       <script type="text/javascript" src="js/raphael-min.js"></script>
-	       <script type="text/javascript" src="js/scale.raphael.js"></script>
+		<!-- Bootstrap -->
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
 
-         <!-- Bootstrap -->
-         <script type="text/javascript" src="js/bootstrap.min.js"></script>
-         <link rel="stylesheet" href="css/bootstrap-theme.min.css">
-         <link rel="stylesheet" href="css/bootstrap.min.css">
+	  <link rel="stylesheet" href="css/main.css">
+	  <link rel="stylesheet" href="css/catalunya-map.css">
 
-	       <link rel="stylesheet" href="css/main.css">
-	       <link rel="stylesheet" href="css/catalunya-map.css">
-
-				 ...
-
-				 </header>
+		...
+		</header>
 
 1.2 footer
 
