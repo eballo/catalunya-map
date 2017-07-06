@@ -27,7 +27,7 @@ Interactive vectorial map of Catalunya based on a SVG/VML and the library Rapha√
 - [Demo v6.2](http://demo.catalunyamedieval.es/map62)
 - [Demo v7.0](http://demo.catalunyamedieval.es/map7)
 
-##How to create a Map using a SVG file
+## How to create a Map using a SVG file
 
 1. Given a [SVG file](http://demo.catalunyamedieval.es/map7/src/Mapa_comarcal_de_Catalunya.svg) you can rename it to xml [XML file](http://demo.catalunyamedieval.es/map7/xml/Mapa_comarcal_de_Catalunya.svg.xml)
 2. Inside the xml file you will see a d="..." like this one
