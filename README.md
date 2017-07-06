@@ -98,6 +98,7 @@ Interactive vectorial map of Catalunya based on a SVG/VML and the library RaphaÃ
 - [RaphaÃ«lJs](http://raphaeljs.com)
 - [raphael-scale.js](http://www.shapevent.com/scaleraphael/)
 - [JQuery](http://jquery.com/)
+- [Bootstrap](http://getbootstrap.com/)
 
 ## Inspiration Links
 - [http://codecanyon.net/item/interactive-svg-usa-map/full_screen_preview/1021095](http://codecanyon.net/item/interactive-svg-usa-map/full_screen_preview/1021095)
@@ -157,6 +158,7 @@ v7.0
 - update readme
 - create diferent configuration option files (v1,v2)
 - beautifyed all code
+- Documentation of the code
 
 
 ##Webs using this map:
