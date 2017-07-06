@@ -171,10 +171,10 @@ v7.0
 - Documentation of the code
 
 
-##Webs using this map:
+## Webs using this map:
 - [blog cimasdestacables](http://cimasdestacables.blogspot.com/p/mapa-comarcal-de-catalunya.html)
 - [catalunya medieval](http://www.catalunyamedieval.es)
 
-##License
+## License
 
 - [GNU GENERAL PUBLIC LICENSE](http://demo.catalunyamedieval.es/LICENSE.txt)
