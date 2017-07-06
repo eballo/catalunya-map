@@ -29,17 +29,24 @@ Interactive vectorial map of Catalunya based on a SVG/VML and the library RaphaÃ
 
 ##How to create a Map using a SVG file
 
-1. Given a [SVG file](http://demo.catalunyamedieval.es/map1/src/Mapa_comarcal_de_Catalunya.svg) you can rename it to xml [XML file](http://demo.catalunyamedieval.es/map1/xml/Mapa_comarcal_de_Catalunya.svg.xml)
+1. Given a [SVG file](http://demo.catalunyamedieval.es/map7/src/Mapa_comarcal_de_Catalunya.svg) you can rename it to xml [XML file](http://demo.catalunyamedieval.es/map7/xml/Mapa_comarcal_de_Catalunya.svg.xml)
 2. Inside the xml file you will see a d="..." like this one
 ```
 	d="M 97.21875 15.40625 L 94.84375 L 100.03125 16.34375 L 98.625 15.65625 L 98.15625 15.65625 L 97.21875 15.40625 z "
 ```
-3. Create a mappath array with all the values seen in the last point like this [path file](http://demo.catalunyamedieval.es/map1/js/catalunya-map-path.js)
-4. Use RaphaÃ«lJs to draw the map like this [path file](http://demo.catalunyamedieval.es/map1/js/catalunya-map-init.js)
+3. Create a mappath array with all the values seen in the last point like this [path file](http://demo.catalunyamedieval.es/map7/js/catalunya-map-path.js)
+4. Use RaphaÃ«lJs to draw the map like this [path file](http://demo.catalunyamedieval.es/map7/js/catalunya-map-init.js)
 
 ## How to use this map (last version)
 
-1. Add this code in the head
+1. Add this code in the head and footer
+
+1.1 header
+				<header>
+
+				 ...
+
+				 <meta name="viewport" content="width=device-width">
 
          <!-- Jquery & Raphaeljs -->
          <script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
@@ -51,31 +58,47 @@ Interactive vectorial map of Catalunya based on a SVG/VML and the library RaphaÃ
          <link rel="stylesheet" href="css/bootstrap-theme.min.css">
          <link rel="stylesheet" href="css/bootstrap.min.css">
 
-         <!-- catalunya-map files -->
-	       <script type="text/javascript" src="js/catalunya-map-path.js"></script>
-	       <script type="text/javascript" src="js/catalunya-map-init.js"></script>
-
 	       <link rel="stylesheet" href="css/main.css">
 	       <link rel="stylesheet" href="css/catalunya-map.css">
+
+				 ...
+
+				 </header>
+
+1.2 footer
+
+				<footer>
+
+					...
+
+					<script type="text/javascript" src="js/catalunya-map-path.js"></script>
+					<script type="text/javascript" src="js/catalunya-map.js"></script>
+					<script type="text/javascript" src="js/catalunya-map-options-v1.js"></script>
+					<script type="text/javascript" src="js/catalunya-map-init.js"></script>
+
+					...
+
+				</footer>
 
 
 2. Add this code in the body
 
-	<div id="container row">
+				<div id="container row">
 
-		<div class="mapWrapper">
-            <div id="text" class="col-md-4">
-				<div id="comarcaName"><h1>Catalunya Medieval</h1></div>
-				<div id="contentText">Seleccionar una comarca del mapa i fer clic per veure el seu contingut</div>
-			</div>
-			<div id="map" class="col-md-8"></div>
-		</div>
+					<div class="mapWrapper">
+						<div id="text" class="col-md-4">
+							<div id="comarcaName">
+								<h1>Catalunya Medieval</h1></div>
+							<div id="contentText">Seleccionar una comarca del mapa i fer clic per veure el seu contingut</div>
+						</div>
+						<div id="map" class="col-md-8"></div>
+					</div>
 
-        <div class="llistaComarques col-md-12">
-            <ul class="list list-group"></ul>
-        </div>
+					<div class="llistaComarques col-md-12">
+						<ul class="list list-group"></ul>
+					</div>
 
-    </div>
+				</div>
 
 3. Reload the page and all you should be able to see the map
 
@@ -138,6 +161,11 @@ v6.1
 
 v6.2
 - Object Oriented implementation (refactor)
+
+v7.0
+- update readme
+- create diferent configuration option files (v1,v2)
+- beautifyed all code
 
 ##Webs using this map:
 - [blog cimasdestacables](http://cimasdestacables.blogspot.com/p/mapa-comarcal-de-catalunya.html)

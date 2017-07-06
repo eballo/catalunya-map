@@ -2,28 +2,32 @@
  * Catalunya Medieval 2015-2017 - Open Source Catalunya Map
  *
  * Author  : Enric Ballo
- * version : 6.2
+ * version : 7.0
  *
  */
 ;$(function (window) {
 
-   //---------------------------
-
+  //---------------------------
+  // Catmap Constructor
+  //---------------------------
 	var Catmap =  (function(){
 	 	function Catmap(opts){
 	 		this.config = opts;
 	 		this.paper;
-	 	    this.winWidth;
-	 	    this.win;
-	 	    this.obj;
+	 	  this.winWidth;
+	 	  this.win;
+	 	  this.obj;
 
-	 	    //Array of comarcas
-	 	    this.mcat = {};
+	 	  //Array of comarcas
+      this.mcat = {};
 	 	}
+
 	 	Catmap.prototype ={
+
 	 			/**
-	 		     * Create the Array of Comarcas
-	 		     */
+	       * Function that create the Array of Comarcas
+         * set the mcat array
+	 	     */
 	 			createArrayComarcas:function (){
 	 		        if(this.config.debug){
 	 		            console.log('createArrayComarcas ...');
@@ -77,9 +81,9 @@
 	 		     * Function that create a text list of all the comarques
 	 		     *
 	 		     */
-	 			createLlistaComarques:function (){
+	 			createLlistaComarquesText:function (){
 	 		        if(this.config.debug){
-	 		            console.log('create llista comarques ...');
+	 		            console.log('create list of comarques ...');
 	 		        }
 
 	 		        var llistaComarques =[];
@@ -105,7 +109,7 @@
 	 		     *
 	 		     */
 	 		   createMap:function (paper) {
-
+          var config = this.config;
 	 			  var self = this;
 
 	 		        if(this.config.debug){
@@ -150,7 +154,17 @@
 	 		            obj[2].hide();
 
 	 		            // Change the color of each comarca animation hover event
-	 		            obj.hover(self.hoverIn, self.hoverOut, obj, obj);
+                  obj.hover(function(){ //hoverIn function
+                     var params = {'fill' : config.colorIn };
+                     this[0].animate(params, 100);
+                     this[1].attr(config.nomComcarcaAttr_in);
+                     this[2].show();
+                   },function(){ //hoverOut function
+                      var params = {'fill' : config.colorOut };
+                      this[0].animate(params, 100);
+                      this[1].attr(config.nomComcarcaAttr_out);
+                      this[2].hide();
+                  }, obj, obj);
 
 	 		            if(this.config.useText){
 	 		                // on click event
@@ -228,29 +242,6 @@
 	 		            $('#comarcaName').html('<h1>' + comarcaName + '</h1>');
 	 		            $('#contentText').html(contentText);
 	 		        }
-	 		    },
-
-	 		    /**
-	 		     * hoverIn
-	 		     * @return {[type]} [description]
-	 		     */
-	 		   hoverIn:function () {
-
-	 		        this[0].animate({ fill : '#fee8cb' }, 100);
-	 		        this[1].attr(this.config.nomComcarcaAttr_in);
-	 		        this[2].show();
-
-	 		    },
-
-	 		    /**
-	 		     * hoverOut
-	 		     * @return {[type]} [description]
-	 		     */
-	 		   hoverOut:function () {
-
-	 		        this[0].animate({ fill : '#fff' }, 100);
-	 		        this[1].attr(this.config.nomComcarcaAttr_out);
-	 		        this[2].hide();
 	 		    },
 
 	 		    /**
@@ -447,7 +438,7 @@
 	 		        self.createMap(paper);
 
 	 		        //create list
-	 		        self.createLlistaComarques();
+	 		        self.createLlistaComarquesText();
 
 	 		    }
 
@@ -464,6 +455,3 @@
 	 window.Catmap = Catmap;
 
 }(window));
-
-//When the page is load call the loadMapAndText function
-//window.onload  = loadMapAndText();
