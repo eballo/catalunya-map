@@ -42,6 +42,7 @@ Interactive vectorial map of Catalunya based on a SVG/VML and the library Rapha√
 1. Add this code in the head and footer
 
 1.1 header
+
 				<header>
 
 				 ...
@@ -62,7 +63,7 @@ Interactive vectorial map of Catalunya based on a SVG/VML and the library Rapha√
 	       <link rel="stylesheet" href="css/catalunya-map.css">
 
 				 ...
- 
+
 				 </header>
 
 1.2 footer
