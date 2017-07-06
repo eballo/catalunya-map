@@ -58,11 +58,11 @@ Interactive vectorial map of Catalunya based on a SVG/VML and the library Rapha√
     <link rel="stylesheet" href="css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="css/bootstrap.min.css">
 
-	  <link rel="stylesheet" href="css/main.css">
-	  <link rel="stylesheet" href="css/catalunya-map.css">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/catalunya-map.css">
 
-		...
-		</header>
+    ...
+    </header>
 
 1.2 footer
 
