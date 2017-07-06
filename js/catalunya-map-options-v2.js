@@ -16,12 +16,12 @@ catmap.MAP_OPTIONS = {
 
 	    textInitWidth : 250,     //initial text width
 
-	    mapWidth  : 825,  		//map width variable
-	    mapHeight : 800, 		//map height variable
+	    mapWidth  : 825,  		  //map width variable
+	    mapHeight : 800, 		    //map height variable
 
-	    debug      : true,       //enable/disable debug mode
-	    responsive : true,
-	    useText    : true,
+	    debug      : false,     //enable/disable debug mode
+	    responsive : true,      //enable/disable responsive funcionality
+	    useText    : true,      //enable/disable list text comarques
 
 	    onClick    : false,      //enable/disable onclick open link
 	    newWindow  : false,      //enable/disable open a page in a new window for onClick functionality

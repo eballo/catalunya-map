@@ -19,9 +19,9 @@ catmap.MAP_OPTIONS = {
 	    mapWidth  : 825,  		   //map width variable
 	    mapHeight : 800, 		     //map height variable
 
-	    debug      : true,       //enable/disable debug mode
+	    debug      : false,       //enable/disable debug mode
 	    responsive : true,       //enable/disable responsive funcionality
-	    useText    : true,       //
+	    useText    : true,       ////enable/disable list text comarques
 
 	    onClick    : false,      //enable/disable onclick open link
 	    newWindow  : false,      //enable/disable open a page in a new window for onClick functionality
