@@ -44,31 +44,31 @@ Interactive vectorial map of Catalunya based on a SVG/VML and the library Rapha√
 1.1 header
 
     <header>
-        ...
-    		<meta name="viewport" content="width=device-width">
-    		<!-- Jquery & Raphaeljs -->
-    		<script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
-    		<script type="text/javascript" src="js/raphael-min.js"></script>
-    		<script type="text/javascript" src="js/scale.raphael.js"></script>
-        <!-- Bootstrap -->
-        <script type="text/javascript" src="js/bootstrap.min.js"></script>
-        <link rel="stylesheet" href="css/bootstrap-theme.min.css">
-        <link rel="stylesheet" href="css/bootstrap.min.css">
-				<!-- custom styles -->
-        <link rel="stylesheet" href="css/main.css">
-        <link rel="stylesheet" href="css/catalunya-map.css">
-        ...
+    ...
+    <meta name="viewport" content="width=device-width">
+    <!-- Jquery & Raphaeljs -->
+    <script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
+    <script type="text/javascript" src="js/raphael-min.js"></script>
+    <script type="text/javascript" src="js/scale.raphael.js"></script>
+    <!-- Bootstrap -->
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+		<!-- custom styles -->
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/catalunya-map.css">
+    ...
     </header>
 
 1.2 footer
 
     <footer>
-    		...
-    		<script type="text/javascript" src="js/catalunya-map-path.js"></script>
-    		<script type="text/javascript" src="js/catalunya-map.js"></script>
-    		<script type="text/javascript" src="js/catalunya-map-options-v1.js"></script>
-    		<script type="text/javascript" src="js/catalunya-map-init.js"></script>
-    		...
+    ...
+    <script type="text/javascript" src="js/catalunya-map-path.js"></script>
+    <script type="text/javascript" src="js/catalunya-map.js"></script>
+    <script type="text/javascript" src="js/catalunya-map-options-v1.js"></script>
+    <script type="text/javascript" src="js/catalunya-map-init.js"></script>
+    ...
     </footer>
 
 
