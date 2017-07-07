@@ -59,6 +59,10 @@
   pointer-events: none;
 }
 
+.llistat-edificis li{
+	height: 30px;
+}
+
 .llistat-edificis li:nth-child(odd){
 	background: #fff6eb;
 }
@@ -71,6 +75,14 @@
   margin-left: 10px;
   text-decoration: none;
   color: #a07a49;
+	vertical-align: text-bottom;
+}
+
+.llistat-edificis li img {
+  float: left;
+	height: 29px;
+	margin-right: 10px;
+	margin-left: 10px;
 }
 
 .llistat-edificis li i {
@@ -78,6 +90,8 @@
   color: inherit;
   margin-right: 15px;
 }
+
+
 
 #veure-contingut{
 	position: inherit;
