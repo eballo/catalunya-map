@@ -90,10 +90,9 @@
 }
 
 .button {
-  background: #636567;
   border-radius: 100px;
   padding: 20px 60px;
-  color: #686868;
+  color: #dcd9d9;
   text-decoration: none;
   font-size: 1.45em;
   margin: 0 15px;
@@ -103,7 +102,7 @@
 .button:hover {
   -webkit-animation: hover 1200ms linear 2 alternate;
   animation: hover 1200ms linear 2 alternate;
-	color: black;
+	background: #625f5f;
 }
 
 /* Active state animation applied here */
@@ -113,8 +112,8 @@
   background: #5F9BE0;
 }
 
-.background { background: #D2D2D2; }
-.background:active { background: #b9b9b9; }
+.background { background: #939090; }
+.background:active { background: black; }
 
 /* Active state animation keyframes below */
 
