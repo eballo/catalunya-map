@@ -239,8 +239,31 @@
 	 		                window.location=comarcaLink;
 	 		            }
 	 		        }else{
-	 		            $('#comarcaName').html('<h1>' + comarcaName + '</h1>');
-	 		            $('#contentText').html(contentText);
+
+                if(this.config.button){
+
+                  if(this.config.debug){
+                    console.log('button functionality enabled');
+                  }
+
+                  $('#veure-contingut').show();
+
+                  $('#contentText').click(function(){
+                      //window.open(comarcaLink, 'window name', 'window settings');
+                      window.location=comarcaLink;
+                      return false;
+                  });
+                  $('#veure-contingut').click(function(){
+                      //window.open(comarcaLink, 'window name', 'window settings');
+                      $(this).toggleClass("veure-clic");
+                      window.location=comarcaLink;
+                      return false;
+                  });
+
+                }
+
+                $('#comarcaName').html('<h1>' + comarcaName + '</h1>');
+                $('#contentText').html(contentText);
 	 		        }
 	 		    },
 

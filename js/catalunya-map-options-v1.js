@@ -21,8 +21,11 @@ catmap.MAP_OPTIONS = {
 
 	    debug      : false,       //enable/disable debug mode
 	    responsive : true,       //enable/disable responsive funcionality
-	    useText    : true,       ////enable/disable list text comarques
+	    useText    : true,       //enable/disable list text comarques
 
+      button     : false,       //enable/disable button functionality
+
+      //if no button functionality
 	    onClick    : false,      //enable/disable onclick open link
 	    newWindow  : false,      //enable/disable open a page in a new window for onClick functionality
 
