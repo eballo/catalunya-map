@@ -45,13 +45,14 @@
   padding: 0 0 10px 0;
 }
 
+
 .llistat-edificis {
-	padding: 0;
-  margin: 0px;
+	width: 100%;
+  padding: 0px;
 
   /* Styles */
   background: white;
-  font-family: 'Verdana', sans-serif;
+  font-family: 'Droid Sans', sans-serif;
   font-weight: normal;
   list-style: none;
 
@@ -59,24 +60,38 @@
   pointer-events: none;
 }
 
+.llistat-edificis li{
+	height: 30px;
+}
+
 .llistat-edificis li:nth-child(odd){
-	background: #D1EAFE;
+	background: #EFF0F1;
 }
 
 .llistat-edificis li a {
-  display: block;
-  padding: 2px;
-  width: 100%;
-  text-align: left;
-  margin-left: 10px;
+	margin: 0px;
+	padding: 10px 0px 0px 0px;
+	float: right;
+	width: 80%;
   text-decoration: none;
+	text-align: left;
+	vertical-align: bottom;
   color: #686868;
 }
 
+.llistat-edificis li img {
+	float: left;
+	padding: 0px 10px 5px 10px;
+  height: 30px;
+  vertical-align: bottom;
+	z-index: 100;
+	color: #686868;
+
+}
+
 .llistat-edificis li i {
-  float: right;
-  color: inherit;
-  margin-right: 15px;
+	float: right;
+  padding: 0px 20px 0px 20px;
 }
 
 #veure-contingut{

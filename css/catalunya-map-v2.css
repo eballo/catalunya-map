@@ -80,7 +80,7 @@
 
 .llistat-edificis li img {
 	float: left;
-	padding: 0px 10px 0px 10px;
+	padding: 0px 10px 5px 10px;
   height: 30px;
   vertical-align: bottom;
 	z-index: 100;
