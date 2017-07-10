@@ -46,8 +46,8 @@
 }
 
 .llistat-edificis {
-	padding: 0;
-  margin: 0px;
+	width: 100%;
+  padding: 0px;
 
   /* Styles */
   background: white;
@@ -68,27 +68,28 @@
 }
 
 .llistat-edificis li a {
-  display: block;
-  padding: 2px;
-  width: 100%;
-  text-align: left;
-  margin-left: 10px;
+	margin: 0px;
+	padding: 10px 0px 0px 0px;
+	float: right;
+	width: 80%;
   text-decoration: none;
+	text-align: left;
+	vertical-align: bottom;
   color: #a07a49;
-	vertical-align: text-bottom;
 }
 
 .llistat-edificis li img {
-  float: left;
-	height: 29px;
-	margin-right: 10px;
-	margin-left: 10px;
+	float: left;
+	padding: 0px 10px 0px 10px;
+  height: 30px;
+  vertical-align: bottom;
+	z-index: 100;
+
 }
 
 .llistat-edificis li i {
-  float: right;
-  color: inherit;
-  margin-right: 15px;
+	float: right;
+  padding: 0px 20px 0px 20px;
 }
 
 
