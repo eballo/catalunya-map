@@ -40,7 +40,7 @@
 	text-align: left;
   font-family: 'Droid Sans', sans-serif;
   font-style: normal;
-  font-size: 20pt;
+  font-size: 15pt;
   letter-spacing: -1px;
 	padding: 0 0 10px 0;
 }
@@ -52,6 +52,7 @@
   /* Styles */
   background: white;
   font-family: 'Droid Sans', sans-serif;
+	font-size: 9pt;
   font-weight: normal;
   list-style: none;
 
@@ -60,6 +61,7 @@
 }
 
 .llistat-edificis li{
+	margin: 0;
 	height: 30px;
 }
 
@@ -71,7 +73,7 @@
 	margin: 0px;
 	padding: 10px 0px 0px 0px;
 	float: right;
-	width: 80%;
+	width: 70%;
   text-decoration: none;
 	text-align: left;
 	vertical-align: bottom;
@@ -92,16 +94,19 @@
   padding: 0px 20px 0px 20px;
 }
 
-
+#infoEdifici{
+	width: 250px;
+}
 
 #veure-contingut{
 	position: inherit;
-    display: none;
-    float:right;
-    clear:both;
-    width:200px;
-		margin-top: 30px;
-    padding: 8px;
+  display: none;
+  float:right;
+  clear:both;
+  width:200px;
+	margin-top: 30px;
+  padding: 8px;
+	text-align: center;
 }
 
 .button {
@@ -109,7 +114,7 @@
   padding: 20px 60px;
   color: #dcd9d9;
   text-decoration: none;
-  font-size: 1.45em;
+  font-size: 1em;
   margin: 0 15px;
 }
 
