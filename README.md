@@ -27,6 +27,7 @@ Interactive vectorial map of Catalunya based on a SVG/VML and the library Rapha√
 - [Demo v6.2](http://demo.catalunyamedieval.es/map62)
 - [Demo v7.0](http://demo.catalunyamedieval.es/map7)
 - [Demo v7.1](http://demo.catalunyamedieval.es/map71)
+- [Demo v7.2](http://demo.catalunyamedieval.es/map71)
 
 ## How to create a Map using a SVG file
 
@@ -174,6 +175,9 @@ v7.0
 v7.1
 - Add button option configuration (https://codepen.io/piecdesmit/details/OMYNZg/)
 - Styles for icons
+
+v7.2
+- Fix styles
 
 
 ## Webs using this map:
