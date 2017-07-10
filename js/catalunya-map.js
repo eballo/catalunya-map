@@ -88,7 +88,7 @@
 
 	 		        var llistaComarques =[];
 	 		        for (var comarca in mappaths) {
-	 		            llistaComarques.push({ name: mappaths[comarca].name, url:mappaths[comarca].url });
+	 		            llistaComarques.push({ name: mappaths[comarca].name, url:mappaths[comarca].url, total:mappaths[comarca].total });
 	 		        }
 
 	 		        // Order the list by name
@@ -98,7 +98,7 @@
 
 	 		        // Create list with bootstrap styles
 	 		        for(i=0;i<llistaComarques.length;i++){
-	 		          $("<li class='list-group-item'><a href='"+llistaComarques[i].url+"' class='list-group-item'>"+llistaComarques[i].name+"</a></li>").appendTo("ul.list");
+	 		          $("<li class='list-group-item'><a href='"+llistaComarques[i].url+"' class='list-group-item'>"+llistaComarques[i].name+"<span class='badge'>"+llistaComarques[i].total+"</span></a></li>").appendTo("ul.list");
 	 		        }
 	 		    },
 
@@ -239,8 +239,31 @@
 	 		                window.location=comarcaLink;
 	 		            }
 	 		        }else{
-	 		            $('#comarcaName').html('<h1>' + comarcaName + '</h1>');
-	 		            $('#contentText').html(contentText);
+
+                if(this.config.button){
+
+                  if(this.config.debug){
+                    console.log('button functionality enabled');
+                  }
+
+                  $('#veure-contingut').show();
+
+                  $('#contentText').click(function(){
+                      //window.open(comarcaLink, 'window name', 'window settings');
+                      window.location=comarcaLink;
+                      return false;
+                  });
+                  $('#veure-contingut').click(function(){
+                      //window.open(comarcaLink, 'window name', 'window settings');
+                      $(this).toggleClass("veure-clic");
+                      window.location=comarcaLink;
+                      return false;
+                  });
+
+                }
+
+                $('#comarcaName').html('<h1>' + comarcaName + '</h1>');
+                $('#contentText').html(contentText);
 	 		        }
 	 		    },
 

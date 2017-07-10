@@ -170,6 +170,9 @@ v7.0
 - beautifyed all code
 - Documentation of the code
 
+v7.1
+- Add button option configuration (https://codepen.io/piecdesmit/details/OMYNZg/)
+
 
 ## Webs using this map:
 - [blog cimasdestacables](http://cimasdestacables.blogspot.com/p/mapa-comarcal-de-catalunya.html)

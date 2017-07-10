@@ -23,6 +23,9 @@ catmap.MAP_OPTIONS = {
 	    responsive : true,      //enable/disable responsive funcionality
 	    useText    : true,      //enable/disable list text comarques
 
+			button     : false,       //enable/disable button functionality
+
+			//if no button functionality
 	    onClick    : false,      //enable/disable onclick open link
 	    newWindow  : false,      //enable/disable open a page in a new window for onClick functionality
 
