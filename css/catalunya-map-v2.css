@@ -19,7 +19,7 @@
 /** Text */
 
 #text{
-	margin-top: 20px;
+	margin-top: 0px;
 
 	float: left;
   clear: both;
@@ -27,7 +27,7 @@
 	/*overflow: auto;*/
 
  	/* Size and position */
-  padding: 10px;
+  padding: 0;
 
   /* Styles */
   background: #fff;
