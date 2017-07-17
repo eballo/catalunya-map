@@ -11,8 +11,9 @@
   // Catmap Constructor
   //---------------------------
 	var Catmap =  (function(){
-	 	function Catmap(opts){
+	 	function Catmap(opts, json){
 	 		this.config = opts;
+      this.mappaths = json;
 	 		this.paper;
 	 	  this.winWidth;
 	 	  this.win;
@@ -87,9 +88,11 @@
 	 		        }
 
 	 		        var llistaComarques =[];
-	 		        for (var comarca in mappaths) {
-	 		            llistaComarques.push({ name: mappaths[comarca].name, url:mappaths[comarca].url, total:mappaths[comarca].total });
+	 		        for (var comarca in this.mappaths) {
+	 		            llistaComarques.push({ name: this.mappaths[comarca].name, url:this.mappaths[comarca].url, total:this.mappaths[comarca].total });
 	 		        }
+
+              console.log(llistaComarques);
 
 	 		        // Order the list by name
 	 		        llistaComarques = llistaComarques.sort(function (a, b) {
@@ -117,31 +120,31 @@
 	 		        }
 
 	 		        var i = 0;
-	 		        for (var comarca in mappaths) {
+	 		        for (var comarca in this.mappaths) {
 
 	 		            //Create obj
 	 		            obj = this.mcat[comarca];
 
 	 		            // raphael object
 	 		            // object 0 (the map)
-	 		            obj.push(paper.path(mappaths[comarca].path).attr(this.config.comarcaAttr));
+	 		            obj.push(paper.path(this.mappaths[comarca].path).attr(this.config.comarcaAttr));
 	 		            obj.animate({transform: "t0,-200"});
 
 	 		            // object 1 and 2 (comarca name / capital comarca name)
-	 		            obj.push(paper.text(mappaths[comarca].nx, mappaths[comarca].ny, mappaths[comarca].name).attr(this.config.nomComcarcaAttr_out));
-	 		            obj.push(paper.text(mappaths[comarca].cx, mappaths[comarca].cy, mappaths[comarca].capital).attr(this.config.nomCapitalAttr));
+	 		            obj.push(paper.text(this.mappaths[comarca].nx, this.mappaths[comarca].ny, this.mappaths[comarca].name).attr(this.config.nomComcarcaAttr_out));
+	 		            obj.push(paper.text(this.mappaths[comarca].cx, this.mappaths[comarca].cy, this.mappaths[comarca].capital).attr(this.config.nomCapitalAttr));
 
-	 		            obj[0].comarcaName = mappaths[comarca].name;
-	 		            obj[1].comarcaName = mappaths[comarca].name;
-	 		            obj[2].comarcaName = mappaths[comarca].name;
+	 		            obj[0].comarcaName = this.mappaths[comarca].name;
+	 		            obj[1].comarcaName = this.mappaths[comarca].name;
+	 		            obj[2].comarcaName = this.mappaths[comarca].name;
 
-	 		            obj[0].contentText = mappaths[comarca].info;
-	 		            obj[1].contentText = mappaths[comarca].info;
-	 		            obj[2].contentText = mappaths[comarca].info;
+	 		            obj[0].contentText = this.mappaths[comarca].info;
+	 		            obj[1].contentText = this.mappaths[comarca].info;
+	 		            obj[2].contentText = this.mappaths[comarca].info;
 
-	 		            obj[0].comarcaLink = mappaths[comarca].url;
-	 		            obj[1].comarcaLink = mappaths[comarca].url;
-	 		            obj[2].comarcaLink = mappaths[comarca].url;
+	 		            obj[0].comarcaLink = this.mappaths[comarca].url;
+	 		            obj[1].comarcaLink = this.mappaths[comarca].url;
+	 		            obj[2].comarcaLink = this.mappaths[comarca].url;
 
 	 		            obj[0].node.id = i;
 	 		            obj[0].toBack();
@@ -313,7 +316,7 @@
 	 		     * @return {[type]} [description]
 	 		     */
 	 		   showComarcaName:function (){
-	 		        for (var comarca in mappaths) {
+	 		        for (var comarca in this.mappaths) {
 	 		                //Create obj
 	 		                obj = this.mcat[comarca];
 	 		                obj[1].show();
@@ -325,7 +328,7 @@
 	 		     * @return {[type]} [description]
 	 		     */
 	 		   hideComarcaName:function (){
-	 		        for (var comarca in mappaths) {
+	 		        for (var comarca in this.mappaths) {
 	 		            //Create obj
 	 		            obj = this.mcat[comarca];
 	 		            obj[1].hide();
@@ -471,8 +474,8 @@
 
 	}());
 
-	Catmap.create = function(opts){
-	 	return new Catmap(opts);
+	Catmap.create = function(opts,json){
+	 	return new Catmap(opts,json);
 	 };
 
 	 window.Catmap = Catmap;
