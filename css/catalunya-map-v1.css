@@ -138,6 +138,13 @@
 .background { background: #939090; }
 .background:active { background: black; }
 
+.greyBackground{
+	background-color: #cdcecf;
+	font-size: 9pt;
+	font-weight: bold;
+}
+
+
 /* Active state animation keyframes below */
 
 @-webkit-keyframes active {
