@@ -28,11 +28,18 @@ a:hover {
 }
 
 .description {
-	margin-left: auto; 
-	margin-right: auto; 
-	width: 99%; 
+	margin-left: auto;
+	margin-right: auto;
+	width: 99%;
 }
 
 .description strong {
 	padding: 10px;
+}
+
+/* DEBUG */
+
+#svggroup{
+	border: 1px;
+	background-color: grey;
 }

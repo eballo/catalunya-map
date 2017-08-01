@@ -14,12 +14,15 @@ catmap.MAP_OPTIONS = {
 	    mapInitWidth  : 825,    //initial map width
 	    mapInitHeight : 800,    //initial map height
 
+			comarcaInitWidth:100,
+			comarcaInitHeight:100,
+
 	    textInitWidth : 250,     //initial text width
 
 	    mapWidth  : 825,  		  //map width variable
 	    mapHeight : 800, 		    //map height variable
 
-	    debug      : false,     //enable/disable debug mode
+	    debug      : true,     //enable/disable debug mode
 	    responsive : true,      //enable/disable responsive funcionality
 	    useText    : true,      //enable/disable list text comarques
 

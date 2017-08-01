@@ -20,63 +20,10 @@
 	 	  this.obj;
 
 	 	  //Array of comarcas
-      this.mcat = {};
+      this.mcat = [];
 	 	}
 
 	 	Catmap.prototype ={
-
-	 			/**
-	       * Function that create the Array of Comarcas
-         * set the mcat array
-	 	     */
-	 			createArrayComarcas:function (){
-	 		        if(this.config.debug){
-	 		            console.log('createArrayComarcas ...');
-	 		        }
-
-              this.mcat.cat1 = paper.set();
-              this.mcat.cat2 = paper.set();
-              this.mcat.cat3 = paper.set();
-              this.mcat.cat4 = paper.set();
-              this.mcat.cat5 = paper.set();
-              this.mcat.cat6 = paper.set();
-              this.mcat.cat7 = paper.set();
-              this.mcat.cat8 = paper.set();
-              this.mcat.cat9 = paper.set();
-              this.mcat.cat10 = paper.set();
-              this.mcat.cat11 = paper.set();
-              this.mcat.cat12 = paper.set();
-              this.mcat.cat13 = paper.set();
-              this.mcat.cat14 = paper.set();
-              this.mcat.cat15 = paper.set();
-              this.mcat.cat16 = paper.set();
-              this.mcat.cat17 = paper.set();
-              this.mcat.cat18 = paper.set();
-              this.mcat.cat19 = paper.set();
-              this.mcat.cat20 = paper.set();
-              this.mcat.cat21 = paper.set();
-              this.mcat.cat22 = paper.set();
-              this.mcat.cat23 = paper.set();
-              this.mcat.cat24 = paper.set();
-              this.mcat.cat25 = paper.set();
-              this.mcat.cat26 = paper.set();
-              this.mcat.cat27 = paper.set();
-              this.mcat.cat28 = paper.set();
-              this.mcat.cat29 = paper.set();
-              this.mcat.cat30 = paper.set();
-              this.mcat.cat31 = paper.set();
-              this.mcat.cat32 = paper.set();
-              this.mcat.cat33 = paper.set();
-              this.mcat.cat34 = paper.set();
-              this.mcat.cat35 = paper.set();
-              this.mcat.cat36 = paper.set();
-              this.mcat.cat37 = paper.set();
-              this.mcat.cat38 = paper.set();
-              this.mcat.cat39 = paper.set();
-              this.mcat.cat40 = paper.set();
-              this.mcat.cat41 = paper.set();
-              this.mcat.cat42 = paper.set();
-	 		    },
 
 	 		     /**
 	 		     * Function that create a text list of all the comarques
@@ -92,7 +39,9 @@
 	 		            llistaComarques.push({ name: this.mappaths[comarca].name, url:this.mappaths[comarca].url, total:this.mappaths[comarca].total });
 	 		        }
 
-              console.log(llistaComarques);
+              if(this.config.debug){
+                console.log(llistaComarques);
+              }
 
 	 		        // Order the list by name
 	 		        llistaComarques = llistaComarques.sort(function (a, b) {
@@ -105,6 +54,122 @@
 	 		        }
 	 		    },
 
+          createComarca: function(paper, id){
+
+            var config = this.config;
+            var self = this;
+
+            if(this.config.debug){
+              console.log(this.mappaths);
+              console.log(Object.values(this.mappaths)[id]);
+            }
+
+            comarca = Object.values(this.mappaths)[id];
+            key = Object.keys(this.mappaths)[id];
+
+            if(this.config.debug){
+                console.log('CreateComarca ...');
+                console.log('id:'+id);
+                console.log('comarca:'+comarca.name);
+                console.log('comarca:'+comarca.capital);
+                console.log('key:'+key);
+            }
+
+            // raphael object
+            var obj = paper.set();
+
+            // object 0 (the map)
+            obj.push(paper.path(comarca.path).attr(this.config.comarcaAttr));
+            obj.animate({transform: "t0,-200"});
+
+            // object 1 and 2 (comarca name / capital comarca name)
+            obj.push(paper.text(comarca.nx, comarca.ny, comarca.name).attr(this.config.nomComcarcaAttr_out));
+            obj.push(paper.text(comarca.cx, comarca.cy, comarca.capital).attr(this.config.nomCapitalAttr));
+
+            obj[0].comarcaName = comarca.name;
+            obj[1].comarcaName = comarca.name;
+            obj[2].comarcaName = comarca.name;
+
+            obj[0].contentText = comarca.info;
+            obj[1].contentText = comarca.info;
+            obj[2].contentText = comarca.info;
+
+            obj[0].comarcaLink = comarca.url;
+            obj[1].comarcaLink = comarca.url;
+            obj[2].comarcaLink = comarca.url;
+
+            obj[0].node.id = key;
+            obj[0].toBack();
+
+            obj[1].toFront();
+            obj[2].toFront();
+
+            //Initial status hiden
+            obj[1].hide();
+            obj[2].hide();
+
+            // Change the color of each comarca animation hover event
+            obj.hover(function(){ //hoverIn function
+               var params = {'fill' : config.colorIn };
+               this[0].animate(params, 100);
+               this[1].attr(config.nomComcarcaAttr_in);
+               this[2].show();
+             },function(){ //hoverOut function
+                var params = {'fill' : config.colorOut };
+                this[0].animate(params, 100);
+                this[1].attr(config.nomComcarcaAttr_out);
+                this[2].hide();
+            }, obj, obj);
+
+            if(this.config.useText){
+                // on click event
+                obj[0].click(function(){
+                    var comarcaName = this.comarcaName;
+                    var contentText = this.contentText;
+                    var comarcaLink = this.comarcaLink;
+                    self.onMapClick(comarcaName, contentText, comarcaLink);
+                });
+
+                obj[1].click(function(){
+                    var comarcaName = this.comarcaName;
+                    var contentText = this.contentText;
+                    var comarcaLink = this.comarcaLink;
+                    self.onMapClick(comarcaName, contentText, comarcaLink);
+                });
+
+                obj[2].click(function(){
+                    var comarcaName = this.comarcaName;
+                    var contentText = this.contentText;
+                    var comarcaLink = this.comarcaLink;
+                    self.onMapClick(comarcaName, contentText, comarcaLink);
+                });
+
+                obj[0].touchstart(function(){
+                    var comarcaName = this.comarcaName;
+                    var contentText = this.contentText;
+                    var comarcaLink = this.comarcaLink;
+                    self.onMapClick(comarcaName, contentText, comarcaLink);
+                });
+
+                obj[1].touchstart(function(){
+                    var comarcaName = this.comarcaName;
+                    var contentText = this.contentText;
+                    var comarcaLink = this.comarcaLink;
+                    self.onMapClick(comarcaName, contentText, comarcaLink);
+                });
+
+                obj[2].touchstart(function(){
+                    var comarcaName = this.comarcaName;
+                    var contentText = this.contentText;
+                    var comarcaLink = this.comarcaLink;
+                    self.onMapClick(comarcaName, contentText, comarcaLink);
+                });
+            }
+
+            this.mcat.push(obj);
+
+          },
+
 	 		    /**
 	 		     * Function that create the map based in the mappaths array
 	 		     *
@@ -112,122 +177,33 @@
 	 		     *
 	 		     */
 	 		   createMap:function (paper) {
-          var config = this.config;
-	 			  var self = this;
+
 
 	 		        if(this.config.debug){
 	 		            console.log('CreateMap ...');
 	 		        }
 
-	 		        var i = 0;
-	 		        for (var comarca in this.mappaths) {
-
-	 		            //Create obj
-	 		            obj = this.mcat[comarca];
-
-	 		            // raphael object
-	 		            // object 0 (the map)
-	 		            obj.push(paper.path(this.mappaths[comarca].path).attr(this.config.comarcaAttr));
-	 		            obj.animate({transform: "t0,-200"});
-
-	 		            // object 1 and 2 (comarca name / capital comarca name)
-	 		            obj.push(paper.text(this.mappaths[comarca].nx, this.mappaths[comarca].ny, this.mappaths[comarca].name).attr(this.config.nomComcarcaAttr_out));
-	 		            obj.push(paper.text(this.mappaths[comarca].cx, this.mappaths[comarca].cy, this.mappaths[comarca].capital).attr(this.config.nomCapitalAttr));
-
-	 		            obj[0].comarcaName = this.mappaths[comarca].name;
-	 		            obj[1].comarcaName = this.mappaths[comarca].name;
-	 		            obj[2].comarcaName = this.mappaths[comarca].name;
-
-	 		            obj[0].contentText = this.mappaths[comarca].info;
-	 		            obj[1].contentText = this.mappaths[comarca].info;
-	 		            obj[2].contentText = this.mappaths[comarca].info;
-
-	 		            obj[0].comarcaLink = this.mappaths[comarca].url;
-	 		            obj[1].comarcaLink = this.mappaths[comarca].url;
-	 		            obj[2].comarcaLink = this.mappaths[comarca].url;
-
-	 		            obj[0].node.id = i;
-	 		            obj[0].toBack();
-
-	 		            obj[1].toFront();
-	 		            obj[2].toFront();
-
-	 		            //Initial status hiden
-	 		            obj[1].hide();
-	 		            obj[2].hide();
-
-	 		            // Change the color of each comarca animation hover event
-                  obj.hover(function(){ //hoverIn function
-                     var params = {'fill' : config.colorIn };
-                     this[0].animate(params, 100);
-                     this[1].attr(config.nomComcarcaAttr_in);
-                     this[2].show();
-                   },function(){ //hoverOut function
-                      var params = {'fill' : config.colorOut };
-                      this[0].animate(params, 100);
-                      this[1].attr(config.nomComcarcaAttr_out);
-                      this[2].hide();
-                  }, obj, obj);
-
-	 		            if(this.config.useText){
-	 		                // on click event
-	 		                obj[0].click(function(){
-	 		                    var comarcaName = this.comarcaName;
-	 		                    var contentText = this.contentText;
-	 		                    var comarcaLink = this.comarcaLink;
-	 		                    self.onMapClick(comarcaName, contentText, comarcaLink);
-	 		                });
-
-	 		                obj[1].click(function(){
-	 		                    var comarcaName = this.comarcaName;
-	 		                    var contentText = this.contentText;
-	 		                    var comarcaLink = this.comarcaLink;
-	 		                    self.onMapClick(comarcaName, contentText, comarcaLink);
-	 		                });
-
-	 		                obj[2].click(function(){
-	 		                    var comarcaName = this.comarcaName;
-	 		                    var contentText = this.contentText;
-	 		                    var comarcaLink = this.comarcaLink;
-	 		                    self.onMapClick(comarcaName, contentText, comarcaLink);
-	 		                });
-
-	 		                obj[0].touchstart(function(){
-	 		                    var comarcaName = this.comarcaName;
-	 		                    var contentText = this.contentText;
-	 		                    var comarcaLink = this.comarcaLink;
-	 		                    self.onMapClick(comarcaName, contentText, comarcaLink);
-	 		                });
-
-	 		                obj[1].touchstart(function(){
-	 		                    var comarcaName = this.comarcaName;
-	 		                    var contentText = this.contentText;
-	 		                    var comarcaLink = this.comarcaLink;
-	 		                    self.onMapClick(comarcaName, contentText, comarcaLink);
-	 		                });
-
-	 		                obj[2].touchstart(function(){
-	 		                    var comarcaName = this.comarcaName;
-	 		                    var contentText = this.contentText;
-	 		                    var comarcaLink = this.comarcaLink;
-	 		                    self.onMapClick(comarcaName, contentText, comarcaLink);
-	 		                });
-	 		            }
-
-	 		            i++;
+              //We have 42 comarques
+	 		        for (var i = 0; i<= 41; i++) {
+                this.createComarca(paper, i);
 	 		        }
 
-	 		        if(this.config.responsive){
-	 		            self.responsiveResize();
-	 		            $(window).resize(function() {
-	 		                self.responsiveResize();
-	 		            });
-	 		        }
-	 		        else{
-	 		            self.resizeMap(paper);
-	 		        }
+              this.resizeFunctionality();
 
 	 		    },
+
+          resizeFunctionality:function(){
+            var self = this;
+            if(this.config.responsive){
+                this.responsiveResize();
+                $(window).resize(function() {
+                    self.responsiveResize();
+                });
+            }
+            else{
+                this.resizeMap(paper);
+            }
+          },
 
 	 		    /**
 	 		     * On Map click show the information text
@@ -316,10 +292,10 @@
 	 		     * @return {[type]} [description]
 	 		     */
 	 		   showComarcaName:function (){
-	 		        for (var comarca in this.mappaths) {
-	 		                //Create obj
-	 		                obj = this.mcat[comarca];
-	 		                obj[1].show();
+           console.log('show');
+           console.log(this.mcat.length);
+	 		        for (var i=0; i<this.mcat.length; i++) {
+                this.mcat[i][1].show();
 	 		        }
 	 		    },
 
@@ -328,11 +304,9 @@
 	 		     * @return {[type]} [description]
 	 		     */
 	 		   hideComarcaName:function (){
-	 		        for (var comarca in this.mappaths) {
-	 		            //Create obj
-	 		            obj = this.mcat[comarca];
-	 		            obj[1].hide();
-	 		        }
+             for (var i=0; i<this.mcat.length; i++) {
+               this.mcat[i][1].hide();
+             }
 	 		    },
 
 	 		    /**
@@ -422,20 +396,20 @@
 	 		        }
 	 		    },
 
-	 		    /**
-	 		     * Load the map and the text
-	 		     * @return {[type]} [description]
-	 		     */
+	 		   /**
+	 		    * Load the map and the text
+	 		    * @return {[type]} [description]
+	 		    */
 	 		   loadMapAndText:function () {
 
 	 			  var self = this;
 
 	 		        if(this.config.debug){
 	 		            console.log('loadMapAndText ...');
-	 		            console.log('Create map with : ' + this.config.mapWidth + ' height : ' + this.config.mapHeight);
+	 		            console.log('Create map with : ' + this.config.mapInitWidth + ' height : ' + this.config.mapInitHeight);
 	 		        }
 
-	 		        paper = new ScaleRaphael('map', this.config.mapWidth, this.config.mapHeight);
+	 		        paper = new ScaleRaphael('map', this.config.mapInitWidth, this.config.mapInitHeight);
 
 	 		        //apply the this.config.scale value
 	 		        if(this.config.debug){
@@ -444,7 +418,7 @@
 
 	 		        paper.scaleAll(this.config.scale);
 
-	 		        ratio = this.config.mapWidth/this.config.mapHeight;
+	 		        ratio = this.config.mapInitWidth/this.config.mapInitHeight;
 
 	 		        if(this.config.debug){
 	 		            console.log('ratio : ' + ratio);
@@ -457,17 +431,52 @@
 	 		            console.log('Window With : ' + winWidth);
 	 		        }
 
-	 		        //create array
-	 		        self.createArrayComarcas();
-
 	 		        //create map
 	 		        self.createMap(paper);
 
 	 		        //create list
 	 		        self.createLlistaComarquesText();
 
-	 		    }
+	 		    },
 
+          /**
+ 	 		    * Get the comarca
+ 	 		    * @return {[type]} [description]
+ 	 		    */
+ 	 		   getComarca:function(id) {
+
+           if(this.config.debug){
+               console.log('getComarca ...');
+               console.log('Create area with : ' + this.config.mapInitWidth + ' height : ' + this.config.mapInitHeight);
+           }
+
+           paper = new ScaleRaphael('comarca', this.config.mapInitWidth, this.config.mapInitHeight);
+
+           //apply the this.config.scale value
+           if(this.config.debug){
+               console.log('scale area : ' + this.config.scale);
+           }
+
+           paper.scaleAll(this.config.scale);
+
+           ratio = this.config.mapInitWidth/this.config.mapInitHeight;
+
+           if(this.config.debug){
+               console.log('ratio : ' + ratio);
+           }
+
+           win = $(window);
+           winWidth = win.width();
+
+           if(this.config.debug){
+               console.log('Window With : ' + winWidth);
+           }
+
+           //create map
+           this.createComarca(paper,id);
+           this.resizeFunctionality();
+
+         }
 	 	}
 
 	 	return Catmap;
