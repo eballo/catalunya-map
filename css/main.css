@@ -39,6 +39,14 @@ a:hover {
 
 /* DEBUG */
 
+.comarcaWrapper {
+	margin:0 auto;
+	position:relative;
+	border: 1px;
+	background-color: grey;
+	visibility: visible;
+}
+
 #svggroup{
 	border: 1px;
 	background-color: grey;

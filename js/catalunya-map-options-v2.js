@@ -14,9 +14,6 @@ catmap.MAP_OPTIONS = {
 	    mapInitWidth  : 825,    //initial map width
 	    mapInitHeight : 800,    //initial map height
 
-			comarcaInitWidth:100,
-			comarcaInitHeight:100,
-
 	    textInitWidth : 250,     //initial text width
 
 	    mapWidth  : 825,  		  //map width variable
@@ -37,7 +34,7 @@ catmap.MAP_OPTIONS = {
 	        stroke : '#c7ab89',  //color for the limit line of comarca (clear brown)
 	        'stroke-width' : 0.8,
 	        'stroke-linejoin' : 'round',
-	        'font-family': 'Verdana',
+	        'font-family': 'Droid, Verdana',
 	        'font-size': '19px',
 	        'font-weight': 'bold',
 	        'cursor': 'pointer',
@@ -48,7 +45,7 @@ catmap.MAP_OPTIONS = {
 	        fill : '#a07a49',       //color for the text of comarca (dark brown)
 	        stroke : '#000000',     //black
 	        'stroke-width' : 0.4,
-	        'font-family': 'Verdana',
+	        'font-family': 'Droid, Verdana',
 	        'font-size': '12px',
 	        'font-weight': 'bold',
 	        'cursor': 'pointer',
@@ -58,7 +55,7 @@ catmap.MAP_OPTIONS = {
 	    nomComcarcaAttr_out : {      //nom comarca style configuration for hover out
 	        fill : '#a07a49',
 	        'stroke-width' : 0,
-	        'font-family': 'Verdana',
+	        'font-family': 'Droid, Verdana',
 	        'font-size': '12px',
 	        'font-weight': 'bold',
 	        'cursor': 'pointer',
@@ -67,7 +64,7 @@ catmap.MAP_OPTIONS = {
 
 	    nomCapitalAttr : {       //nom capital comarca style configuration
 	       fill : '#FF9900',     //orange
-	       "font-family": "Arial, sans-serif",
+	       "font-family": "Droid, Arial, sans-serif",
 	       "font-size": "10px",
 	       'cursor': 'pointer',
 	       'z-index': 30
