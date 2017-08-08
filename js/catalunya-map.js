@@ -92,7 +92,7 @@
 	 		            llistaComarques.push({ name: this.mappaths[comarca].name, url:this.mappaths[comarca].url, total:this.mappaths[comarca].total });
 	 		        }
 
-              console.log(llistaComarques);
+              //console.log(llistaComarques);
 
 	 		        // Order the list by name
 	 		        llistaComarques = llistaComarques.sort(function (a, b) {

@@ -2,7 +2,7 @@
   $.ajax({
       url: catmap.URL_JSON,
       dataType: 'json',
-      async: false,
+      async: true,
       success: function(json){
   					//Create the map
   					var map = catmap.create(catmap.MAP_OPTIONS, json);

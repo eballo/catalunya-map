@@ -4,7 +4,7 @@
 
 (function(window, catmap) {
 
-//var url = "https://work.catalunyamedieval.dev/wp-content/themes/catalunyamedieval/js/catalunya-map/catalunya-map-path.json";
+//catmap.URL_JSON = //catmap.URL_JSON = "https://work.catalunyamedieval.dev/wp-content/themes/catalunyamedieval/js/catalunya-map/catalunya-map-path.json";
 catmap.URL_JSON = "js/catalunya-map-path.json";
 
 catmap.MAP_OPTIONS = {
