@@ -4,6 +4,9 @@
 
 (function(window, catmap) {
 
+//var url = "https://work.catalunyamedieval.dev/wp-content/themes/catalunyamedieval/js/catalunya-map/catalunya-map-path.json";
+catmap.URL_JSON = "js/catalunya-map-path.json";
+
 catmap.MAP_OPTIONS = {
 
 	    colorIn  : '#fee8cb',   //color when the mouse is over
