@@ -88,7 +88,7 @@ Explanation :
 
 				<div id="container row">
 
-					<div class="mapWrapper">
+					<div class="map-wrapper">
 						<div id="text" class="col-md-4">
 							<div id="comarcaName">
 								<h1>Catalunya Medieval</h1></div>

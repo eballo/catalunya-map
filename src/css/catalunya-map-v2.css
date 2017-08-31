@@ -1,6 +1,6 @@
 /* ------ catalunya map css ----------*/
 
-.mapWrapper {
+.map-wrapper {
 	margin:0 auto;
 	position:relative;
 }
@@ -19,7 +19,7 @@
 /** Text */
 
 #text{
-	margin-top: 0px;
+	margin-top: 0;
 
 	float: left;
   clear: both;
@@ -47,7 +47,7 @@
 
 .llistat-edificis {
 	width: 100%;
-  padding: 0px;
+  padding: 0;
 
   /* Styles */
   background: white;
@@ -70,8 +70,8 @@
 }
 
 .llistat-edificis li a {
-	margin: 0px;
-	padding: 10px 0px 0px 0px;
+	margin: 0;
+	padding: 10px 0 0 0;
 	float: right;
 	width: 80%;
   text-decoration: none;
@@ -82,7 +82,7 @@
 
 .llistat-edificis li img {
 	float: left;
-	padding: 0px 10px 5px 10px;
+	padding: 0 10px 5px 10px;
   height: 30px;
   vertical-align: bottom;
 	z-index: 100;
@@ -91,7 +91,7 @@
 
 .llistat-edificis li i {
 	float: right;
-  padding: 0px 20px 0px 20px;
+  padding: 0 20px 0 20px;
 }
 
 #infoEdifici{
@@ -241,7 +241,7 @@
 -This CSS will apply for devices with the minimum width of 480 pixels
  */
 @media only screen and (min-width: 480px) {
-    .mapWrapper{
+    .map-wrapper{
         visibility: hidden;
     }
     .llistaComarques{
@@ -253,7 +253,7 @@
 -This CSS will apply for devices with the minimum width of 768 pixels
 */
 @media only screen and (min-width: 960px) {
-    .mapWrapper{
+    .map-wrapper{
         visibility: visible;
     }
     .llistaComarques{
