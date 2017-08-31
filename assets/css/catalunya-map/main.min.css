@@ -1,0 +1,38 @@
+/* ------ genaral css file --------*/
+
+body {
+	background: #fff;
+	font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+	text-align: center;
+	color: #5554;
+}
+h1 {
+	font-size: 25px;
+	padding: 30px 0 10px;
+}
+p {
+	padding-bottom: 30px;
+}
+
+a {
+	color: #66bbdd;
+	text-decoration: none;
+}
+a:hover {
+	text-decoration: underline;
+}
+
+#container {
+	margin:20px auto;
+
+}
+
+.description {
+	margin-left: auto; 
+	margin-right: auto; 
+	width: 99%; 
+}
+
+.description strong {
+	padding: 10px;
+}
