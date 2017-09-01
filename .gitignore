@@ -2,3 +2,6 @@
 .qicon
 .project
 .settings/
+node_modules/
+dist/
+.sonarlint/
