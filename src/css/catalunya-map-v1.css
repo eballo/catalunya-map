@@ -42,6 +42,15 @@
   padding: 0 0 10px 0;
 }
 
+.llistaComarques{
+	margin: 0;
+	padding: 0;
+}
+.llistaComarques ul{
+	margin: 0;
+	padding: 0;
+}
+
 .llistat-edificis {
   margin: 0;
   width: 100%;
