@@ -7,8 +7,8 @@ module.exports = function(grunt) {
         options: {
           variables: {
             'environment': 'work',
-            'configuration': 'catalunya-map-options-v2.js',
-            'style': 'src/css/catalunya-map-v2.css'
+            'configuration': 'catalunya-map-options-work.js',
+            'style': 'src/css/catalunya-map-v1.css'
           }
         }
       },
@@ -16,7 +16,7 @@ module.exports = function(grunt) {
         options: {
           variables: {
             'environment': 'production',
-            'configuration': 'catalunya-map-options-v1.js',
+            'configuration': 'catalunya-map-options-prod.js',
             'style': 'src/css/catalunya-map-v1.css'
           }
         }
@@ -36,6 +36,15 @@ module.exports = function(grunt) {
             'environment': 'demo',
             'configuration': 'catalunya-map-options-v2.js',
             'style': 'src/css/catalunya-map-v2.css'
+          }
+        }
+      },
+      int: {
+        options: {
+          variables: {
+            'environment': 'int',
+            'configuration': 'catalunya-map-options-int.js',
+            'style': 'src/css/catalunya-map-v1.css'
           }
         }
       }
@@ -92,7 +101,7 @@ module.exports = function(grunt) {
         ],
       },
     },
-    clean: ['assets/js/', 'assets/css/'],
+    clean: ['assets/js/', 'assets/css/','dist'],
     cssmin: {
       target: {
         files: [{
