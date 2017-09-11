@@ -101,7 +101,7 @@ module.exports = function(grunt) {
         ],
       },
     },
-    clean: ['assets/js/', 'assets/css/','dist'],
+    clean: ['assets/js/', 'assets/css/'],
     cssmin: {
       target: {
         files: [{
@@ -133,16 +133,18 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-compress');
 
   // Task definitions
-  grunt.registerTask('map',  ['config:map', 'clean', 'jsbeautifier', 'uglify', 'copy', 'cssmin']);
-  grunt.registerTask('demo', ['config:demo', 'clean', 'jsbeautifier', 'uglify', 'copy', 'cssmin']);
-  grunt.registerTask('work', ['config:work', 'clean', 'jsbeautifier', 'uglify', 'copy', 'cssmin']);
-  grunt.registerTask('prod', ['config:prod', 'clean', 'jsbeautifier', 'uglify', 'copy', 'cssmin']);
+  grunt.registerTask('map',  ['config:map',  'jsbeautifier', 'uglify', 'copy', 'cssmin']);
+  grunt.registerTask('demo', ['config:demo', 'jsbeautifier', 'uglify', 'copy', 'cssmin']);
+  grunt.registerTask('work', ['config:work', 'jsbeautifier', 'uglify', 'copy', 'cssmin']);
+  grunt.registerTask('prod', ['config:prod', 'jsbeautifier', 'uglify', 'copy', 'cssmin']);
+  grunt.registerTask('int',  ['config:int',  'jsbeautifier', 'uglify', 'copy', 'cssmin']);
 
   grunt.registerTask('demo-compress',['demo','compress']);
   grunt.registerTask('work-compress',['work','compress']);
   grunt.registerTask('prod-compress',['prod','compress']);
+  grunt.registerTask('int-compress', ['int','compress']);
 
-  grunt.registerTask('release', ['demo-compress','work-compress','prod-compress','default']);
+  grunt.registerTask('release', ['clean','demo-compress','work-compress','prod-compress','int-compress','default']);
 
-  grunt.registerTask('default', ['map']);
+  grunt.registerTask('default', ['clean','map']);
 };
