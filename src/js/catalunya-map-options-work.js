@@ -48,7 +48,7 @@
             stroke: '#000000', //black
             'stroke-width': 0.4,
             'font-family': 'Verdana',
-            'font-size': '12px',
+            'font-size': '14px',
             'font-weight': 'bold',
             'cursor': 'pointer',
             'z-index': 20
@@ -58,16 +58,17 @@
             fill: '#686868', // grey
             'stroke-width': 0,
             'font-family': 'Verdana',
-            'font-size': '12px',
+            'font-size': '14px',
             'font-weight': 'bold',
             'cursor': 'pointer',
             'z-index': 20
         },
 
         nomCapitalAttr: { //nom capital comarca style configuration
-            fill: '#FF9900', //orange
+            fill: '#000000', //orange
             "font-family": "Arial, sans-serif",
-            "font-size": "10px",
+            "font-size": "12px",
+            'font-weight': 'bold',
             'cursor': 'pointer',
             'z-index': 30
         }
