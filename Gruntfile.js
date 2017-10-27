@@ -7,8 +7,8 @@ module.exports = function(grunt) {
         options: {
           variables: {
             'environment': 'work',
-            'configuration': 'catalunya-map-options-v2.js',
-            'style': 'src/css/catalunya-map-v2.css'
+            'configuration': 'catalunya-map-options-work.js',
+            'style': 'src/css/catalunya-map-v1.css'
           }
         }
       },
@@ -16,7 +16,7 @@ module.exports = function(grunt) {
         options: {
           variables: {
             'environment': 'production',
-            'configuration': 'catalunya-map-options-v1.js',
+            'configuration': 'catalunya-map-options-prod.js',
             'style': 'src/css/catalunya-map-v1.css'
           }
         }
@@ -36,6 +36,15 @@ module.exports = function(grunt) {
             'environment': 'demo',
             'configuration': 'catalunya-map-options-v2.js',
             'style': 'src/css/catalunya-map-v2.css'
+          }
+        }
+      },
+      int: {
+        options: {
+          variables: {
+            'environment': 'int',
+            'configuration': 'catalunya-map-options-int.js',
+            'style': 'src/css/catalunya-map-v1.css'
           }
         }
       }
@@ -124,16 +133,18 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-compress');
 
   // Task definitions
-  grunt.registerTask('map',  ['config:map', 'clean', 'jsbeautifier', 'uglify', 'copy', 'cssmin']);
-  grunt.registerTask('demo', ['config:demo', 'clean', 'jsbeautifier', 'uglify', 'copy', 'cssmin']);
-  grunt.registerTask('work', ['config:work', 'clean', 'jsbeautifier', 'uglify', 'copy', 'cssmin']);
-  grunt.registerTask('prod', ['config:prod', 'clean', 'jsbeautifier', 'uglify', 'copy', 'cssmin']);
+  grunt.registerTask('map',  ['config:map',  'jsbeautifier', 'uglify', 'copy', 'cssmin']);
+  grunt.registerTask('demo', ['config:demo', 'jsbeautifier', 'uglify', 'copy', 'cssmin']);
+  grunt.registerTask('work', ['config:work', 'jsbeautifier', 'uglify', 'copy', 'cssmin']);
+  grunt.registerTask('prod', ['config:prod', 'jsbeautifier', 'uglify', 'copy', 'cssmin']);
+  grunt.registerTask('int',  ['config:int',  'jsbeautifier', 'uglify', 'copy', 'cssmin']);
 
   grunt.registerTask('demo-compress',['demo','compress']);
   grunt.registerTask('work-compress',['work','compress']);
   grunt.registerTask('prod-compress',['prod','compress']);
+  grunt.registerTask('int-compress', ['int','compress']);
 
-  grunt.registerTask('release', ['demo-compress','work-compress','prod-compress','default']);
+  grunt.registerTask('release', ['clean','demo-compress','work-compress','prod-compress','int-compress','default']);
 
-  grunt.registerTask('default', ['map']);
+  grunt.registerTask('default', ['clean','map']);
 };

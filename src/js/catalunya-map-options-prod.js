@@ -4,8 +4,7 @@
 
 (function(window, catmap) {
 
-    //catmap.URL_JSON = //catmap.URL_JSON = "https://work.catalunyamedieval.dev/wp-content/themes/catalunyamedieval/js/catalunya-map/catalunya-map-path.json";
-    catmap.URL_JSON = "assets/js/catalunya-map/catalunya-map-path.json";
+    catmap.URL_JSON = "https://www.catalunyamedieval.es/wp-content/themes/catalunyamedieval/assets/js/catalunya-map/catalunya-map-path.json";
 
     catmap.MAP_OPTIONS = {
 
@@ -26,7 +25,7 @@
         responsive: true, //enable/disable responsive funcionality
         useText: true, //enable/disable list text comarques
 
-        button: false, //enable/disable button functionality
+        button: true, //enable/disable button functionality
 
         //if no button functionality
         onClick: false, //enable/disable onclick open link
@@ -69,8 +68,8 @@
             fill: '#FF9900', //orange
             "font-family": "Arial, sans-serif",
             "font-size": "12px",
-            'font-weight': 'bold',
             'cursor': 'pointer',
+            'font-weight': 'bold',
             'z-index': 30
         }
     };
