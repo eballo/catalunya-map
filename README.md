@@ -186,6 +186,9 @@ v7.3
 - refactor
 - sonar fixes
 
+v7.4
+- configuracion text mes gran.
+
 ## Webs using this map:
 - [blog cimasdestacables](http://cimasdestacables.blogspot.com/p/mapa-comarcal-de-catalunya.html)
 - [catalunya medieval](http://www.catalunyamedieval.es)
