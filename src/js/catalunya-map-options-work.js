@@ -65,7 +65,7 @@
         },
 
         nomCapitalAttr: { //nom capital comarca style configuration
-            fill: '#000000', //orange
+            fill: '#FF9900', //orange
             "font-family": "Arial, sans-serif",
             "font-size": "12px",
             'font-weight': 'bold',
