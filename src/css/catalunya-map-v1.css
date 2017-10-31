@@ -62,7 +62,7 @@
   font-weight: normal;
   list-style: none;
   /* Hiding */
-  pointer-events: none;
+  /*pointer-events: none;*/
 }
 
 .llistat-edificis li {

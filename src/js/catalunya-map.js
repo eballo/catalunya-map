@@ -261,11 +261,12 @@ $(function(window) {
 
                         $('#veure-contingut').show();
 
-                        $('#contentText').click(function() {
-                            //window.open(comarcaLink, 'window name', 'window settings');
-                            window.location = comarcaLink;
-                            return false;
-                        });
+                        //$('#contentText').click(function() {
+                        //window.open(comarcaLink, 'window name', 'window settings');
+                        //window.location = comarcaLink;
+                        //return false;
+                        //});
+
                         $('#veure-contingut').click(function() {
                             //window.open(comarcaLink, 'window name', 'window settings');
                             $(this).toggleClass("veure-clic");
