@@ -185,7 +185,7 @@ $(function(window) {
 
                         } else {
                             //if it is the selected comarca on hover out treiem la capital
-                            this[2].hide();
+                            //this[2].hide();
                         }
                     }, obj, obj);
 
@@ -352,12 +352,12 @@ $(function(window) {
                 });
 
                 //On mouse enter show comarca name
-                $('.map-wrapper').mouseenter(function() {
+                $('#map').mouseenter(function() {
                     self.showComarcaName();
                 });
 
                 //On mouse leave hide comarca name
-                $('.map-wrapper').mouseleave(function() {
+                $('#map').mouseleave(function() {
                     self.hideComarcaName();
                 });
 
@@ -383,7 +383,9 @@ $(function(window) {
                 for (var comarca in this.mappaths) {
                     //Create obj
                     obj = this.mcat[comarca];
-                    obj[1].hide();
+                    if (obj[1].comarcaName != this.selected) {
+                        obj[1].hide();
+                    }
                 }
             },
 
