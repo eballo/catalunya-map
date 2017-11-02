@@ -31,7 +31,7 @@
 
   /* Styles */
   background: #fff;
-  cursor: pointer;
+  /*cursor: pointer;*/
   outline: none;
 
 }
@@ -145,9 +145,10 @@
 .background:active { background: black; }
 
 .greyBackground{
-	background-color: #e4c090;
+	/*background-color: #e4c090;*/
 	font-size: 9pt;
 	font-weight: bold;
+	border-bottom: 1px solid #fff6eb;
 }
 
 /* Active state animation keyframes below */

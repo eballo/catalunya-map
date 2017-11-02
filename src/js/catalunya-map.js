@@ -19,6 +19,7 @@ $(function(window) {
             this.winWidth;
             this.win;
             this.obj;
+            this.selected;
 
             //Array of comarcas
             this.mcat = {};
@@ -175,9 +176,17 @@ $(function(window) {
                         var params = {
                             'fill': config.colorOut
                         };
-                        this[0].animate(params, 100);
-                        this[1].attr(config.nomComcarcaAttr_out);
-                        this[2].hide();
+                        //if it is not the selected comarca remove styles
+                        if (self.selected != this[0].comarcaName) {
+
+                            this[0].animate(params, 100);
+                            this[1].attr(config.nomComcarcaAttr_out);
+                            this[2].hide();
+
+                        } else {
+                            //if it is the selected comarca on hover out treiem la capital
+                            //this[2].hide();
+                        }
                     }, obj, obj);
 
                     if (this.config.useText) {
@@ -186,6 +195,8 @@ $(function(window) {
                             var comarcaName = this.comarcaName;
                             var contentText = this.contentText;
                             var comarcaLink = this.comarcaLink;
+                            self.selected = this.comarcaName;
+                            self.remove_background();
                             self.onMapClick(comarcaName, contentText, comarcaLink);
                         });
 
@@ -193,6 +204,8 @@ $(function(window) {
                             var comarcaName = this.comarcaName;
                             var contentText = this.contentText;
                             var comarcaLink = this.comarcaLink;
+                            self.selected = this.comarcaName;
+                            self.remove_background();
                             self.onMapClick(comarcaName, contentText, comarcaLink);
                         });
 
@@ -200,6 +213,8 @@ $(function(window) {
                             var comarcaName = this.comarcaName;
                             var contentText = this.contentText;
                             var comarcaLink = this.comarcaLink;
+                            self.selected = this.comarcaName;
+                            self.remove_background();
                             self.onMapClick(comarcaName, contentText, comarcaLink);
                         });
 
@@ -207,6 +222,8 @@ $(function(window) {
                             var comarcaName = this.comarcaName;
                             var contentText = this.contentText;
                             var comarcaLink = this.comarcaLink;
+                            self.selected = this.comarcaName;
+                            self.remove_background();
                             self.onMapClick(comarcaName, contentText, comarcaLink);
                         });
 
@@ -214,6 +231,8 @@ $(function(window) {
                             var comarcaName = this.comarcaName;
                             var contentText = this.contentText;
                             var comarcaLink = this.comarcaLink;
+                            self.selected = this.comarcaName;
+                            self.remove_background();
                             self.onMapClick(comarcaName, contentText, comarcaLink);
                         });
 
@@ -221,6 +240,8 @@ $(function(window) {
                             var comarcaName = this.comarcaName;
                             var contentText = this.contentText;
                             var comarcaLink = this.comarcaLink;
+                            self.selected = this.comarcaName;
+                            self.remove_background();
                             self.onMapClick(comarcaName, contentText, comarcaLink);
                         });
                     }
@@ -237,6 +258,26 @@ $(function(window) {
                     self.resizeMap(paper);
                 }
 
+            },
+            /**
+             * Remove the background if it is not the selected one
+             */
+            remove_background: function() {
+                var config = this.config;
+                for (var comarca in this.mappaths) {
+                    obj = this.mcat[comarca];
+                    //console.log('selected: ' + this.selected + ' Obj: ' + obj[0].comarcaName);
+                    if (obj[0].comarcaName != this.selected) {
+                        var params = {
+                            'fill': config.colorOut
+                        };
+                        obj[0].animate(params, 100);
+                        obj[1].attr(config.nomComcarcaAttr_out);
+                        obj[2].hide();
+                    } else {
+                        //console.log('selected: ' + this.selected + ' = Obj: ' + obj[0].comarcaName);
+                    }
+                }
             },
 
             /**
@@ -311,12 +352,12 @@ $(function(window) {
                 });
 
                 //On mouse enter show comarca name
-                $('.map-wrapper').mouseenter(function() {
+                $('#map').mouseenter(function() {
                     self.showComarcaName();
                 });
 
                 //On mouse leave hide comarca name
-                $('.map-wrapper').mouseleave(function() {
+                $('#map').mouseleave(function() {
                     self.hideComarcaName();
                 });
 
@@ -342,7 +383,9 @@ $(function(window) {
                 for (var comarca in this.mappaths) {
                     //Create obj
                     obj = this.mcat[comarca];
-                    obj[1].hide();
+                    if (obj[1].comarcaName != this.selected) {
+                        obj[1].hide();
+                    }
                 }
             },
 

@@ -8,6 +8,7 @@
 #map {
   float: right;
   margin-left: 300px;
+  /* background: url(../../images/old_wall.png); */
 }
 
 #debugInfo {
@@ -29,7 +30,7 @@
   padding: 0;
   /* Styles */
   background: #fff;
-  cursor: pointer;
+  /*cursor: pointer;*/
   outline: none;
 }
 
@@ -150,9 +151,10 @@
 }
 
 .greyBackground {
-  background-color: #cdcecf;
+  /*background-color: #cdcecf;*/
   font-size: 9pt;
   font-weight: bold;
+  border-bottom: 1px solid #EFF0F1;
 }
 
 .list-group-item>.badge {
