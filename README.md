@@ -190,6 +190,9 @@ v7.3
 v7.4
 - configuracion text mes gran.
 
+v7.5
+- bloqueix de color de fons quan comarca esta seleccionada.
+
 ## Webs using this map:
 - [blog cimasdestacables](http://cimasdestacables.blogspot.com/p/mapa-comarcal-de-catalunya.html)
 - [catalunya medieval](http://www.catalunyamedieval.es)
