@@ -8,7 +8,7 @@ module.exports = function(grunt) {
           variables: {
             'environment': 'work',
             'configuration': 'catalunya-map-options-work.js',
-            'style': 'src/css/catalunya-map-v1.css'
+            'style': 'src/css/catalunya-map-v3.css'
           }
         }
       },
@@ -17,7 +17,7 @@ module.exports = function(grunt) {
           variables: {
             'environment': 'production',
             'configuration': 'catalunya-map-options-prod.js',
-            'style': 'src/css/catalunya-map-v1.css'
+            'style': 'src/css/catalunya-map-v3.css'
           }
         }
       },
@@ -26,7 +26,7 @@ module.exports = function(grunt) {
           variables: {
             'environment': 'map',
             'configuration': 'catalunya-map-options-v1.js',
-            'style': 'src/css/catalunya-map-v1.css'
+            'style': 'src/css/catalunya-map-v3.css'
           }
         }
       },
@@ -44,7 +44,7 @@ module.exports = function(grunt) {
           variables: {
             'environment': 'int',
             'configuration': 'catalunya-map-options-int.js',
-            'style': 'src/css/catalunya-map-v1.css'
+            'style': 'src/css/catalunya-map-v3.css'
           }
         }
       }
