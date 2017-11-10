@@ -326,9 +326,15 @@ $(function(window) {
                         });
 
                     }
+                    $('#comarcaName').fadeOut(100);
+                    $('#contentText').fadeOut(100).delay(400);
 
                     $('#comarcaName').html('<h1>' + comarcaName + '</h1><h2>' + capitalComarca + '</h2>');
                     $('#contentText').html(contentText);
+
+                    $('#contentText').fadeIn(500);
+                    $('#comarcaName').fadeIn(500);
+
                 }
             },
 
