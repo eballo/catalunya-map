@@ -233,12 +233,6 @@
 
 /*  LEGEND  */
 
-/* basic positioning */
-#mobile-text{
-  display:none;
-  visibility:hidden;
-}
-
 #legend {
   width: 250px;
   height: 50px;
