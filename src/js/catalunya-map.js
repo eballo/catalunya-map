@@ -413,20 +413,20 @@ $(function(window) {
 
                 winWidth = win.width();
 
-                if (winWidth >= 960) {
+                if (winWidth >= 1100) {
                     if (this.config.debug) {
-                        console.log('WindowWith > 960');
+                        console.log('WindowWith > 1100');
                     }
                     self.hideListShowMap();
 
-                    this.config.mapWidth = this.config.mapInitWidth * 0.8;
-                    this.config.mapHeight = this.config.mapInitHeight * 0.8;
+                    this.config.mapWidth = this.config.mapInitWidth * 0.88;
+                    this.config.mapHeight = this.config.mapInitHeight * 0.88;
                     paper.scaleAll(this.config.scale);
                     self.resizeMap(paper);
 
-                } else if (winWidth < 960 && winWidth >= 768) {
+                } else if (winWidth < 1100 && winWidth >= 768) {
                     if (this.config.debug) {
-                        console.log('768 =< WindowWith < 960 ');
+                        console.log('768 =< WindowWith < 1100 ');
                     }
                     self.hideMapShowList();
 

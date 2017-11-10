@@ -3,6 +3,7 @@
 .map-wrapper {
   margin: 0 auto;
   position: relative;
+  height: 700px;
 }
 
 #map {
@@ -27,6 +28,7 @@
   clear: both;
   width: 300px;
   font-family: 'Droid Sans', sans-serif;
+  font-size: 14px;
   /*overflow: auto;*/
   /* Size and position */
   padding: 0;
@@ -655,7 +657,7 @@
 -This CSS will apply for devices with the minimum width of 768 pixels
 */
 
-@media only screen and (min-width: 960px) {
+@media only screen and (min-width: 1100px) {
   .map-wrapper {
     visibility: visible;
   }
