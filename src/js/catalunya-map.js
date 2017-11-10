@@ -358,7 +358,7 @@ $(function(window) {
 
                 $(".map-wrapper").css({
                     'width': this.config.mapWidth + this.config.textInitWidth + 'px',
-                    'height': this.config.mapHeight + 'px'
+                    'height': '700px'
                 });
 
                 //On mouse enter show comarca name
@@ -413,20 +413,20 @@ $(function(window) {
 
                 winWidth = win.width();
 
-                if (winWidth >= 1100) {
+                if (winWidth >= 960) {
                     if (this.config.debug) {
-                        console.log('WindowWith > 1100');
+                        console.log('WindowWith > 960');
                     }
                     self.hideListShowMap();
 
-                    this.config.mapWidth = this.config.mapInitWidth * 0.88;
-                    this.config.mapHeight = this.config.mapInitHeight * 0.88;
+                    this.config.mapWidth = this.config.mapInitWidth * 0.86;
+                    this.config.mapHeight = this.config.mapInitHeight * 0.86;
                     paper.scaleAll(this.config.scale);
                     self.resizeMap(paper);
 
-                } else if (winWidth < 1100 && winWidth >= 768) {
+                } else if (winWidth < 960 && winWidth >= 768) {
                     if (this.config.debug) {
-                        console.log('768 =< WindowWith < 1100 ');
+                        console.log('768 =< WindowWith < 960 ');
                     }
                     self.hideMapShowList();
 
