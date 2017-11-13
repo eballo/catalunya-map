@@ -35,7 +35,7 @@ module.exports = function(grunt) {
           variables: {
             'environment': 'demo',
             'configuration': 'catalunya-map-options-v2.js',
-            'style': 'src/css/catalunya-map-v2.css'
+            'style': 'src/css/catalunya-map-v3.css'
           }
         }
       },
