@@ -2,7 +2,7 @@
 Interactive vectorial map of Catalunya based on a SVG/VML and the library RaphaëlJs.
 
 
-<img src="https://github.com/eballo/catalunya-map/blob/master/screenshot/screenshot-v7.0.png" alt="screen-shot" align="center" />
+<img src="https://github.com/eballo/catalunya-map/blob/master/screenshot/screenshot-v7.5_2.png" alt="screen-shot" align="center" />
 
 ## Current versions
 * Raphaël JS - 2.2.1
@@ -83,7 +83,7 @@ Explanation :
 
     catalunya-map-path.js       : js file that have the javascript array with all the data
     catalunya-map.js            : js file that have the object to create maps
-    catalunya-map-options-vX.js : js file that have the custom options for each theme (v1/v2)
+    catalunya-map-options-vX.js : js file that have the custom options for each theme (v1/v2/v3)
     catalunya-map-init.js       : js file that create an object map and print it in the screen
 
 2. Add this code in the body
@@ -192,6 +192,8 @@ v7.4
 
 v7.5
 - bloqueix de color de fons quan comarca esta seleccionada.
+- configuration option v3
+- Add text, and effects
 
 ## Webs using this map:
 - [blog cimasdestacables](http://cimasdestacables.blogspot.com/p/mapa-comarcal-de-catalunya.html)
