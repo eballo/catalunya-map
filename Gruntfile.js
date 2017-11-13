@@ -8,7 +8,7 @@ module.exports = function(grunt) {
           variables: {
             'environment': 'work',
             'configuration': 'catalunya-map-options-work.js',
-            'style': 'src/css/catalunya-map-v1.css'
+            'style': 'src/css/catalunya-map-v3.css'
           }
         }
       },
@@ -17,7 +17,7 @@ module.exports = function(grunt) {
           variables: {
             'environment': 'production',
             'configuration': 'catalunya-map-options-prod.js',
-            'style': 'src/css/catalunya-map-v1.css'
+            'style': 'src/css/catalunya-map-v3.css'
           }
         }
       },
@@ -26,7 +26,7 @@ module.exports = function(grunt) {
           variables: {
             'environment': 'map',
             'configuration': 'catalunya-map-options-v1.js',
-            'style': 'src/css/catalunya-map-v1.css'
+            'style': 'src/css/catalunya-map-v3.css'
           }
         }
       },
@@ -44,7 +44,7 @@ module.exports = function(grunt) {
           variables: {
             'environment': 'int',
             'configuration': 'catalunya-map-options-int.js',
-            'style': 'src/css/catalunya-map-v1.css'
+            'style': 'src/css/catalunya-map-v3.css'
           }
         }
       }
@@ -100,6 +100,20 @@ module.exports = function(grunt) {
 
         ],
       },
+      configurationFiles:
+        {
+          files:
+            [
+              {
+                src: ['src/js/<%= grunt.config.get("configuration") %>'],
+                dest: 'dist/<%= grunt.config.get("environment") %>/catalunya-map-options.js'
+              },
+              {
+                src: ['assets/css/catalunya-map/catalunya-map.min.css'],
+                dest: 'dist/<%= grunt.config.get("environment") %>/catalunya-map.min.css'
+              },
+            ],
+        },
     },
     clean: ['assets/js/', 'assets/css/'],
     cssmin: {
@@ -139,12 +153,16 @@ module.exports = function(grunt) {
   grunt.registerTask('prod', ['config:prod', 'jsbeautifier', 'uglify', 'copy', 'cssmin']);
   grunt.registerTask('int',  ['config:int',  'jsbeautifier', 'uglify', 'copy', 'cssmin']);
 
-  grunt.registerTask('demo-compress',['demo','compress']);
-  grunt.registerTask('work-compress',['work','compress']);
-  grunt.registerTask('prod-compress',['prod','compress']);
-  grunt.registerTask('int-compress', ['int','compress']);
+  //Configuration Files folder
+  grunt.registerTask('demo-config',['demo','copy:configurationFiles']);
+  grunt.registerTask('prod-config',['prod','copy:configurationFiles']);
+  grunt.registerTask('int-config', ['int', 'copy:configurationFiles']);
+  grunt.registerTask('work-config',['work','copy:configurationFiles']);
 
-  grunt.registerTask('release', ['clean','demo-compress','work-compress','prod-compress','int-compress','default']);
+  //Work Compress
+  grunt.registerTask('work-compress',['work','compress']);
+
+  grunt.registerTask('release', ['clean','work-compress', 'demo-config', 'prod-config', 'int-config', 'work-config']);
 
   grunt.registerTask('default', ['clean','map']);
 };

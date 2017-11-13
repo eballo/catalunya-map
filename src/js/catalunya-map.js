@@ -146,6 +146,10 @@ $(function(window) {
                     obj[1].comarcaName = this.mappaths[comarca].name;
                     obj[2].comarcaName = this.mappaths[comarca].name;
 
+                    obj[0].capitalComarca = this.mappaths[comarca].capital;
+                    obj[1].capitalComarca = this.mappaths[comarca].capital;
+                    obj[2].capitalComarca = this.mappaths[comarca].capital;
+
                     obj[0].contentText = this.mappaths[comarca].info;
                     obj[1].contentText = this.mappaths[comarca].info;
                     obj[2].contentText = this.mappaths[comarca].info;
@@ -193,56 +197,62 @@ $(function(window) {
                         // on click event
                         obj[0].click(function() {
                             var comarcaName = this.comarcaName;
+                            var capitalComarca = this.capitalComarca;
                             var contentText = this.contentText;
                             var comarcaLink = this.comarcaLink;
                             self.selected = this.comarcaName;
                             self.remove_background();
-                            self.onMapClick(comarcaName, contentText, comarcaLink);
+                            self.onMapClick(comarcaName, capitalComarca, contentText, comarcaLink);
                         });
 
                         obj[1].click(function() {
                             var comarcaName = this.comarcaName;
+                            var capitalComarca = this.capitalComarca;
                             var contentText = this.contentText;
                             var comarcaLink = this.comarcaLink;
                             self.selected = this.comarcaName;
                             self.remove_background();
-                            self.onMapClick(comarcaName, contentText, comarcaLink);
+                            self.onMapClick(comarcaName, capitalComarca, contentText, comarcaLink);
                         });
 
                         obj[2].click(function() {
                             var comarcaName = this.comarcaName;
+                            var capitalComarca = this.capitalComarca;
                             var contentText = this.contentText;
                             var comarcaLink = this.comarcaLink;
                             self.selected = this.comarcaName;
                             self.remove_background();
-                            self.onMapClick(comarcaName, contentText, comarcaLink);
+                            self.onMapClick(comarcaName, capitalComarca, contentText, comarcaLink);
                         });
 
                         obj[0].touchstart(function() {
                             var comarcaName = this.comarcaName;
+                            var capitalComarca = this.capitalComarca;
                             var contentText = this.contentText;
                             var comarcaLink = this.comarcaLink;
                             self.selected = this.comarcaName;
                             self.remove_background();
-                            self.onMapClick(comarcaName, contentText, comarcaLink);
+                            self.onMapClick(comarcaName, capitalComarca, contentText, comarcaLink);
                         });
 
                         obj[1].touchstart(function() {
                             var comarcaName = this.comarcaName;
+                            var capitalComarca = this.capitalComarca;
                             var contentText = this.contentText;
                             var comarcaLink = this.comarcaLink;
                             self.selected = this.comarcaName;
                             self.remove_background();
-                            self.onMapClick(comarcaName, contentText, comarcaLink);
+                            self.onMapClick(comarcaName, capitalComarca, contentText, comarcaLink);
                         });
 
                         obj[2].touchstart(function() {
                             var comarcaName = this.comarcaName;
+                            var capitalComarca = this.capitalComarca;
                             var contentText = this.contentText;
                             var comarcaLink = this.comarcaLink;
                             self.selected = this.comarcaName;
                             self.remove_background();
-                            self.onMapClick(comarcaName, contentText, comarcaLink);
+                            self.onMapClick(comarcaName, capitalComarca, contentText, comarcaLink);
                         });
                     }
 
@@ -284,7 +294,7 @@ $(function(window) {
              * On Map click show the information text
              * @return {[type]} [description]
              */
-            onMapClick: function(comarcaName, contentText, comarcaLink) {
+            onMapClick: function(comarcaName, capitalComarca, contentText, comarcaLink) {
                 if (this.config.onClick) {
                     //console.log(comarcaLink);
                     if (this.config.newWindow) {
@@ -316,9 +326,15 @@ $(function(window) {
                         });
 
                     }
+                    $('#comarcaName').fadeOut(100);
+                    $('#contentText').fadeOut(100).delay(400);
 
-                    $('#comarcaName').html('<h1>' + comarcaName + '</h1>');
+                    $('#comarcaName').html('<h1>' + comarcaName + '</h1><h2>' + capitalComarca + '</h2>');
                     $('#contentText').html(contentText);
+
+                    $('#contentText').fadeIn(500);
+                    $('#comarcaName').fadeIn(500);
+
                 }
             },
 
@@ -348,7 +364,7 @@ $(function(window) {
 
                 $(".map-wrapper").css({
                     'width': this.config.mapWidth + this.config.textInitWidth + 'px',
-                    'height': this.config.mapHeight + 'px'
+                    'height': '700px'
                 });
 
                 //On mouse enter show comarca name
