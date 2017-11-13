@@ -425,8 +425,8 @@ $(function(window) {
                     }
                     self.hideListShowMap();
 
-                    this.config.mapWidth = this.config.mapInitWidth * 0.86;
-                    this.config.mapHeight = this.config.mapInitHeight * 0.86;
+                    this.config.mapWidth = this.config.mapInitWidth * 0.8;
+                    this.config.mapHeight = this.config.mapInitHeight * 0.8;
                     paper.scaleAll(this.config.scale);
                     self.resizeMap(paper);
 
