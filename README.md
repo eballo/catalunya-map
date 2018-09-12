@@ -31,16 +31,17 @@ Interactive vectorial map of Catalunya based on a SVG/VML and the library Rapha�
 - [Demo v7.3](http://demo.catalunyamedieval.es/map73)
 - [Demo v7.4](http://demo.catalunyamedieval.es/map74)
 - [Demo v7.5](http://demo.catalunyamedieval.es/map75)
+- [Demo v8.0](http://demo.catalunyamedieval.es/map80)
 
 ## How to create a Map using a SVG file
 
-1. Given a [SVG file](http://demo.catalunyamedieval.es/map7/src/Mapa_comarcal_de_Catalunya.svg) you can rename it to xml [XML file](http://demo.catalunyamedieval.es/map7/xml/Mapa_comarcal_de_Catalunya.svg.xml)
+1. Given a [SVG file](http://demo.catalunyamedieval.es/map80/src/Mapa_comarcal_de_Catalunya.svg) you can rename it to xml [XML file](http://demo.catalunyamedieval.es/map7/xml/Mapa_comarcal_de_Catalunya.svg.xml)
 2. Inside the xml file you will see a d="..." like this one
 ```
 	d="M 97.21875 15.40625 L 94.84375 L 100.03125 16.34375 L 98.625 15.65625 L 98.15625 15.65625 L 97.21875 15.40625 z "
 ```
-3. Create a mappath array with all the values seen in the last point like this [path file](http://demo.catalunyamedieval.es/map7/js/catalunya-map-path.js)
-4. Use RaphaëlJs to draw the map like this [path file](http://demo.catalunyamedieval.es/map7/js/catalunya-map-init.js)
+3. Create a mappath array with all the values seen in the last point like this [path file](http://demo.catalunyamedieval.es/map80/js/catalunya-map-path.js)
+4. Use RaphaëlJs to draw the map like this [path file](http://demo.catalunyamedieval.es/map80/js/catalunya-map-init.js)
 
 ## How to use this map (last version)
 
@@ -195,6 +196,14 @@ v7.5
 - bloqueix de color de fons quan comarca esta seleccionada.
 - configuration option v3
 - Add text, and effects
+
+v8.0
+- Add Grunt-contrib-watch package
+- Add Grunt-replace package
+- Remove effect when click on comarca
+- Add background grey color on mouse over
+- Change typhography -> Droid Sans
+- Add configuration file parameters (remove old configuration files for environment)
 
 ## Webs using this map:
 - [blog cimasdestacables](http://cimasdestacables.blogspot.com/p/mapa-comarcal-de-catalunya.html)

@@ -4,8 +4,7 @@
 
 (function(window, catmap) {
 
-    //catmap.URL_JSON = //catmap.URL_JSON = "https://work.catalunyamedieval.dev/wp-content/themes/catalunyamedieval/js/catalunya-map/catalunya-map-path.json";
-    catmap.URL_JSON = "assets/js/catalunya-map/catalunya-map-path.json";
+    catmap.URL_JSON = "##REPLACE_URL_JSON";
 
     catmap.MAP_OPTIONS = {
 
@@ -33,11 +32,12 @@
         newWindow: false, //enable/disable open a page in a new window for onClick functionality
 
         comarcaAttr: { //comarca style configuration
+            //fill: 'url(assets/images/natural_paper.png)',
             fill: '#fff',
             stroke: '#c7ab89', //color for the limit line of comarca (clear brown)
             'stroke-width': 0.8,
             'stroke-linejoin': 'round',
-            'font-family': 'Verdana',
+            'font-family': 'Droid Sans,Verdana',
             'font-size': '19px',
             'font-weight': 'bold',
             'cursor': 'pointer',
@@ -48,7 +48,7 @@
             fill: '#a07a49', //color for the text of comarca (dark brown)
             stroke: '#000000', //black
             'stroke-width': 0.4,
-            'font-family': 'Verdana',
+            'font-family': 'Droid Sans,Verdana',
             'font-size': '14px',
             'font-weight': 'bold',
             'cursor': 'pointer',
@@ -58,7 +58,7 @@
         nomComcarcaAttr_out: { //nom comarca style configuration for hover out
             fill: '#a07a49',
             'stroke-width': 0,
-            'font-family': 'Verdana',
+            'font-family': 'Droid Sans,Verdana',
             'font-size': '14px',
             'font-weight': 'bold',
             'cursor': 'pointer',
@@ -67,7 +67,7 @@
 
         nomCapitalAttr: { //nom capital comarca style configuration
             fill: '#FF9900', //orange
-            "font-family": "Arial, sans-serif",
+            "font-family": "Droid Sans, Arial, sans-serif",
             "font-size": "12px",
             'font-weight': 'bold',
             'cursor': 'pointer',

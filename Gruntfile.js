@@ -7,8 +7,9 @@ module.exports = function(grunt) {
         options: {
           variables: {
             'environment': 'work',
-            'configuration': 'catalunya-map-options-work.js',
-            'style': 'src/css/catalunya-map-v3.css'
+            'configuration': 'catalunya-map-options-v1.js',
+            'style': 'src/css/catalunya-map-v3.css',
+            'url': 'https://work.catalunyamedieval.dev/wp-content/themes/catalunyamedieval/assets/js/catalunya-map/catalunya-map-path.json'
           }
         }
       },
@@ -16,8 +17,9 @@ module.exports = function(grunt) {
         options: {
           variables: {
             'environment': 'production',
-            'configuration': 'catalunya-map-options-prod.js',
-            'style': 'src/css/catalunya-map-v3.css'
+            'configuration': 'catalunya-map-options-v1.js',
+            'style': 'src/css/catalunya-map-v3.css',
+            'url' : 'https://www.catalunyamedieval.es/wp-content/themes/catalunyamedieval/assets/js/catalunya-map/catalunya-map-path.json'
           }
         }
       },
@@ -26,7 +28,8 @@ module.exports = function(grunt) {
           variables: {
             'environment': 'map',
             'configuration': 'catalunya-map-options-v1.js',
-            'style': 'src/css/catalunya-map-v3.css'
+            'style': 'src/css/catalunya-map-v3.css',
+            'url': 'assets/js/catalunya-map/catalunya-map-path.json'
           }
         }
       },
@@ -35,7 +38,8 @@ module.exports = function(grunt) {
           variables: {
             'environment': 'demo',
             'configuration': 'catalunya-map-options-v2.js',
-            'style': 'src/css/catalunya-map-v3.css'
+            'style': 'src/css/catalunya-map-v3.css',
+            'url': 'assets/js/catalunya-map/catalunya-map-path.json'
           }
         }
       },
@@ -43,8 +47,9 @@ module.exports = function(grunt) {
         options: {
           variables: {
             'environment': 'int',
-            'configuration': 'catalunya-map-options-int.js',
-            'style': 'src/css/catalunya-map-v3.css'
+            'configuration': 'catalunya-map-options-v1.js',
+            'style': 'src/css/catalunya-map-v3.css',
+            'url': 'https://int.catalunyamedieval.es/wp-content/themes/catalunyamedieval/assets/js/catalunya-map/catalunya-map-path.json'
           }
         }
       }
@@ -73,10 +78,7 @@ module.exports = function(grunt) {
         punctuation: ''
       },
       main: {
-        files: [{
-            src: ['src/js/<%= grunt.config.get("configuration") %>'],
-            dest: 'assets/js/catalunya-map/catalunya-map-options.js'
-          },
+        files: [
           {
             src:['src/css/bootstrap.min.css'],
             dest: 'assets/css/catalunya-map/bootstrap.min.css'
@@ -98,6 +100,26 @@ module.exports = function(grunt) {
             dest:'assets/js/catalunya-map/raphael.min.js'
           }
 
+        ],
+      },
+      catdev: {
+        files: [
+          {
+            src:['assets/css/catalunya-map/catalunya-map.min.css'],
+            dest:'../catalunyamedieval/assets/css/catalunya-map/catalunya-map.min.css'
+          },
+          {
+            src:['assets/js/catalunya-map/catalunya-map-init.min.js'],
+            dest:'../catalunyamedieval/assets/js/catalunya-map/catalunya-map-init.min.js'
+          },
+          {
+            src:['assets/js/catalunya-map/catalunya-map.min.js'],
+            dest:'../catalunyamedieval/assets/js/catalunya-map/catalunya-map.min.js'
+          },
+          {
+            src: ['assets/js/catalunya-map/catalunya-map-options.js'],
+            dest: '../catalunyamedieval/assets/js/catalunya-map/catalunya-map-options.js'
+          },
         ],
       },
       configurationFiles:
@@ -134,6 +156,36 @@ module.exports = function(grunt) {
           {expand: true, cwd: 'assets/', src: ['**'], dest: 'map/assets'} // makes all src relative to cwd
         ]
       }
+    },
+    watch: {
+      scripts: {
+        files: ['src/js/*.js'],
+        tasks: ['map','work'],
+        options: {
+          spawn: false,
+        },
+      },
+    },
+    replace: {
+      dist: {
+        options: {
+          patterns: [
+            {
+              match: 'REPLACE_URL_JSON',
+              replacement: '<%= grunt.config.get("url") %>'
+            }
+          ],
+          prefix: '##',
+          usePrefix: true
+        },
+
+        files: [
+          {
+            src: ['src/js/<%= grunt.config.get("configuration") %>'],
+            dest: 'assets/js/catalunya-map/catalunya-map-options.js'
+          }
+        ]
+      }
     }
   });
 
@@ -145,13 +197,18 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-contrib-cssmin');
   grunt.loadNpmTasks('grunt-contrib-compress');
+  grunt.loadNpmTasks('grunt-contrib-watch');
+  grunt.loadNpmTasks('grunt-replace');
 
   // Task definitions
-  grunt.registerTask('map',  ['config:map',  'jsbeautifier', 'uglify', 'copy', 'cssmin']);
-  grunt.registerTask('demo', ['config:demo', 'jsbeautifier', 'uglify', 'copy', 'cssmin']);
-  grunt.registerTask('work', ['config:work', 'jsbeautifier', 'uglify', 'copy', 'cssmin']);
-  grunt.registerTask('prod', ['config:prod', 'jsbeautifier', 'uglify', 'copy', 'cssmin']);
-  grunt.registerTask('int',  ['config:int',  'jsbeautifier', 'uglify', 'copy', 'cssmin']);
+  grunt.registerTask('map',  ['config:map',  'jsbeautifier', 'uglify', 'copy', 'replace', 'cssmin']);
+  grunt.registerTask('demo', ['config:demo', 'jsbeautifier', 'uglify', 'copy', 'replace', 'cssmin']);
+  grunt.registerTask('work', ['config:work', 'jsbeautifier', 'uglify', 'copy', 'replace', 'cssmin']);
+  grunt.registerTask('prod', ['config:prod', 'jsbeautifier', 'uglify', 'copy', 'replace', 'cssmin']);
+  grunt.registerTask('int',  ['config:int',  'jsbeautifier', 'uglify', 'copy', 'replace', 'cssmin']);
+
+  // Task + deploy
+  grunt.registerTask('workd', ['work', 'copy:catdev']);
 
   //Configuration Files folder
   grunt.registerTask('demo-config',['demo','copy:configurationFiles']);

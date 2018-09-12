@@ -17,7 +17,7 @@
   },
   "homepage": "https://github.com/eballo/catalunya-map#readme",
   "devDependencies": {
-    "grunt": "^1.0.1",
+    "grunt": "^1.0.3",
     "grunt-config": "^1.0.0",
     "grunt-contrib-clean": "^1.1.0",
     "grunt-contrib-compress": "^1.4.3",
@@ -25,7 +25,11 @@
     "grunt-contrib-copy": "^1.0.0",
     "grunt-contrib-cssmin": "^2.2.1",
     "grunt-contrib-uglify": "^3.0.1",
-    "grunt-jsbeautifier": "^0.2.13"
+    "grunt-contrib-watch": "^1.1.0",
+    "grunt-jsbeautifier": "^0.2.13",
+    "grunt-replace": "^1.0.1"
   },
-  "dependencies": {}
+  "dependencies": {
+    "npm-watch": "^0.3.0"
+  }
 }
