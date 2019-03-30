@@ -4,7 +4,9 @@
   "description": "Interactive vectorial map of Catalunya using GoogleMaps library.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "gulp",
+    "build": "gulp build --prod",
+    "bundle": "gulp bundle --prod"
   },
   "repository": {
     "type": "git",
@@ -17,19 +19,26 @@
   },
   "homepage": "https://github.com/eballo/catalunya-map#readme",
   "devDependencies": {
-    "grunt": "^1.0.3",
-    "grunt-config": "^1.0.0",
-    "grunt-contrib-clean": "^1.1.0",
-    "grunt-contrib-compress": "^1.4.3",
-    "grunt-contrib-concat": "^1.0.1",
-    "grunt-contrib-copy": "^1.0.0",
-    "grunt-contrib-cssmin": "^2.2.1",
-    "grunt-contrib-uglify": "^3.0.1",
-    "grunt-contrib-watch": "^1.1.0",
-    "grunt-jsbeautifier": "^0.2.13",
-    "grunt-replace": "^1.0.1"
+    "@babel/core": "^7.1.6",
+    "@babel/preset-env": "^7.1.6",
+    "@babel/register": "^7.0.0",
+    "browser-sync": "^2.26.3",
+    "del": "^3.0.0",
+    "gulp": "^4.0.0",
+    "gulp-clean-css": "^4.0.0",
+    "gulp-concat": "^2.6.1",
+    "gulp-if": "^2.0.2",
+    "gulp-imagemin": "^5.0.3",
+    "gulp-replace": "^1.0.0",
+    "gulp-sass": "^4.0.2",
+    "gulp-sourcemaps": "^2.6.4",
+    "gulp-uglify": "^3.0.1",
+    "gulp-zip": "^4.2.0",
+    "install": "^0.12.2",
+    "popper.js": "^1.14.6",
+    "vinyl-named": "^1.1.0",
+    "webpack-stream": "^5.2.0",
+    "yargs": "^12.0.5"
   },
-  "dependencies": {
-    "npm-watch": "^0.3.0"
-  }
+  "dependencies": {}
 }
