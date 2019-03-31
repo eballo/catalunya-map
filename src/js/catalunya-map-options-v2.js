@@ -4,7 +4,7 @@
 
 (function(window, catmap) {
 
-    catmap.URL_JSON = "https://localhost:3000/assets/js/catalunya-map-path.json";
+    catmap.URL_JSON = "##REPLACE_URL_JSON";
 
     catmap.MAP_OPTIONS = {
 

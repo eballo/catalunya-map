@@ -1,10 +1,7 @@
 import gulp from 'gulp';
 import yargs from 'yargs';
-import sass from 'gulp-sass'
 import cleanCSS from 'gulp-clean-css';
 import gulpif from 'gulp-if';
-import sourcemaps from 'gulp-sourcemaps';
-import imagemin from 'gulp-imagemin';
 import del from 'del';
 import webpack from 'webpack-stream';
 import uglify from 'gulp-uglify';
@@ -14,9 +11,17 @@ import zip from 'gulp-zip';
 import replace from 'gulp-replace';
 import info from './package.json';
 import concat from 'gulp-concat';
+import log from 'gulplog';
 
 const server = browserSync.create();
 const PRODUCTION = yargs.argv.prod;
+const INT        = yargs.argv.int;
+const WORK       = yargs.argv.work;
+
+const URL_PROD = "https://www.catalunyamedieval.es/wp-content/themes/catalunyamedieval/assets/js/catalunya-map/catalunya-map-path.json";
+const URL_INT  = "https://int.catalunyamedieval.es/wp-content/themes/catalunyamedieval/assets/js/catalunya-map/catalunya-map-path.json";
+const URL_WORK = "https://work.catalunyamedieval.dev/wp-content/themes/catalunyamedieval/assets/js/catalunya-map/catalunya-map-path.json";
+const URL_DEFAULT = "assets/js/catalunya-map-path.json";
 
 const paths = {
   scripts:{
@@ -42,15 +47,19 @@ const BROWSERSYNC = {
 }
 
 export const mapScripts = () => {
+  log.info(PRODUCTION);
   return gulp.src(paths.mapScripts.src)
              .pipe(concat('catalunya-map.min.js'))
+             .pipe(gulpif(PRODUCTION, replace("##REPLACE_URL_JSON", URL_PROD)))
+             .pipe(gulpif(INT, replace("##REPLACE_URL_JSON", URL_INT)))
+             .pipe(gulpif(WORK, replace("##REPLACE_URL_JSON", URL_WORK)))
+             .pipe(gulpif((!PRODUCTION && !INT && !WORK), replace("##REPLACE_URL_JSON", URL_DEFAULT)))
              .pipe(gulpif(PRODUCTION, uglify()))
              .pipe(gulp.dest(paths.scripts.dest));
 }
 
 export const scripts = () => {
   return gulp.src(paths.scripts.src)
-             .pipe(gulpif(PRODUCTION, uglify()))
              .pipe(gulp.dest(paths.scripts.dest));
 }
 

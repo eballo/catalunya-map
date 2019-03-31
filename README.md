@@ -205,6 +205,11 @@ v8.0
 - Change typhography -> Droid Sans
 - Add configuration file parameters (remove old configuration files for environment)
 
+v9.0
+- browserSync
+- change to gulp (gulp)
+
+
 ## Webs using this map:
 - [blog cimasdestacables](http://cimasdestacables.blogspot.com/p/mapa-comarcal-de-catalunya.html)
 - [catalunya medieval](http://www.catalunyamedieval.es)

@@ -34,6 +34,7 @@
     "gulp-sourcemaps": "^2.6.4",
     "gulp-uglify": "^3.0.1",
     "gulp-zip": "^4.2.0",
+    "gulplog": "^1.0.0",
     "install": "^0.12.2",
     "popper.js": "^1.14.6",
     "vinyl-named": "^1.1.0",
