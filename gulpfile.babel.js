@@ -25,11 +25,11 @@ const URL_DEFAULT = "assets/js/catalunya-map-path.json";
 
 const paths = {
   scripts:{
-      src: [ 'src/js/bootstrap.js','src/js/catalunya-map-path.json', 'src/js/jquery-3.2.1.js', 'src/js/raphael.min.js', 'src/js/scale.raphael.js'],
+      src: [ 'src/js/bootstrap.js','src/js/catalunya-map-path.json', 'src/js/jquery-3.2.1.js', 'src/js/raphael.min.js', 'src/js/scale.raphael.js','src/js/catalunya-map-init.js'],
       dest: 'assets/js'
   },
   mapScripts:{
-      src: [ 'src/js/catalunya-map.js', 'src/js/catalunya-map-options-v2.js', 'src/js/catalunya-map-init.js'],
+      src: [ 'src/js/catalunya-map.js', 'src/js/catalunya-map-options-v2.js'],
       dest: 'assets/js'
   },
   package: {
