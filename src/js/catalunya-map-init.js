@@ -1,6 +1,6 @@
 (function(window, catmap) {
     $.ajax({
-        url: catmap.URL_JSON,
+        url: window.location.origin + catmap.URL_JSON,
         dataType: 'json',
         async: true,
         success: function(json) {

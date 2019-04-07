@@ -11,25 +11,21 @@ import zip from 'gulp-zip';
 import replace from 'gulp-replace';
 import info from './package.json';
 import concat from 'gulp-concat';
+import rename from 'gulp-rename';
 import log from 'gulplog';
 
 const server = browserSync.create();
 const PRODUCTION = yargs.argv.prod;
-const INT        = yargs.argv.int;
-const WORK       = yargs.argv.work;
-
-const URL_PROD = "https://www.catalunyamedieval.es/wp-content/themes/catalunyamedieval/assets/js/catalunya-map/catalunya-map-path.json";
-const URL_INT  = "https://int.catalunyamedieval.es/wp-content/themes/catalunyamedieval/assets/js/catalunya-map/catalunya-map-path.json";
-const URL_WORK = "https://work.catalunyamedieval.dev/wp-content/themes/catalunyamedieval/assets/js/catalunya-map/catalunya-map-path.json";
-const URL_DEFAULT = "assets/js/catalunya-map-path.json";
+const URL_PROD = "/wp-content/themes/catalunyamedieval/assets/js/catalunya-map/catalunya-map-path.json";
+const URL_DEFAULT = "/assets/js/catalunya-map-path.json";
 
 const paths = {
   scripts:{
-      src: [ 'src/js/bootstrap.js','src/js/catalunya-map-path.json', 'src/js/jquery-3.2.1.js', 'src/js/raphael.min.js', 'src/js/scale.raphael.js','src/js/catalunya-map-init.js'],
+      src: [ 'src/js/bootstrap.min.js','src/js/catalunya-map-path.json', 'src/js/jquery-3.2.1.min.js', 'src/js/raphael.min.js', 'src/js/scale.raphael.min.js'],
       dest: 'assets/js'
   },
   mapScripts:{
-      src: [ 'src/js/catalunya-map.js', 'src/js/catalunya-map-options-v2.js'],
+      src: [ 'src/js/catalunya-map.js', 'src/js/catalunya-map-options-v2.js','src/js/catalunya-map-init.js'],
       dest: 'assets/js'
   },
   package: {
@@ -37,6 +33,14 @@ const paths = {
     '!package{,/**}', '!.babelrc', '!gulpfile.babel.js', '!package.json',
     '!package-lock.json', '!.DS_Store'],
     dest: 'package'
+  },
+  styles:{
+    src: [ 'src/css/catalunya-map-v3.css'],
+    dest: 'assets/css'
+  },
+  otherStyles:{
+    src: [ 'src/css/bootstrap-theme.min.css', 'src/css/bootstrap.min.css', 'src/css/main.css'],
+    dest: 'assets/css'
   }
 }
 
@@ -47,15 +51,13 @@ const BROWSERSYNC = {
 }
 
 export const mapScripts = () => {
-  log.info(PRODUCTION);
   return gulp.src(paths.mapScripts.src)
-             .pipe(concat('catalunya-map.min.js'))
+             .pipe(concat('catalunya-map.js'))
              .pipe(gulpif(PRODUCTION, replace("##REPLACE_URL_JSON", URL_PROD)))
-             .pipe(gulpif(INT, replace("##REPLACE_URL_JSON", URL_INT)))
-             .pipe(gulpif(WORK, replace("##REPLACE_URL_JSON", URL_WORK)))
-             .pipe(gulpif((!PRODUCTION && !INT && !WORK), replace("##REPLACE_URL_JSON", URL_DEFAULT)))
-             .pipe(gulpif(PRODUCTION, uglify()))
-             .pipe(gulp.dest(paths.scripts.dest));
+             .pipe(gulpif(!PRODUCTION, replace("##REPLACE_URL_JSON", URL_DEFAULT)))
+             .pipe(rename('catalunya-map.min.js'))
+             .pipe(uglify())
+             .pipe(gulp.dest(paths.mapScripts.dest));
 }
 
 export const scripts = () => {
@@ -63,8 +65,20 @@ export const scripts = () => {
              .pipe(gulp.dest(paths.scripts.dest));
 }
 
+export const css = () => {
+  return gulp.src(paths.styles.src)
+             .pipe(rename('catalunya-map.min.css'))
+             .pipe(cleanCSS())
+             .pipe(gulp.dest(paths.styles.dest));
+}
+
+export const otherCSS = () => {
+  return gulp.src(paths.otherStyles.src)
+             .pipe(gulp.dest(paths.otherStyles.dest));
+}
+
 export const clean = () => {
-  return del(['assets/js']);
+  return del(['assets/js','assets/css']);
 }
 
 export const startServer = (done) => {
@@ -85,6 +99,7 @@ export const reload = (done) => {
 
 export const watch = () => {
   gulp.watch('src/js/**/*.js', gulp.series(scripts, reload));
+  gulp.watch('src/css/**/*.css', gulp.series(css, reload));
   gulp.watch("**/*.php", reload);
   gulp.watch("**/*.html", reload);
 }
@@ -95,8 +110,8 @@ export const compress = () => {
              .pipe(gulp.dest(paths.package.dest));
 }
 
-export const build  = gulp.series(clean, gulp.parallel(mapScripts,scripts));
-export const dev    = gulp.series(clean, gulp.parallel(mapScripts,scripts), startServer, watch);
+export const build  = gulp.series(clean, gulp.parallel(mapScripts, scripts, css, otherCSS));
+export const dev    = gulp.series(clean, gulp.parallel(mapScripts, scripts, css, otherCSS), startServer, watch);
 export const bundle = gulp.series(build, compress);
 
 export default dev;
