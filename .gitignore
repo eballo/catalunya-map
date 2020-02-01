@@ -5,3 +5,5 @@
 node_modules/
 dist/
 .sonarlint/
+package/
+assets/js/**

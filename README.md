@@ -31,16 +31,17 @@ Interactive vectorial map of Catalunya based on a SVG/VML and the library Rapha�
 - [Demo v7.3](http://demo.catalunyamedieval.es/map73)
 - [Demo v7.4](http://demo.catalunyamedieval.es/map74)
 - [Demo v7.5](http://demo.catalunyamedieval.es/map75)
+- [Demo v8.0](http://demo.catalunyamedieval.es/map80)
 
 ## How to create a Map using a SVG file
 
-1. Given a [SVG file](http://demo.catalunyamedieval.es/map7/src/Mapa_comarcal_de_Catalunya.svg) you can rename it to xml [XML file](http://demo.catalunyamedieval.es/map7/xml/Mapa_comarcal_de_Catalunya.svg.xml)
+1. Given a [SVG file](http://demo.catalunyamedieval.es/map80/src/Mapa_comarcal_de_Catalunya.svg) you can rename it to xml [XML file](http://demo.catalunyamedieval.es/map7/xml/Mapa_comarcal_de_Catalunya.svg.xml)
 2. Inside the xml file you will see a d="..." like this one
 ```
 	d="M 97.21875 15.40625 L 94.84375 L 100.03125 16.34375 L 98.625 15.65625 L 98.15625 15.65625 L 97.21875 15.40625 z "
 ```
-3. Create a mappath array with all the values seen in the last point like this [path file](http://demo.catalunyamedieval.es/map7/js/catalunya-map-path.js)
-4. Use RaphaëlJs to draw the map like this [path file](http://demo.catalunyamedieval.es/map7/js/catalunya-map-init.js)
+3. Create a mappath array with all the values seen in the last point like this [path file](http://demo.catalunyamedieval.es/map80/js/catalunya-map-path.js)
+4. Use RaphaëlJs to draw the map like this [path file](http://demo.catalunyamedieval.es/map80/js/catalunya-map-init.js)
 
 ## How to use this map (last version)
 
@@ -195,6 +196,61 @@ v7.5
 - bloqueix de color de fons quan comarca esta seleccionada.
 - configuration option v3
 - Add text, and effects
+
+v8.0
+- Add Grunt-contrib-watch package
+- Add Grunt-replace package
+- Remove effect when click on comarca
+- Add background grey color on mouse over
+- Change typhography -> Droid Sans
+- Add configuration file parameters (remove old configuration files for environment)
+
+v9.0
+- browserSync
+- change to gulp (gulp)
+
+## Development
+
+Since version 9.0 uses [gulp](http://gulpjs.com/) as its build system and [Bower](http://bower.io/) to manage front-end packages.
+
+### Install gulp and Bower
+
+Building the theme requires [node.js](http://nodejs.org/download/). We recommend you update to the latest version of npm: `npm install -g npm@latest`.
+
+From the command line:
+
+1. Install [gulp](http://gulpjs.com) and [Bower](http://bower.io/) globally with `npm install -g gulp bower`
+2. Navigate to the theme directory, then run `npm install`
+3. Run `bower install`
+
+You now have all the necessary dependencies to run the build process.
+
+### Available gulp commands
+
+* `gulp` — Compile and optimize the files in your assets directory (by default is development environment)
+* `gulp bundle` — Compile assets and package them in a zip file
+* `gulp bundle --production` — Compile assets for production.
+
+### Using BrowserSync
+
+To use BrowserSync during `gulp watch` you need to update `devUrl` at the bottom of `assets/manifest.json` to reflect your local development hostname.
+
+For example, if your local development URL is `http://project-name.dev` you would update the file to read:
+```json
+...
+  "config": {
+    "devUrl": "http://project-name.dev"
+  }
+...
+```
+If your local development URL looks like `http://localhost:8888/project-name/` you would update the file to read:
+```json
+...
+  "config": {
+    "devUrl": "http://localhost:8888/project-name/"
+  }
+...
+```
 
 ## Webs using this map:
 - [blog cimasdestacables](http://cimasdestacables.blogspot.com/p/mapa-comarcal-de-catalunya.html)

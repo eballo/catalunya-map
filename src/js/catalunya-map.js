@@ -2,7 +2,7 @@
  * Catalunya Medieval 2015-2017 - Open Source Catalunya Map
  *
  * Author  : Enric Ballo
- * version : 7.0
+ * version : 8.0
  *
  */
 ;
@@ -97,8 +97,6 @@ $(function(window) {
                         total: this.mappaths[comarca].total
                     });
                 }
-
-                //console.log(llistaComarques);
 
                 // Order the list by name
                 llistaComarques = llistaComarques.sort(function(a, b) {
@@ -326,14 +324,14 @@ $(function(window) {
                         });
 
                     }
-                    $('#comarcaName').fadeOut(100);
-                    $('#contentText').fadeOut(100).delay(400);
 
                     $('#comarcaName').html('<h1>' + comarcaName + '</h1><h2>' + capitalComarca + '</h2>');
                     $('#contentText').html(contentText);
 
-                    $('#contentText').fadeIn(500);
-                    $('#comarcaName').fadeIn(500);
+                    //$('.legend-text-militar .total').hide();
+                    //$('.legend-text-militar .total').each(function(index) {
+                    //    $(this).delay(20 * index).fadeIn(500);
+                    //});
 
                 }
             },
@@ -544,7 +542,6 @@ $(function(window) {
     Catmap.create = function(opts, json) {
         return new Catmap(opts, json);
     };
-
     window.Catmap = Catmap;
 
 }(window));

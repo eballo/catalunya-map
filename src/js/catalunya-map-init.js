@@ -1,6 +1,7 @@
 (function(window, catmap) {
+  $(document).ready(function(){
     $.ajax({
-        url: catmap.URL_JSON,
+        url: window.location.origin + catmap.URL_JSON,
         dataType: 'json',
         async: true,
         success: function(json) {
@@ -8,11 +9,12 @@
             var map = catmap.create(catmap.MAP_OPTIONS, json);
             map.loadMapAndText();
 
-            $("#map").fadeOut(1);
+            $("#map").show();
             $("#text").fadeIn(1000);
             $("#contentText").toggle(2000);
             $("#map").fadeIn(1000);
             $("#legend").fadeIn(1000);
         }
     });
+  })
 }(window, window.Catmap));
