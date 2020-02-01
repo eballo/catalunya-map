@@ -16,7 +16,7 @@ import log from 'gulplog';
 
 const server = browserSync.create();
 const PRODUCTION = yargs.argv.prod;
-const URL_PROD = "/wp-content/themes/catalunyamedieval/assets/js/catalunya-map/catalunya-map-path.json";
+const URL_PROD = "/wp-content/plugins/catalunya-medieval-plugins/plugins/refreshMap/pages/js/catalunya-map-path.json";
 const URL_DEFAULT = "/assets/js/catalunya-map-path.json";
 
 const paths = {
@@ -98,7 +98,7 @@ export const reload = (done) => {
 }
 
 export const watch = () => {
-  gulp.watch('src/js/**/*.js', gulp.series(scripts, reload));
+  gulp.watch('src/js/**/*.js', gulp.series(scripts, mapScripts, reload));
   gulp.watch('src/css/**/*.css', gulp.series(css, reload));
   gulp.watch("**/*.php", reload);
   gulp.watch("**/*.html", reload);
