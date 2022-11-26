@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+
+  <p>Catalunya Medieval : Test indicacions Pel Google Maps</p>
+
+  <button onclick="getLocation()">Anar</button>
+
+  <p id="data"></p>
+
+  <script>
+    var x = document.getElementById("data");
+
+    function getLocation() {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(openMap);
+      } else {
+        x.innerHTML = "Geolocation is not supported by this browser.";
+      }
+    }
+
+    function openMap(position) {
+      var origin = position.coords.latitude + "," + position.coords.longitude;
+      directions = origin + "/" + get_destinations().join("/")
+      openGoolgleDirections(directions)
+    }
+
+    function get_destinations() {
+      return ["N 41 27 46 E 01 58 17", "41 27 45 01 57 12"]
+    }
+
+    function openGoolgleDirections(destinations) {
+      window.open("https://www.google.es/maps/dir/" + destinations);
+    }
+  </script>
+
+</body>
+
+</html>
