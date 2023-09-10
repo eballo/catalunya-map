@@ -76,7 +76,7 @@ Explanation:
     ...
     <script type="text/javascript" src="js/catalunya-map-path.js"></script>
     <script type="text/javascript" src="js/catalunya-map.js"></script>
-    <script type="text/javascript" src="js/catalunya-map-options-v2.js"></script>
+    <script type="text/javascript" src="js/catalunya-map-config.js"></script>
     <script type="text/javascript" src="js/catalunya-map-init.js"></script>
     ...
     </footer>

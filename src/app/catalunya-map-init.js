@@ -1,13 +1,13 @@
-import catmap from "./catalunya-map";
+import CatMap from "./catalunya-map";
+import config from "./catalunya-map-config"
 
 $(document).ready(function () {
     $.ajax({
-        url: window.location.origin + catmap.URL_JSON,
+        url: window.location.origin + "/js/catalunya-map-path.json",
         dataType: 'json',
         async: true,
         success: function (json) {
-            //Create the map
-            var map = catmap.create(catmap.MAP_OPTIONS, json);
+            const map = new CatMap(config, json);
             map.loadMapAndText();
 
             $("#map").show();

@@ -1,14 +1,6 @@
-//---------------------------
-// Configuration values
-//---------------------------
+const MAP_CONFIG = {
 
-import catmap from "./catalunya-map"
-
-catmap.URL_JSON = "##REPLACE_URL_JSON";
-
-catmap.MAP_OPTIONS = {
-
-    colorIn: '#d1eafe', //color when the mouse is over
+    colorIn: '#fee8cb', //color when the mouse is over
     colorOut: '#fff', //color when the mouse is not over
 
     scale: 0.8, //scale value
@@ -21,7 +13,7 @@ catmap.MAP_OPTIONS = {
     mapWidth: 825, //map width variable
     mapHeight: 800, //map height variable
 
-    debug: false, //enable/disable debug mode
+    debug: true, //enable/disable debug mode
     responsive: true, //enable/disable responsive funcionality
     useText: true, //enable/disable list text comarques
 
@@ -33,11 +25,11 @@ catmap.MAP_OPTIONS = {
 
     comarcaAttr: { //comarca style configuration
         //fill: 'url(web/images/natural_paper.png)',
-        fill: '#fff', //white
-        stroke: '#abacae', //soft grey
+        fill: '#fff',
+        stroke: '#c7ab89', //color for the limit line of comarca (clear brown)
         'stroke-width': 0.8,
         'stroke-linejoin': 'round',
-        'font-family': 'Droid Sans, Verdana',
+        'font-family': 'Droid Sans,Verdana',
         'font-size': '19px',
         'font-weight': 'bold',
         'cursor': 'pointer',
@@ -45,10 +37,10 @@ catmap.MAP_OPTIONS = {
     },
 
     nomComcarcaAttr_in: { //nom comarca style configuration for hover in
-        fill: '#3300FF', //color for the text of comarca (dark blue)
+        fill: '#a07a49', //color for the text of comarca (dark brown)
         stroke: '#000000', //black
         'stroke-width': 0.4,
-        'font-family': 'Droid Sans, Verdana',
+        'font-family': 'Droid Sans,Verdana',
         'font-size': '14px',
         'font-weight': 'bold',
         'cursor': 'pointer',
@@ -56,9 +48,9 @@ catmap.MAP_OPTIONS = {
     },
 
     nomComcarcaAttr_out: { //nom comarca style configuration for hover out
-        fill: '#686868', // grey
+        fill: '#a07a49',
         'stroke-width': 0,
-        'font-family': 'Droid Sans, Verdana',
+        'font-family': 'Droid Sans,Verdana',
         'font-size': '14px',
         'font-weight': 'bold',
         'cursor': 'pointer',
@@ -74,4 +66,7 @@ catmap.MAP_OPTIONS = {
         'z-index': 30
     }
 };
+
+export default MAP_CONFIG;
+
 
