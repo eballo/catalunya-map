@@ -7,17 +7,24 @@
  */
 ;
 class CatMap {
-    
+
     constructor(config, json) {
         this.config = config;
         this.mappaths = json
         this.paper = new ScaleRaphael('map', this.config.mapWidth, this.config.mapHeight);
         this.winWidth;
         this.win;
-        this.obj;
         this.selected;
         this.ratio;
         this.mcat = {}; //Array of comarcas
+    }
+
+    showValues(){
+        if (this.config.debug) {
+            console.log('ShowValues ...');
+            console.log("Win Width: " + this.winWidth + " Map with: " + this.config.mapWidth + " Map Height: " + this.config.mapHeight + " Ratio: " + this.ratio);
+            $("#this.config.debugInfo").html("Win Width: " + this.winWidth + " Map with: " + this.config.mapWidth + " Map Height: " + this.config.mapHeight + " Ratio: " + this.ratio);
+        }
     }
 
     createArrayComarcas(){
@@ -54,7 +61,7 @@ class CatMap {
         }
     }
 
-    createMap(paper){
+    createMap(){
 
         if (this.config.debug) {
             console.log('CreateMap ...');
@@ -64,58 +71,20 @@ class CatMap {
         // this will be the obj itself
         let config = this.config;
         let self = this;
-        let i = 0;
+        let i = 0; // used to create a unique node id
 
         for (let comarca in this.mappaths) {
-
-            // Create obj
-            let obj = this.mcat[comarca];
-
-            // Raphael object - object 0 (the map)
-            obj.push(paper.path(this.mappaths[comarca].path).attr(this.config.comarcaAttr));
-            obj.animate({
-                transform: "t0,-200"
-            });
-
-            // object 1 and 2 (comarca name / capital comarca name)
-            obj.push(paper.text(this.mappaths[comarca].nx, this.mappaths[comarca].ny, this.mappaths[comarca].name).attr(config.nomComcarcaAttr_out));
-            obj.push(paper.text(this.mappaths[comarca].cx, this.mappaths[comarca].cy, this.mappaths[comarca].capital).attr(config.nomCapitalAttr));
-
-            obj[0].comarcaName = this.mappaths[comarca].name;
-            obj[1].comarcaName = this.mappaths[comarca].name;
-            obj[2].comarcaName = this.mappaths[comarca].name;
-
-            obj[0].capitalComarca = this.mappaths[comarca].capital;
-            obj[1].capitalComarca = this.mappaths[comarca].capital;
-            obj[2].capitalComarca = this.mappaths[comarca].capital;
-
-            obj[0].contentText = this.mappaths[comarca].info;
-            obj[1].contentText = this.mappaths[comarca].info;
-            obj[2].contentText = this.mappaths[comarca].info;
-
-            obj[0].comarcaLink = this.mappaths[comarca].url;
-            obj[1].comarcaLink = this.mappaths[comarca].url;
-            obj[2].comarcaLink = this.mappaths[comarca].url;
-
-            obj[0].node.id = i;
-            obj[0].toBack();
-
-            obj[1].toFront();
-            obj[2].toFront();
-
-            //Initial status hiden
-            obj[1].hide();
-            obj[2].hide();
+            let obj = this.createRaphaelObject(comarca, i);
 
             // Change the color of each comarca animation hover event
-            obj.hover(function () { //hoverIn function
+            obj.hover(function () { // hoverIn function
                 let params = {
                     'fill': config.colorIn
                 };
                 this[0].animate(params, 100);
                 this[1].attr(config.nomComcarcaAttr_in);
                 this[2].show();
-            }, function () { //hoverOut function
+            }, function () { // hoverOut function
                 let params = {
                     'fill': config.colorOut
                 };
@@ -198,87 +167,104 @@ class CatMap {
             i++;
         }
 
-        if (config.responsive) {
+        if (this.config.responsive) {
             self.responsiveResize();
-            $(window).resize(function () {
+            self.win.resize(function () {
                 self.responsiveResize();
             });
         } else {
-            self.resizeMap(self.paper);
+            self.resizeMap();
         }
     }
 
+    createRaphaelObject(comarca, i) {
+        let obj = this.mcat[comarca];
+
+        // Raphael object - object 0 (the map)
+        obj.push(this.paper.path(this.mappaths[comarca].path).attr(this.config.comarcaAttr));
+        obj.animate({
+            transform: "t0,-200"
+        });
+
+        // object 1 and 2 (comarca name / capital comarca name)
+        obj.push(this.paper.text(this.mappaths[comarca].nx, this.mappaths[comarca].ny, this.mappaths[comarca].name).attr(this.config.nomComcarcaAttr_out));
+        obj.push(this.paper.text(this.mappaths[comarca].cx, this.mappaths[comarca].cy, this.mappaths[comarca].capital).attr(this.config.nomCapitalAttr));
+
+        obj[0].comarcaName = this.mappaths[comarca].name;
+        obj[1].comarcaName = this.mappaths[comarca].name;
+        obj[2].comarcaName = this.mappaths[comarca].name;
+
+        obj[0].capitalComarca = this.mappaths[comarca].capital;
+        obj[1].capitalComarca = this.mappaths[comarca].capital;
+        obj[2].capitalComarca = this.mappaths[comarca].capital;
+
+        obj[0].contentText = this.mappaths[comarca].info;
+        obj[1].contentText = this.mappaths[comarca].info;
+        obj[2].contentText = this.mappaths[comarca].info;
+
+        obj[0].comarcaLink = this.mappaths[comarca].url;
+        obj[1].comarcaLink = this.mappaths[comarca].url;
+        obj[2].comarcaLink = this.mappaths[comarca].url;
+
+        obj[0].node.id = i;
+        obj[0].toBack();
+
+        obj[1].toFront();
+        obj[2].toFront();
+
+        //Initial status hiden
+        obj[1].hide();
+        obj[2].hide();
+
+        return obj;
+    }
+
     remove_background(){
-        var config = this.config;
-        for (var comarca in this.mappaths) {
-            var obj = this.mcat[comarca];
-            //console.log('selected: ' + this.selected + ' Obj: ' + obj[0].comarcaName);
+        for (const comarca in this.mappaths) {
+            let obj = this.mcat[comarca];
             if (obj[0].comarcaName != this.selected) {
-                var params = {
-                    'fill': config.colorOut
+                let params = {
+                    'fill': this.config.colorOut
                 };
                 obj[0].animate(params, 100);
-                obj[1].attr(config.nomComcarcaAttr_out);
+                obj[1].attr(this.config.nomComcarcaAttr_out);
                 obj[2].hide();
-            } else {
-                //console.log('selected: ' + this.selected + ' = Obj: ' + obj[0].comarcaName);
             }
         }
     }
 
     onMapClick(comarcaName, capitalComarca, contentText, comarcaLink){
-
         if (this.config.onClick) {
-            //console.log(comarcaLink);
             if (this.config.newWindow) {
                 window.open(comarcaLink);
             } else {
                 window.location = comarcaLink;
             }
         } else {
-
             if (this.config.button) {
-
                 if (this.config.debug) {
                     console.log('button functionality enabled');
                 }
-
-                $('#veure-contingut').show();
-
-                //$('#contentText').click(function() {
-                //window.open(comarcaLink, 'window name', 'window settings');
-                //window.location = comarcaLink;
-                //return false;
-                //});
-
+                $('#veure-contingut').show()
                 $('#veure-contingut').click(function () {
-                    //window.open(comarcaLink, 'window name', 'window settings');
                     $(this).toggleClass("veure-clic");
                     window.location = comarcaLink;
                     return false;
                 });
 
             }
-
             $('#comarcaName').html('<h1>' + comarcaName + '</h1><h2>' + capitalComarca + '</h2>');
             $('#contentText').html(contentText);
-
-            //$('.legend-text-militar .total').hide();
-            //$('.legend-text-militar .total').each(function(index) {
-            //    $(this).delay(20 * index).fadeIn(500);
-            //});
-
         }
     }
 
-    resizeMap(paper){
-        var self = this;
-
+    resizeMap(){
         if (this.config.debug) {
             console.log('resizeMap ...');
         }
+        let self = this;
 
-        paper.changeSize(this.config.mapWidth, this.config.mapHeight, true, false);
+        this.paper.changeSize(this.config.mapWidth, this.config.mapHeight, true, false);
         if (this.config.debug) {
             console.log('resize map with : ' + this.config.mapWidth + ' height : ' + this.config.mapHeight);
         }
@@ -305,17 +291,15 @@ class CatMap {
     }
 
     showComarcaName(){
-        for (var comarca in this.mappaths) {
-            //Create obj
-            var obj = this.mcat[comarca];
+        for (const comarca in this.mappaths) {
+            let obj = this.mcat[comarca];
             obj[1].show();
         }
     }
 
     hideComarcaName(){
-        for (var comarca in this.mappaths) {
-            //Create obj
-            var obj = this.mcat[comarca];
+        for (const comarca in this.mappaths) {
+            let obj = this.mcat[comarca];
             if (obj[1].comarcaName != this.selected) {
                 obj[1].hide();
             }
@@ -334,34 +318,27 @@ class CatMap {
                 console.log('WindowWith > 960');
             }
             this.hideListShowMap();
-
             this.config.mapWidth = this.config.mapInitWidth * 0.8;
             this.config.mapHeight = this.config.mapInitHeight * 0.8;
             this.paper.scaleAll(this.config.scale);
-            this.resizeMap(this.paper);
-
+            this.resizeMap();
         } else if (this.winWidth < 960 && this.winWidth >= 768) {
             if (this.config.debug) {
                 console.log('768 =< WindowWith < 960 ');
             }
             this.hideMapShowList();
-
         } else if (this.winWidth < 768 && this.winWidth >= 480) {
             if (this.config.debug) {
                 console.log('480 =< WindowWith < 768 ');
             }
-
             this.hideMapShowList();
         } else if (this.winWidth < 480) {
             if (this.config.debug) {
                 console.log('480 < WindowWith');
             }
             this.hideMapShowList();
-
         }
-
         this.showValues();
-
     }
 
     hideMapShowList(){
@@ -372,14 +349,6 @@ class CatMap {
     hideListShowMap(){
         $('.llistaComarques').hide();
         $('.map-wrapper').show();
-    }
-
-    showValues(){
-        if (this.config.debug) {
-            console.log('showValues ...');
-            console.log("Win Width: " + this.winWidth + " Map with: " + this.config.mapWidth + " Map Height: " + this.config.mapHeight + " Ratio: " + this.ratio);
-            $("#this.config.debugInfo").html("Win Width: " + this.winWidth + " Map with: " + this.config.mapWidth + " Map Height: " + this.config.mapHeight + " Ratio: " + this.ratio);
-        }
     }
 
     loadMapAndText(){
@@ -398,7 +367,7 @@ class CatMap {
         }
 
         this.createArrayComarcas();
-        this.createMap(this.paper);
+        this.createMap();
         this.createLlistaComarquesText();
 
     }
