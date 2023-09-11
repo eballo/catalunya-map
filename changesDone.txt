@@ -1,0 +1,7 @@
+work done
+
+- create new category for llucances
+- update plugin
+- create new catalunya-map-path.js
+- migrate to webpack
+- create dist
