@@ -1,9 +1,9 @@
+import config from "./config/catalunya-map-config-prod";
 import CatMap from "./catalunya-map";
-import config from "./catalunya-map-config"
 
 $(document).ready(function () {
     $.ajax({
-        url: window.location.origin + "/js/catalunya-map-path.json",
+        url: window.location.origin + config.url_json,
         dataType: 'json',
         async: true,
         success: function (json) {

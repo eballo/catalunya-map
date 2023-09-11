@@ -1,10 +1,15 @@
 const path = require('path');
 
 module.exports = {
-    entry: './src/app/catalunya-map-init.js',
+    entry: {
+        prod:  { import: './src/app/catalunya-map-prod', filename: './dist/prod/catalunya-map.min.js'},
+        local: { import: './src/app/catalunya-map-local', filename: './dist/local/catalunya-map.min.js'},
+        work:  { import: './src/app/catalunya-map-work', filename: './dist/work/catalunya-map.min.js'},
+        web:   { import: './src/app/catalunya-map-local', filename: './web/js/catalunya-map.min.js'},
+    },
     output: {
-        filename: 'catalunya-map.min.js',
-        path: path.resolve(__dirname, 'web/js'),
+        filename: '[name].js',
+        path: path.resolve(__dirname, './'),
     },
     devServer: {
         static: {

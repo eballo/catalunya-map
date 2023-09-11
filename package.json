@@ -1,6 +1,6 @@
 {
   "name": "catalunya-map",
-  "version": "9.0.0",
+  "version": "10.0.0",
   "description": "Interactive vectorial map of Catalunya based on a SVG/VML and the library RaphaëlJs.",
   "main": "index.js",
   "devDependencies": {
@@ -16,7 +16,8 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "webpack --watch",
+    "build": "webpack",
+    "buildWatch": "webpack --watch",
     "start": "webpack server --mode development --config ./webpack.config.js --hot"
   },
   "author": "eballo",

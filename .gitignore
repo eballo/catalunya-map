@@ -1,9 +1,6 @@
 .DS_Store
-.qicon
 .project
-.settings/
 node_modules/
-dist/
 .sonarlint/
-package/
-web/js/**
+dist/
+web/js/catalunya-map.min.js

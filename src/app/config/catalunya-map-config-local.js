@@ -1,6 +1,8 @@
 const MAP_CONFIG = {
 
-    debug: true,         // enable/disable debug mode
+    url_json : "/js/catalunya-map-path.json",
+
+    debug: true,        // enable/disable debug mode
     responsive: true,    // enable/disable responsive funcionality
     useText: true,       // enable/disable list text comarques
     button: false,       // enable/disable button functionality

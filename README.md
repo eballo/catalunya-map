@@ -32,10 +32,11 @@ Interactive vectorial map of Catalunya based on a SVG/VML and the library Rapha�
 - [Demo v7.4](http://demo.catalunyamedieval.es/map74)
 - [Demo v7.5](http://demo.catalunyamedieval.es/map75)
 - [Demo v8.0](http://demo.catalunyamedieval.es/map80)
+- [Demo v9.0](http://demo.catalunyamedieval.es/map90)
 
 ## How to create a Map using a SVG file
 
-1. Given a [SVG file](http://demo.catalunyamedieval.es/map80/src/Mapa_comarcal_de_Catalunya.svg) you can rename it to xml [XML file](http://demo.catalunyamedieval.es/map7/xml/Mapa_comarcal_de_Catalunya.svg.xml)
+1. Given a [SVG file](http://demo.catalunyamedieval.es/map90/src/Mapa_comarcal_de_Catalunya.svg) you can rename it to xml [XML file](http://demo.catalunyamedieval.es/map7/xml/Mapa_comarcal_de_Catalunya.svg.xml)
 2. Inside the xml file you will see a d="..." like this one
 ```
 	d="M 97.21875 15.40625 L 94.84375 L 100.03125 16.34375 L 98.625 15.65625 L 98.15625 15.65625 L 97.21875 15.40625 z "
@@ -75,18 +76,16 @@ Explanation:
     <footer>
     ...
     <script type="text/javascript" src="js/catalunya-map-path.js"></script>
-    <script type="text/javascript" src="js/catalunya-map.js"></script>
-    <script type="text/javascript" src="js/catalunya-map-config.js"></script>
-    <script type="text/javascript" src="js/catalunya-map-init.js"></script>
+    <script type="text/javascript" src="js/catalunya-map.min.js"></script>
     ...
     </footer>
 
-Explanation :
+Source files Explanation :
 
     catalunya-map-path.js       : js file that have the javascript array with all the data
     catalunya-map.js            : js file that have the object to create maps
-    catalunya-map-options-vX.js : js file that have the custom options for each theme (v1/v2/v3)
-    catalunya-map-init.js       : js file that create an object map and print it in the screen
+    catalunya-map-config-local.js     : js file that have the custom options
+    catalunya-map-prod.js       : js file that create an object map and print it in the screen
 
 2. Add this code in the body
 
@@ -209,9 +208,13 @@ v9.0
 - browserSync
 - change to gulp (gulp)
 
+v10.0
+- Migration to webpack
+
+
 ## Development
 
-Since version 9.0 uses [gulp](http://gulpjs.com/) as its build system and [Bower](http://bower.io/) to manage front-end packages.
+Since version 10.0 uses [webpack](https://webpack.js.org/).
 
 ### Install gulp and Bower
 
@@ -219,38 +222,17 @@ Building the theme requires [node.js](http://nodejs.org/download/). We recommend
 
 From the command line:
 
-1. Install [gulp](http://gulpjs.com) and [Bower](http://bower.io/) globally with `npm install -g gulp bower`
-2. Navigate to the theme directory, then run `npm install`
-3. Run `bower install`
+1. Navigate to the theme directory, then run `npm install`
+3. Build `npm run build`
+4. Start `npm run start` 
 
-You now have all the necessary dependencies to run the build process.
+Open your browser [localhost:9000](http://localhost:9000/)
 
-### Available gulp commands
+### Available node commands
 
-* `gulp` — Compile and optimize the files in your assets directory (by default is development environment)
-* `gulp bundle` — Compile assets and package them in a zip file
-* `gulp bundle --production` — Compile assets for production.
-
-### Using BrowserSync
-
-To use BrowserSync during `gulp watch` you need to update `devUrl` at the bottom of `assets/manifest.json` to reflect your local development hostname.
-
-For example, if your local development URL is `http://project-name.dev` you would update the file to read:
-```json
-...
-  "config": {
-    "devUrl": "http://project-name.dev"
-  }
-...
-```
-If your local development URL looks like `http://localhost:8888/project-name/` you would update the file to read:
-```json
-...
-  "config": {
-    "devUrl": "http://localhost:8888/project-name/"
-  }
-...
-```
+* `build`      — Compile and optimize the files in your web directory
+* `buildWatch` — Compile and optimize the files in your web directory and watch for changes to update the files
+* `start`      — Starts a web server
 
 ## Webs using this map:
 - [blog cimasdestacables](http://cimasdestacables.blogspot.com/p/mapa-comarcal-de-catalunya.html)
