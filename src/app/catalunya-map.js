@@ -23,7 +23,7 @@ class CatMap {
         if (this.config.debug) {
             console.log('ShowValues ...');
             console.log("Win Width: " + this.winWidth + " Map with: " + this.config.mapWidth + " Map Height: " + this.config.mapHeight + " Ratio: " + this.ratio);
-            $("#this.config.debugInfo").html("Win Width: " + this.winWidth + " Map with: " + this.config.mapWidth + " Map Height: " + this.config.mapHeight + " Ratio: " + this.ratio);
+            $('#debugInfo').html("Win Width: " + this.winWidth + " Map with: " + this.config.mapWidth + " Map Height: " + this.config.mapHeight + " Ratio: " + this.ratio);
         }
     }
 
@@ -182,9 +182,6 @@ class CatMap {
 
         // Raphael object - object 0 (the map)
         obj.push(this.paper.path(this.mappaths[comarca].path).attr(this.config.comarcaAttr));
-        obj.animate({
-            transform: "t0,-200"
-        });
 
         // object 1 and 2 (comarca name / capital comarca name)
         obj.push(this.paper.text(this.mappaths[comarca].nx, this.mappaths[comarca].ny, this.mappaths[comarca].name).attr(this.config.nomComcarcaAttr_out));
