@@ -1,7 +1,7 @@
 const path = require('path');
 
 module.exports = {
-    entry: './src/app/index.js',
+    entry: './src/app/catalunya-map-init.js',
     output: {
         filename: 'catalunya-map.min.js',
         path: path.resolve(__dirname, 'web/js'),

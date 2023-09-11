@@ -1,32 +1,29 @@
 const MAP_CONFIG = {
 
-    colorIn: '#fee8cb', //color when the mouse is over
-    colorOut: '#fff', //color when the mouse is not over
+    debug: true,         // enable/disable debug mode
+    responsive: true,    // enable/disable responsive funcionality
+    useText: true,       // enable/disable list text comarques
+    button: false,       // enable/disable button functionality
+    onClick: false,      // enable/disable onclick open link
+    newWindow: false,    // enable/disable open a page in a new window for onClick functionality
 
-    scale: 0.8, //scale value
+    colorIn: '#fee8cb',  //color when the mouse is over
+    colorOut: '#fff',    //color when the mouse is not over
 
-    mapInitWidth: 825, //initial map width
-    mapInitHeight: 800, //initial map height
+    scale: 0.8,          //scale value
 
-    textInitWidth: 250, //initial text width
+    mapInitWidth: 825,   //initial map width
+    mapInitHeight: 800,  //initial map height
 
-    mapWidth: 825, //map width variable
-    mapHeight: 800, //map height variable
+    textInitWidth: 250,  //initial text width
 
-    debug: true, //enable/disable debug mode
-    responsive: true, //enable/disable responsive funcionality
-    useText: true, //enable/disable list text comarques
+    mapWidth: 825,       //map width variable
+    mapHeight: 800,      //map height variable
 
-    button: false, //enable/disable button functionality
-
-    //if no button functionality
-    onClick: false, //enable/disable onclick open link
-    newWindow: false, //enable/disable open a page in a new window for onClick functionality
-
-    comarcaAttr: { //comarca style configuration
-        //fill: 'url(web/images/natural_paper.png)',
-        fill: '#fff',
-        stroke: '#c7ab89', //color for the limit line of comarca (clear brown)
+    // --------- Comarca style configuration
+    comarcaAttr: {
+        'fill': '#fff',
+        'stroke': '#c7ab89', //color for the limit line of comarca (clear brown)
         'stroke-width': 0.8,
         'stroke-linejoin': 'round',
         'font-family': 'Droid Sans,Verdana',
@@ -36,9 +33,10 @@ const MAP_CONFIG = {
         'z-index': 10
     },
 
-    nomComcarcaAttr_in: { //nom comarca style configuration for hover in
-        fill: '#a07a49', //color for the text of comarca (dark brown)
-        stroke: '#000000', //black
+    // --------- Nom comarca style configuration for hover in
+    nomComcarcaAttr_in: {
+        'fill': '#a07a49',      // color for the text of comarca (dark brown)
+        'stroke': '#000000',    // black
         'stroke-width': 0.4,
         'font-family': 'Droid Sans,Verdana',
         'font-size': '14px',
@@ -47,8 +45,9 @@ const MAP_CONFIG = {
         'z-index': 20
     },
 
-    nomComcarcaAttr_out: { //nom comarca style configuration for hover out
-        fill: '#a07a49',
+    // --------- Nom comarca style configuration for hover out
+    nomComcarcaAttr_out: {
+        'fill': '#a07a49',
         'stroke-width': 0,
         'font-family': 'Droid Sans,Verdana',
         'font-size': '14px',
@@ -57,10 +56,11 @@ const MAP_CONFIG = {
         'z-index': 20
     },
 
-    nomCapitalAttr: { //nom capital comarca style configuration
-        fill: '#FF9900', //orange
-        "font-family": "Droid Sans, Arial, sans-serif",
-        "font-size": "12px",
+    // --------- Nom capital comarca style configuration
+    nomCapitalAttr: {
+        'fill': '#FF9900', //orange
+        'font-family': 'Droid Sans, Arial, sans-serif',
+        'font-size': '12px',
         'font-weight': 'bold',
         'cursor': 'pointer',
         'z-index': 30

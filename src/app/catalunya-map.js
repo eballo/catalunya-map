@@ -7,6 +7,7 @@
  */
 ;
 class CatMap {
+    
     constructor(config, json) {
         this.config = config;
         this.mappaths = json
@@ -16,58 +17,16 @@ class CatMap {
         this.obj;
         this.selected;
         this.ratio;
-
-        //Array of comarcas
-        this.mcat = {};
+        this.mcat = {}; //Array of comarcas
     }
 
     createArrayComarcas(){
         if (this.config.debug) {
-            console.log('createArrayComarcas ...');
+            console.log('create Array Comarcas...');
         }
-
-        this.mcat.cat1 = this.paper.set();
-        this.mcat.cat2 = this.paper.set();
-        this.mcat.cat3 = this.paper.set();
-        this.mcat.cat4 = this.paper.set();
-        this.mcat.cat5 = this.paper.set();
-        this.mcat.cat6 = this.paper.set();
-        this.mcat.cat7 = this.paper.set();
-        this.mcat.cat8 = this.paper.set();
-        this.mcat.cat9 = this.paper.set();
-        this.mcat.cat10 = this.paper.set();
-        this.mcat.cat11 = this.paper.set();
-        this.mcat.cat12 = this.paper.set();
-        this.mcat.cat13 = this.paper.set();
-        this.mcat.cat14 = this.paper.set();
-        this.mcat.cat15 = this.paper.set();
-        this.mcat.cat16 = this.paper.set();
-        this.mcat.cat17 = this.paper.set();
-        this.mcat.cat18 = this.paper.set();
-        this.mcat.cat19 = this.paper.set();
-        this.mcat.cat20 = this.paper.set();
-        this.mcat.cat21 = this.paper.set();
-        this.mcat.cat22 = this.paper.set();
-        this.mcat.cat23 = this.paper.set();
-        this.mcat.cat24 = this.paper.set();
-        this.mcat.cat25 = this.paper.set();
-        this.mcat.cat26 = this.paper.set();
-        this.mcat.cat27 = this.paper.set();
-        this.mcat.cat28 = this.paper.set();
-        this.mcat.cat29 = this.paper.set();
-        this.mcat.cat30 = this.paper.set();
-        this.mcat.cat31 = this.paper.set();
-        this.mcat.cat32 = this.paper.set();
-        this.mcat.cat33 = this.paper.set();
-        this.mcat.cat34 = this.paper.set();
-        this.mcat.cat35 = this.paper.set();
-        this.mcat.cat36 = this.paper.set();
-        this.mcat.cat37 = this.paper.set();
-        this.mcat.cat38 = this.paper.set();
-        this.mcat.cat39 = this.paper.set();
-        this.mcat.cat40 = this.paper.set();
-        this.mcat.cat41 = this.paper.set();
-        this.mcat.cat42 = this.paper.set();
+        for (const comarca in this.mappaths) {
+            this.mcat[comarca] = this.paper.set()
+        }
     }
 
     createLlistaComarquesText(){
@@ -97,29 +56,30 @@ class CatMap {
 
     createMap(paper){
 
-        var config = this.config;
-        var self = this;
-
         if (this.config.debug) {
             console.log('CreateMap ...');
         }
 
-        var i = 0;
-        for (var comarca in this.mappaths) {
+        // This objects hack are needed because onHover function
+        // this will be the obj itself
+        let config = this.config;
+        let self = this;
+        let i = 0;
 
-            //Create obj
-            var obj = this.mcat[comarca];
+        for (let comarca in this.mappaths) {
 
-            // raphael object
-            // object 0 (the map)
+            // Create obj
+            let obj = this.mcat[comarca];
+
+            // Raphael object - object 0 (the map)
             obj.push(paper.path(this.mappaths[comarca].path).attr(this.config.comarcaAttr));
             obj.animate({
                 transform: "t0,-200"
             });
 
             // object 1 and 2 (comarca name / capital comarca name)
-            obj.push(paper.text(this.mappaths[comarca].nx, this.mappaths[comarca].ny, this.mappaths[comarca].name).attr(this.config.nomComcarcaAttr_out));
-            obj.push(paper.text(this.mappaths[comarca].cx, this.mappaths[comarca].cy, this.mappaths[comarca].capital).attr(this.config.nomCapitalAttr));
+            obj.push(paper.text(this.mappaths[comarca].nx, this.mappaths[comarca].ny, this.mappaths[comarca].name).attr(config.nomComcarcaAttr_out));
+            obj.push(paper.text(this.mappaths[comarca].cx, this.mappaths[comarca].cy, this.mappaths[comarca].capital).attr(config.nomCapitalAttr));
 
             obj[0].comarcaName = this.mappaths[comarca].name;
             obj[1].comarcaName = this.mappaths[comarca].name;
@@ -149,14 +109,14 @@ class CatMap {
 
             // Change the color of each comarca animation hover event
             obj.hover(function () { //hoverIn function
-                var params = {
+                let params = {
                     'fill': config.colorIn
                 };
                 this[0].animate(params, 100);
                 this[1].attr(config.nomComcarcaAttr_in);
                 this[2].show();
             }, function () { //hoverOut function
-                var params = {
+                let params = {
                     'fill': config.colorOut
                 };
                 //if it is not the selected comarca remove styles
@@ -172,7 +132,7 @@ class CatMap {
                 }
             }, obj, obj);
 
-            if (this.config.useText) {
+            if (config.useText) {
                 // on click event
                 obj[0].click(function () {
                     var comarcaName = this.comarcaName;
@@ -238,13 +198,13 @@ class CatMap {
             i++;
         }
 
-        if (this.config.responsive) {
+        if (config.responsive) {
             self.responsiveResize();
             $(window).resize(function () {
                 self.responsiveResize();
             });
         } else {
-            self.resizeMap(paper);
+            self.resizeMap(self.paper);
         }
     }
 
@@ -363,10 +323,6 @@ class CatMap {
     }
 
     responsiveResize(){
-
-
-        var self = this;
-
         if (this.config.debug) {
             console.log('responsiveResize ...');
         }
@@ -377,48 +333,34 @@ class CatMap {
             if (this.config.debug) {
                 console.log('WindowWith > 960');
             }
-            self.hideListShowMap();
+            this.hideListShowMap();
 
             this.config.mapWidth = this.config.mapInitWidth * 0.8;
             this.config.mapHeight = this.config.mapInitHeight * 0.8;
-            paper.scaleAll(this.config.scale);
-            self.resizeMap(paper);
+            this.paper.scaleAll(this.config.scale);
+            this.resizeMap(this.paper);
 
         } else if (this.winWidth < 960 && this.winWidth >= 768) {
             if (this.config.debug) {
                 console.log('768 =< WindowWith < 960 ');
             }
-            self.hideMapShowList();
-
-            //this.config.mapWidth =  mapInitWidth;
-            //this.config.mapHeight = this.config.mapWidth/ratio;
-            //paper.scaleAll(this.config.scale/2);
-            //resizeMap(paper);
+            this.hideMapShowList();
 
         } else if (this.winWidth < 768 && this.winWidth >= 480) {
             if (this.config.debug) {
                 console.log('480 =< WindowWith < 768 ');
             }
 
-            //this.config.mapWidth = mapInitWidth;
-            //this.config.mapHeight = this.config.mapWidth/ratio;
-            //resizeMap(paper);
-
-            self.hideMapShowList();
+            this.hideMapShowList();
         } else if (this.winWidth < 480) {
             if (this.config.debug) {
                 console.log('480 < WindowWith');
             }
-
-            //this.config.mapWidth = mapInitWidth /2;
-            //this.config.mapHeight = this.config.mapWidth/ratio;
-            //resizeMap(paper);
-
-            self.hideMapShowList();
+            this.hideMapShowList();
 
         }
 
-        self.showValues();
+        this.showValues();
 
     }
 
@@ -441,41 +383,23 @@ class CatMap {
     }
 
     loadMapAndText(){
-        var self = this;
-
-        if (this.config.debug) {
-            console.log('loadMapAndText ...');
-            console.log('Create map with : ' + this.config.mapWidth + ' height : ' + this.config.mapHeight);
-        }
-
-        //apply the this.config.scale value
-        if (this.config.debug) {
-            console.log('scale map : ' + this.config.scale);
-        }
 
         this.paper.scaleAll(this.config.scale);
-
         this.ratio = this.config.mapWidth / this.config.mapHeight;
-
-        if (this.config.debug) {
-            console.log('ratio : ' + this.ratio);
-        }
-
         this.win = $(window);
         this.winWidth = this.win.width();
 
         if (this.config.debug) {
+            console.log('calling loadMapAndText ...');
+            console.log('Create map with : ' + this.config.mapWidth + ' height : ' + this.config.mapHeight);
+            console.log('Scale map : ' + this.config.scale);
+            console.log('Ratio : ' + this.ratio);
             console.log('Window With : ' + this.winWidth);
         }
 
-        //create array
-        self.createArrayComarcas();
-
-        //create map
-        self.createMap(this.paper);
-
-        //create list
-        self.createLlistaComarquesText();
+        this.createArrayComarcas();
+        this.createMap(this.paper);
+        this.createLlistaComarquesText();
 
     }
 

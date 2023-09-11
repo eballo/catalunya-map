@@ -1,1 +1,0 @@
-import "./catalunya-map-init"
