@@ -12,27 +12,7 @@ Interactive vectorial map of Catalunya based on a SVG/VML and the library Rapha√
 
 ## Demo
 
-- [Demo v1.0](http://demo.catalunyamedieval.es/map1)
-- [Demo v2.0](http://demo.catalunyamedieval.es/map2)
-- [Demo v2.1](http://demo.catalunyamedieval.es/map21)
-- [Demo v3.0](http://demo.catalunyamedieval.es/map3)
-- [Demo v3.1](http://demo.catalunyamedieval.es/map31)
-- [Demo v4.0](http://demo.catalunyamedieval.es/map4)
-- [Demo v4.1](http://demo.catalunyamedieval.es/map41)
-- [Demo v5.0](http://demo.catalunyamedieval.es/map50)
-- [Demo v5.1](http://demo.catalunyamedieval.es/map51)
-- [Demo v5.2](http://demo.catalunyamedieval.es/map52)
-- [Demo v6.0](http://demo.catalunyamedieval.es/map60)
-- [Demo v6.1](http://demo.catalunyamedieval.es/map61)
-- [Demo v6.2](http://demo.catalunyamedieval.es/map62)
-- [Demo v7.0](http://demo.catalunyamedieval.es/map7)
-- [Demo v7.1](http://demo.catalunyamedieval.es/map71)
-- [Demo v7.2](http://demo.catalunyamedieval.es/map72)
-- [Demo v7.3](http://demo.catalunyamedieval.es/map73)
-- [Demo v7.4](http://demo.catalunyamedieval.es/map74)
-- [Demo v7.5](http://demo.catalunyamedieval.es/map75)
-- [Demo v8.0](http://demo.catalunyamedieval.es/map80)
-- [Demo v9.0](http://demo.catalunyamedieval.es/map90)
+[Demo](./demo.md)
 
 ## How to create a Map using a SVG file
 
@@ -82,10 +62,10 @@ Explanation:
 
 Source files Explanation :
 
-    catalunya-map-path.js       : js file that have the javascript array with all the data
-    catalunya-map.js            : js file that have the object to create maps
+    catalunya-map-path.js             : js file that have the javascript array with all the data
+    catalunya-map.js                  : js file that have the object to create maps
     catalunya-map-config-local.js     : js file that have the custom options
-    catalunya-map-prod.js       : js file that create an object map and print it in the screen
+    catalunya-map-prod.js             : js file that create an object map and print it in the screen
 
 2. Add this code in the body
 
@@ -94,7 +74,7 @@ Source files Explanation :
 					<div class="map-wrapper">
 						<div id="text" class="col-md-4">
 							<div id="comarcaName">
-								<h1>Catalunya Medieval</h1></div>
+								<h1>Catalunya Interactive Map</h1></div>
 							<div id="contentText">Seleccionar una comarca del mapa i fer clic per veure el seu contingut</div>
 						</div>
 						<div id="map" class="col-md-8"></div>
@@ -124,92 +104,7 @@ Source files Explanation :
 
 ## Versions
 
-V1.0
-- Just the map
-
-V2.0
-- Resize functionality using [raphael-scale.js](http://www.shapevent.com/scaleraphael/)
-
-V2.1
-- Debug information and better resize example
-
-v3.0
-- Add comarca and capital names
-
-v3.1
-- New catalunya-map-path.js
-- Add colors on mouse hover
-
-V4.0
-- Add Comarca Info box on mouse click
-
-V4.1
-- add touchStart for tablets (ipad)
-
-v5.0
-- Add Comarca del Moianes : Source image Mapa_comarcal_de_Catalunya_v2.svg (Thanks for your Contribution Hector)
-
-v5.1
-- reposition of all the names
-- new screenshot
-
-v5.2
-- add property onClick and newWindow (requested functionality by Hector)
-
-v6.0
-- add Droid Sans Font
-- change colors
-- update Raphael JS and jQuery versions
-- add bootstrap
-- add all buildings
-
-v6.1
-- Fix responsive design
-
-v6.2
-- Object Oriented implementation (refactor)
-
-v7.0
-- update readme
-- create diferent configuration option files (v1,v2)
-- beautifyed all code
-- Documentation of the code
-
-v7.1
-- Add button option configuration (https://codepen.io/piecdesmit/details/OMYNZg/)
-- Styles for icons
-
-v7.2
-- Fix styles
-
-v7.3
-- Grunt
-- nodejs
-- refactor
-- sonar fixes
-
-v7.4
-- configuracion text mes gran.
-
-v7.5
-- bloqueix de color de fons quan comarca esta seleccionada.
-- configuration option v3
-- Add text, and effects
-
-v8.0
-- Add Grunt-contrib-watch package
-- Add Grunt-replace package
-- Remove effect when click on comarca
-- Add background grey color on mouse over
-- Change typhography -> Droid Sans
-- Add configuration file parameters (remove old configuration files for environment)
-
-v9.0
-- browserSync
-- change to gulp (gulp)
-
-v10.0
-- Migration to webpack
+[Change log](./changelog.md) 
 
 
 ## Development

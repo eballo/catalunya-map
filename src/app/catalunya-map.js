@@ -2,7 +2,7 @@
  * Catalunya Medieval 2015-2023 - Open Source Catalunya Map
  *
  * Author  : Enric Ballo
- * version : 9.0
+ * version : 10.0
  *
  */
 ;
