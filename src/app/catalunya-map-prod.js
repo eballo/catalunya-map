@@ -1,12 +1,13 @@
-(function(window, catmap) {
-  $(document).ready(function(){
+import config from "./config/catalunya-map-config-prod";
+import CatMap from "./catalunya-map";
+
+$(document).ready(function () {
     $.ajax({
-        url: window.location.origin + catmap.URL_JSON,
+        url: window.location.origin + config.url_json,
         dataType: 'json',
         async: true,
-        success: function(json) {
-            //Create the map
-            var map = catmap.create(catmap.MAP_OPTIONS, json);
+        success: function (json) {
+            const map = new CatMap(config, json);
             map.loadMapAndText();
 
             $("#map").show();
@@ -16,5 +17,4 @@
             $("#legend").fadeIn(1000);
         }
     });
-  })
-}(window, window.Catmap));
+})
