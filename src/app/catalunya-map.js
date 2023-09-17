@@ -37,27 +37,33 @@ class CatMap {
     }
 
     createLlistaComarquesText(){
-        if (this.config.debug) {
-            console.log('create list of comarques ...');
-        }
+        if(this.config.useListText) {
+            if (this.config.debug) {
+                console.log('create list of comarques ...');
+            }
 
-        let llistaComarques = [];
-        for (let comarca in this.mappaths) {
-            llistaComarques.push({
-                name: this.mappaths[comarca].name,
-                url: this.mappaths[comarca].url,
-                total: this.mappaths[comarca].total
+            let llistaComarques = [];
+            for (let comarca in this.mappaths) {
+                llistaComarques.push({
+                    name: this.mappaths[comarca].name,
+                    url: this.mappaths[comarca].url,
+                    total: this.mappaths[comarca].total
+                });
+            }
+
+            // Order the list by name
+            llistaComarques = llistaComarques.sort(function (a, b) {
+                return a.name.localeCompare(b.name);
             });
-        }
 
-        // Order the list by name
-        llistaComarques = llistaComarques.sort(function (a, b) {
-            return a.name.localeCompare(b.name);
-        });
-
-        // Create list with bootstrap styles
-        for (let i = 0; i < llistaComarques.length; i++) {
-            $("<li class='list-group-item'><a href='" + llistaComarques[i].url + "' class='list-group-item'>" + llistaComarques[i].name + "<span class='badge'>" + llistaComarques[i].total + "</span></a></li>").appendTo("ul.list");
+            // Create list with bootstrap styles
+            for (let i = 0; i < llistaComarques.length; i++) {
+                $("<li class='list-group-item'><a href='" + llistaComarques[i].url + "' class='list-group-item'>" + llistaComarques[i].name + "<span class='badge'>" + llistaComarques[i].total + "</span></a></li>").appendTo("ul.list");
+            }
+        }else{
+            if(this.config.debug){
+                console.log("create list comarques is disabled")
+            }
         }
     }
 

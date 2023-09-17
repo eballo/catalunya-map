@@ -5,6 +5,7 @@ const MAP_CONFIG = {
     debug: true,        // enable/disable debug mode
     responsive: true,    // enable/disable responsive funcionality
     useText: true,       // enable/disable list text comarques
+    useListText: false,  // enable/disable comarcas list text
     button: false,       // enable/disable button functionality
     onClick: false,      // enable/disable onclick open link
     newWindow: false,    // enable/disable open a page in a new window for onClick functionality
