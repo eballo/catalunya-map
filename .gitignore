@@ -4,3 +4,4 @@ node_modules/
 .sonarlint/
 dist/
 web/js/catalunya-map.min.js
+.idea/
