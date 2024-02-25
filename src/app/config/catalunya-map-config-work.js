@@ -1,6 +1,6 @@
 const MAP_CONFIG = {
 
-    url_json : "/js/catalunya-map-path.json",
+    url_json : "/wp-content/plugins/catalunya-medieval-plugins/plugins/refreshMap/pages/js/catalunya-map-path.json",
 
     debug: true,        // enable/disable debug mode
     responsive: true,    // enable/disable responsive funcionality
