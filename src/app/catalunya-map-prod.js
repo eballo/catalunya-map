@@ -2,8 +2,9 @@ import config from "./config/catalunya-map-config-prod";
 import CatMap from "./catalunya-map";
 
 $(document).ready(function () {
+    let url = window.location.origin + config.url_json
     $.ajax({
-        url: window.location.origin + config.url_json,
+        url: url,
         dataType: 'json',
         async: true,
         success: function (json) {
@@ -15,6 +16,9 @@ $(document).ready(function () {
             $("#contentText").toggle(2000);
             $("#map").fadeIn(1000);
             $("#legend").fadeIn(1000);
+        },
+        error: function(XMLHttpRequest, textStatus, errorThrown) {
+            console.log("Error - url: " + url);
         }
     });
 })
