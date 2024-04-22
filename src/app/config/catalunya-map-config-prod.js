@@ -3,9 +3,9 @@ const MAP_CONFIG = {
     url_json : "/wp-content/plugins/catalunya-medieval-plugins/plugins/refreshMap/pages/js/catalunya-map-path.json",
 
     debug: false,        // enable/disable debug mode
-    responsive: true,    // enable/disable responsive funcionality
+    responsive: true,    // enable/disable responsive functionality
     useText: true,       // enable/disable list text comarques
-    useListText: true,  // enable/disable comarcas list text
+    useListText: true,   // enable/disable comarques list text
     button: false,       // enable/disable button functionality
     onClick: false,      // enable/disable onclick open link
     newWindow: false,    // enable/disable open a page in a new window for onClick functionality
