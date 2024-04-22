@@ -62,7 +62,7 @@ Explanation:
 
 Source files Explanation :
 
-    catalunya-map-path-sample.js             : js file that have the javascript array with all the data
+    catalunya-map-path-sample.js          : js file that have the javascript array with all the data
     catalunya-map-min.js                  : js file that have the object to create maps
 
 2. Add this code in the body
