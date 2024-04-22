@@ -17,7 +17,7 @@
 - [Demo v7.3](http://demo.catalunyamedieval.es/map73)
 - [Demo v7.4](http://demo.catalunyamedieval.es/map74)
 - [Demo v7.5](http://demo.catalunyamedieval.es/map75)
-- [Demo v8.0](http://demo.catalunyamedieval.es/map80)
-- [Demo v9.0](http://demo.catalunyamedieval.es/map90)
-- [Demo v10.0](http://demo.catalunyamedieval.es/map10)
+- Demo v8.0
+- Demo v9.0
+- Demo v10.0
 - [Demo v11.0](http://demo.catalunyamedieval.es/map11)
