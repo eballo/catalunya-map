@@ -2,10 +2,10 @@
 Interactive vectorial map of Catalunya based on a SVG/VML and the library RaphaÃ«lJs.
 
 
-<img src="https://github.com/eballo/catalunya-map/blob/master/screenshot/screenshot-v10.png" alt="screen-shot" align="center" />
+<img src="https://github.com/eballo/catalunya-map/blob/master/screenshot/screenshot-v11.png" alt="screen-shot" align="center" />
 
 ## Current versions
-* RaphaÃ«l JS - 2.2.1
+* RaphaÃ«l JS - 2.3.0
 * ScaleRaphael - 0.8
 * jQuery - 3.1.1
 * Bootstrap - 3.3.7
@@ -34,7 +34,7 @@ Interactive vectorial map of Catalunya based on a SVG/VML and the library RaphaÃ
     ...
     <meta name="viewport" content="width=device-width">
     <!-- Jquery & Raphaeljs -->
-    <script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
+    <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
     <script type="text/javascript" src="js/raphael-min.js"></script>
     <script type="text/javascript" src="js/scale.raphael.js"></script>
     <!-- Bootstrap -->
@@ -43,29 +43,27 @@ Interactive vectorial map of Catalunya based on a SVG/VML and the library RaphaÃ
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <!-- custom styles -->
     <link rel="stylesheet" href="css/main.css">
-    <link rel="stylesheet" href="css/catalunya-map-v2.css">
+    <link rel="stylesheet" href="css/catalunya-map-v3.css">
     ...
     </header>
 
 Explanation:
-    catalunya-map-v2.css : custom css theme (v1/v2)
+    catalunya-map-v3.css : custom css theme (v1/v2/v3)
 
 
 1.2 footer
 
     <footer>
     ...
-    <script type="text/javascript" src="js/catalunya-map-path.js"></script>
+    <script type="text/javascript" src="js/catalunya-map-path-sample.js"></script>
     <script type="text/javascript" src="js/catalunya-map.min.js"></script>
     ...
     </footer>
 
 Source files Explanation :
 
-    catalunya-map-path.js             : js file that have the javascript array with all the data
-    catalunya-map.js                  : js file that have the object to create maps
-    catalunya-map-config-local.js     : js file that have the custom options
-    catalunya-map-prod.js             : js file that create an object map and print it in the screen
+    catalunya-map-path-sample.js             : js file that have the javascript array with all the data
+    catalunya-map-min.js                  : js file that have the object to create maps
 
 2. Add this code in the body
 

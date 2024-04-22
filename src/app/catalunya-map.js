@@ -1,8 +1,8 @@
 /**
- * Catalunya Medieval 2015-2023 - Open Source Catalunya Map
+ * Catalunya Medieval 2015-2024 - Open Source Catalunya Map
  *
  * Author  : Enric Ballo
- * version : 10.0
+ * version : 11.0
  *
  */
 ;
@@ -16,7 +16,7 @@ class CatMap {
         this.win;
         this.selected;
         this.ratio;
-        this.mcat = {}; //Array of comarcas
+        this.mcat = {}; //Array of comarques
     }
 
     showValues(){
@@ -29,7 +29,7 @@ class CatMap {
 
     createArrayComarcas(){
         if (this.config.debug) {
-            console.log('create Array Comarcas...');
+            console.log('Create Array of Comarques');
         }
         for (const comarca in this.mappaths) {
             this.mcat[comarca] = this.paper.set()
@@ -39,7 +39,7 @@ class CatMap {
     createLlistaComarquesText(){
         if(this.config.useListText) {
             if (this.config.debug) {
-                console.log('create list of comarques ...');
+                console.log('Create list of Comarques');
             }
 
             let llistaComarques = [];
@@ -62,7 +62,7 @@ class CatMap {
             }
         }else{
             if(this.config.debug){
-                console.log("create list comarques is disabled")
+                console.log("Create list comarques is disabled")
             }
         }
     }
@@ -70,7 +70,7 @@ class CatMap {
     createMap(){
 
         if (this.config.debug) {
-            console.log('CreateMap ...');
+            console.log('CreateMap');
         }
 
         // This objects hack are needed because onHover function
@@ -95,79 +95,37 @@ class CatMap {
                     'fill': config.colorOut
                 };
                 //if it is not the selected comarca remove styles
-                if (self.selected != this[0].comarcaName) {
-
+                if (self.selected !== this[0].comarcaName) {
                     this[0].animate(params, 100);
                     this[1].attr(config.nomComcarcaAttr_out);
                     this[2].hide();
 
                 } else {
-                    //if it is the selected comarca on hover out treiem la capital
+                    //if it is the selected comarca on hover out - remove the capital
                     //this[2].hide();
                 }
             }, obj, obj);
 
             if (config.useText) {
-                // on click event
-                obj[0].click(function () {
-                    var comarcaName = this.comarcaName;
-                    var capitalComarca = this.capitalComarca;
-                    var contentText = this.contentText;
-                    var comarcaLink = this.comarcaLink;
-                    self.selected = this.comarcaName;
-                    self.remove_background();
-                    self.onMapClick(comarcaName, capitalComarca, contentText, comarcaLink);
-                });
+                if (this.config.debug) {
+                    console.log("useText is enabled");
+                }
 
-                obj[1].click(function () {
-                    var comarcaName = this.comarcaName;
-                    var capitalComarca = this.capitalComarca;
-                    var contentText = this.contentText;
-                    var comarcaLink = this.comarcaLink;
-                    self.selected = this.comarcaName;
-                    self.remove_background();
-                    self.onMapClick(comarcaName, capitalComarca, contentText, comarcaLink);
-                });
+                for (let i = 0; i < 3; i++) {
+                    // on click event
+                    obj[i].click(function () {
+                        self.selected = this.comarcaName;
+                        self.remove_background();
+                        self.onMapClick(this.comarcaName, this.capitalComarca, this.contentText, this.comarcaLink);
+                    });
 
-                obj[2].click(function () {
-                    var comarcaName = this.comarcaName;
-                    var capitalComarca = this.capitalComarca;
-                    var contentText = this.contentText;
-                    var comarcaLink = this.comarcaLink;
-                    self.selected = this.comarcaName;
-                    self.remove_background();
-                    self.onMapClick(comarcaName, capitalComarca, contentText, comarcaLink);
-                });
-
-                obj[0].touchstart(function () {
-                    var comarcaName = this.comarcaName;
-                    var capitalComarca = this.capitalComarca;
-                    var contentText = this.contentText;
-                    var comarcaLink = this.comarcaLink;
-                    self.selected = this.comarcaName;
-                    self.remove_background();
-                    self.onMapClick(comarcaName, capitalComarca, contentText, comarcaLink);
-                });
-
-                obj[1].touchstart(function () {
-                    var comarcaName = this.comarcaName;
-                    var capitalComarca = this.capitalComarca;
-                    var contentText = this.contentText;
-                    var comarcaLink = this.comarcaLink;
-                    self.selected = this.comarcaName;
-                    self.remove_background();
-                    self.onMapClick(comarcaName, capitalComarca, contentText, comarcaLink);
-                });
-
-                obj[2].touchstart(function () {
-                    var comarcaName = this.comarcaName;
-                    var capitalComarca = this.capitalComarca;
-                    var contentText = this.contentText;
-                    var comarcaLink = this.comarcaLink;
-                    self.selected = this.comarcaName;
-                    self.remove_background();
-                    self.onMapClick(comarcaName, capitalComarca, contentText, comarcaLink);
-                });
+                    // touch event
+                    obj[i].touchstart(function () {
+                        self.selected = this.comarcaName;
+                        self.remove_background();
+                        self.onMapClick(this.comarcaName, this.capitalComarca, this.contentText, this.comarcaLink);
+                    });
+                }
             }
 
             i++;
@@ -186,28 +144,26 @@ class CatMap {
     createRaphaelObject(comarca, i) {
         let obj = this.mcat[comarca];
 
-        // Raphael object - object 0 (the map)
-        obj.push(this.paper.path(this.mappaths[comarca].path).attr(this.config.comarcaAttr));
+        const path = this.paper.path(this.mappaths[comarca].path);
+        path.attr(this.config.comarcaAttr)
 
-        // object 1 and 2 (comarca name / capital comarca name)
-        obj.push(this.paper.text(this.mappaths[comarca].nx, this.mappaths[comarca].ny, this.mappaths[comarca].name).attr(this.config.nomComcarcaAttr_out));
-        obj.push(this.paper.text(this.mappaths[comarca].cx, this.mappaths[comarca].cy, this.mappaths[comarca].capital).attr(this.config.nomCapitalAttr));
+        // Raphael Object - object 0 (the map)
+        obj.push(path);
 
-        obj[0].comarcaName = this.mappaths[comarca].name;
-        obj[1].comarcaName = this.mappaths[comarca].name;
-        obj[2].comarcaName = this.mappaths[comarca].name;
+        const bbox = path.getBBox();
+        const {comarca_x, capital_x, comarca_y, capital_y} = this.get_comarca_and_capital_positions_label(comarca, bbox);
 
-        obj[0].capitalComarca = this.mappaths[comarca].capital;
-        obj[1].capitalComarca = this.mappaths[comarca].capital;
-        obj[2].capitalComarca = this.mappaths[comarca].capital;
+        // Object 1 and 2 (comarca name / capital comarca name)
+        obj.push(this.paper.text(comarca_x, comarca_y, this.mappaths[comarca].name).attr(this.config.nomComcarcaAttr_out));
+        obj.push(this.paper.text(capital_x, capital_y, this.mappaths[comarca].capital).attr(this.config.nomCapitalAttr));
 
-        obj[0].contentText = this.mappaths[comarca].info;
-        obj[1].contentText = this.mappaths[comarca].info;
-        obj[2].contentText = this.mappaths[comarca].info;
-
-        obj[0].comarcaLink = this.mappaths[comarca].url;
-        obj[1].comarcaLink = this.mappaths[comarca].url;
-        obj[2].comarcaLink = this.mappaths[comarca].url;
+        for (let i = 0; i < 3; i++) {
+            // populate  all the values to all array objects to have it available
+            obj[i].comarcaName = this.mappaths[comarca].name;
+            obj[i].capitalComarca = this.mappaths[comarca].capital;
+            obj[i].contentText = this.mappaths[comarca].info;
+            obj[i].comarcaLink = this.mappaths[comarca].url;
+        }
 
         obj[0].node.id = i;
         obj[0].toBack();
@@ -215,17 +171,37 @@ class CatMap {
         obj[1].toFront();
         obj[2].toFront();
 
-        //Initial status hiden
+        //Initial status hidden
         obj[1].hide();
         obj[2].hide();
 
         return obj;
     }
 
+    get_comarca_and_capital_positions_label(comarca, bbox) {
+        let extra_x = 0;
+        let extra_y = 0;
+        if (this.mappaths[comarca].extra_x) {
+            extra_x = this.mappaths[comarca].extra_x;
+        }
+
+        if (this.mappaths[comarca].extra_y) {
+            extra_y = this.mappaths[comarca].extra_y;
+        }
+
+        const space_comarca = 15;
+        const comarca_x = bbox.x + ((bbox.width + extra_x) / 2);
+        const capital_x = comarca_x;
+
+        const comarca_y = bbox.y + ((bbox.height + extra_y) / 2);
+        const capital_y = comarca_y + space_comarca;
+        return {comarca_x, capital_x, comarca_y, capital_y};
+    }
+
     remove_background(){
         for (const comarca in this.mappaths) {
             let obj = this.mcat[comarca];
-            if (obj[0].comarcaName != this.selected) {
+            if (obj[0].comarcaName !== this.selected) {
                 let params = {
                     'fill': this.config.colorOut
                 };
@@ -246,10 +222,9 @@ class CatMap {
         } else {
             if (this.config.button) {
                 if (this.config.debug) {
-                    console.log('button functionality enabled');
+                    console.log('Button functionality enabled');
                 }
-                $('#veure-contingut').show()
-                $('#veure-contingut').click(function () {
+                $('#veure-contingut').show().click(function () {
                     $(this).toggleClass("veure-clic");
                     window.location = comarcaLink;
                     return false;
@@ -263,13 +238,13 @@ class CatMap {
 
     resizeMap(){
         if (this.config.debug) {
-            console.log('resizeMap ...');
+            console.log('ResizeMap');
         }
         let self = this;
 
         this.paper.changeSize(this.config.mapWidth, this.config.mapHeight, true, false);
         if (this.config.debug) {
-            console.log('resize map with : ' + this.config.mapWidth + ' height : ' + this.config.mapHeight);
+            console.log('Resize map with : ' + this.config.mapWidth + ' height : ' + this.config.mapHeight);
         }
 
         $(".map").css({
@@ -303,7 +278,7 @@ class CatMap {
     hideComarcaName(){
         for (const comarca in this.mappaths) {
             let obj = this.mcat[comarca];
-            if (obj[1].comarcaName != this.selected) {
+            if (obj[1].comarcaName !== this.selected) {
                 obj[1].hide();
             }
         }
@@ -311,7 +286,7 @@ class CatMap {
 
     responsiveResize(){
         if (this.config.debug) {
-            console.log('responsiveResize ...');
+            console.log('ResponsiveResize');
         }
 
         this.winWidth = this.win.width();
@@ -362,7 +337,7 @@ class CatMap {
         this.winWidth = this.win.width();
 
         if (this.config.debug) {
-            console.log('calling loadMapAndText ...');
+            console.log('Calling loadMapAndText ...');
             console.log('Create map with : ' + this.config.mapWidth + ' height : ' + this.config.mapHeight);
             console.log('Scale map : ' + this.config.scale);
             console.log('Ratio : ' + this.ratio);

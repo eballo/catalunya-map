@@ -20,3 +20,4 @@
 - [Demo v8.0](http://demo.catalunyamedieval.es/map80)
 - [Demo v9.0](http://demo.catalunyamedieval.es/map90)
 - [Demo v10.0](http://demo.catalunyamedieval.es/map10)
+- [Demo v11.0](http://demo.catalunyamedieval.es/map11)

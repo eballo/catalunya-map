@@ -85,3 +85,8 @@ v9.0
 v10.0
 - Migration to webpack
 - add Comarca Llucanes
+
+V11.0
+- Center names by default using getBox
+- Update to 2.3.0 raphaeel JS library
+- Add use of extra_x and extra_y to help to place names
