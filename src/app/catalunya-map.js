@@ -7,11 +7,14 @@
  * version : 11.0
  *
  */
+import {stringToBoolean} from "./catalunya-map-config";
+
 ;
 class CatMap {
 
     constructor(config, json) {
         this.config = config;
+        this.debug = stringToBoolean(process.env.DEBUG)
         this.mappaths = json
         this.paper = new ScaleRaphael('map', this.config.mapWidth, this.config.mapHeight);
         this.winWidth;
@@ -22,7 +25,7 @@ class CatMap {
     }
 
     showValues(){
-        if (this.config.debug) {
+        if (this.debug) {
             console.log('ShowValues ...');
             console.log("Win Width: " + this.winWidth + " Map with: " + this.config.mapWidth + " Map Height: " + this.config.mapHeight + " Ratio: " + this.ratio);
             $('#debugInfo').html("Win Width: " + this.winWidth + " Map with: " + this.config.mapWidth + " Map Height: " + this.config.mapHeight + " Ratio: " + this.ratio);
@@ -30,7 +33,7 @@ class CatMap {
     }
 
     createArrayComarcas(){
-        if (this.config.debug) {
+        if (this.debug) {
             console.log('Create Array of Comarques');
         }
         for (const comarca in this.mappaths) {
@@ -40,7 +43,7 @@ class CatMap {
 
     createLlistaComarquesText(){
         if(this.config.useListText) {
-            if (this.config.debug) {
+            if (this.debug) {
                 console.log('Create list of Comarques');
             }
 
@@ -63,7 +66,7 @@ class CatMap {
                 $("<li class='list-group-item'><a href='" + llistaComarques[i].url + "' class='list-group-item'>" + llistaComarques[i].name + "<span class='badge'>" + llistaComarques[i].total + "</span></a></li>").appendTo("ul.list");
             }
         }else{
-            if(this.config.debug){
+            if(this.debug){
                 console.log("Create list comarques is disabled")
             }
         }
@@ -71,7 +74,7 @@ class CatMap {
 
     createMap(){
 
-        if (this.config.debug) {
+        if (this.debug) {
             console.log('CreateMap');
         }
 
@@ -109,7 +112,7 @@ class CatMap {
             }, obj, obj);
 
             if (config.useText) {
-                if (this.config.debug) {
+                if (this.debug) {
                     console.log("useText is enabled");
                 }
 
@@ -223,7 +226,7 @@ class CatMap {
             }
         } else {
             if (this.config.button) {
-                if (this.config.debug) {
+                if (this.debug) {
                     console.log('Button functionality enabled');
                 }
                 $('#veure-contingut').show().click(function () {
@@ -239,13 +242,13 @@ class CatMap {
     }
 
     resizeMap(){
-        if (this.config.debug) {
+        if (this.debug) {
             console.log('ResizeMap');
         }
         let self = this;
 
         this.paper.changeSize(this.config.mapWidth, this.config.mapHeight, true, false);
-        if (this.config.debug) {
+        if (this.debug) {
             console.log('Resize map with : ' + this.config.mapWidth + ' height : ' + this.config.mapHeight);
         }
 
@@ -287,14 +290,14 @@ class CatMap {
     }
 
     responsiveResize(){
-        if (this.config.debug) {
+        if (this.debug) {
             console.log('ResponsiveResize');
         }
 
         this.winWidth = this.win.width();
 
         if (this.winWidth >= 960) {
-            if (this.config.debug) {
+            if (this.debug) {
                 console.log('WindowWith > 960');
             }
             this.hideListShowMap();
@@ -303,17 +306,17 @@ class CatMap {
             this.paper.scaleAll(this.config.scale);
             this.resizeMap();
         } else if (this.winWidth < 960 && this.winWidth >= 768) {
-            if (this.config.debug) {
+            if (this.debug) {
                 console.log('768 =< WindowWith < 960 ');
             }
             this.hideMapShowList();
         } else if (this.winWidth < 768 && this.winWidth >= 480) {
-            if (this.config.debug) {
+            if (this.debug) {
                 console.log('480 =< WindowWith < 768 ');
             }
             this.hideMapShowList();
         } else if (this.winWidth < 480) {
-            if (this.config.debug) {
+            if (this.debug) {
                 console.log('480 < WindowWith');
             }
             this.hideMapShowList();
@@ -338,7 +341,7 @@ class CatMap {
         this.win = $(window);
         this.winWidth = this.win.width();
 
-        if (this.config.debug) {
+        if (this.debug) {
             console.log('Calling loadMapAndText ...');
             console.log('Create map with : ' + this.config.mapWidth + ' height : ' + this.config.mapHeight);
             console.log('Scale map : ' + this.config.scale);

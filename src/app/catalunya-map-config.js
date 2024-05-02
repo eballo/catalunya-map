@@ -1,8 +1,8 @@
+
 const MAP_CONFIG = {
 
     url_json : process.env.SERVER_HOST,
 
-    debug: stringToBoolean(process.env.DEBUG), // enable/disable debug mode
     responsive: true,    // enable/disable responsive functionality
     useText: true,       // enable/disable list text comarques
     useListText: false,  // enable/disable comarques list text

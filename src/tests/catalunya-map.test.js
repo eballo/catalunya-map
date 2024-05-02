@@ -1,6 +1,5 @@
 import CatMap from '../app/catalunya-map';
 import {beforeEach, describe, expect, jest, test} from "@jest/globals";
-import $ from "./mocks/jquery";
 
 
 global.ScaleRaphael = jest.fn().mockImplementation(() => ({
@@ -21,8 +20,11 @@ describe('CatMap', () => {
     let config, json, catMap;
 
     beforeEach(() => {
+
+        jest.resetModules(); // Ensures that all modules are re-required
+        process.env = {...process.env, DEBUG: 'true'}; // Extend process.env with the DEBUG variable
+
         config = {
-            debug: false,
             mapWidth: 800,
             mapHeight: 600,
             useListText: true,
