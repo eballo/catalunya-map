@@ -1,3 +1,5 @@
+![example workflow](https://github.com/eballo/catalunya-map/actions/workflows/build.yml/badge.svg) [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=eballo_catalunya-map&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=eballo_catalunya-map)
+
 # Interactive Map of Catalunya
 Interactive vectorial map of Catalunya based on a SVG/VML and the library RaphaëlJs.
 
