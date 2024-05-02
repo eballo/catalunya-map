@@ -109,23 +109,37 @@ Source files Explanation :
 
 Since version 10.0 uses [webpack](https://webpack.js.org/).
 
-### Install gulp and Bower
+### Installation
+
+### Configuration
+add a .env file and setup your google api key and the other required env variables. Check the .env.sample for more information, and create the following files: .env (local) .env.production (production)
+
+```
+SERVER_HOST=/js/catalunya-map-path-sample-min.json
+DEBUG=true
+```
+
+NOTE: it is important that the server host starts with a '/' like in the sample.
 
 Building the theme requires [node.js](http://nodejs.org/download/). We recommend you update to the latest version of npm: `npm install -g npm@latest`.
 
 From the command line:
 
 1. Navigate to the theme directory, then run `npm install`
-3. Build `npm run build`
-4. Start `npm run start` 
+3. Build `npm run buildLocal`
+4. Start `npm run start`
+5. (optional) buildWatch `npm run buildWatch`
 
 Open your browser [localhost:9000](http://localhost:9000/)
 
 ### Available node commands
 
-* `build`      — Compile and optimize the files in your web directory
-* `buildWatch` — Compile and optimize the files in your web directory and watch for changes to update the files
-* `start`      — Starts a web server
+* `test` 	   - run all the tests
+* `testWatch`  — run all the tests while watching the changes of the files
+* `buildLocal` — Compile (local) and optimize the files in your web directory
+* `buildProd`  — Compile (production) and optimize the files in your web directory
+* `buildWatch` — Compile (local) and optimize the files in your web directory and watch for changes to update the files
+* `start`      — Starts  a web server
 
 ## Webs using this map:
 - [blog cimasdestacables](http://cimasdestacables.blogspot.com/p/mapa-comarcal-de-catalunya.html)

@@ -1,4 +1,4 @@
-import config from "./config/catalunya-map-config-prod";
+import config from "./catalunya-map-config";
 import CatMap from "./catalunya-map";
 
 $(document).ready(function () {
