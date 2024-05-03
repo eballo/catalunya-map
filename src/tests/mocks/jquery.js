@@ -3,6 +3,7 @@ import {jest} from "@jest/globals";
 
 const $ = jest.fn().mockImplementation(selector => {
     return {
+        ajax: jest.fn(),
         html: jest.fn(),
         append: jest.fn(),
         text: jest.fn(),
@@ -22,6 +23,7 @@ const $ = jest.fn().mockImplementation(selector => {
         fadeIn: jest.fn(),
         fadeOut: jest.fn(),
         click: jest.fn(),
+        toggle: jest.fn(),
         ready: jest.fn((callback) => callback()),
         length: 0
     };
