@@ -508,5 +508,64 @@ describe('CatMap', () => {
 
     });
 
+    describe('showComarcaName', () => {
+        test.skip('should show comarca name', () => {
+
+            // Executing the method to be tested
+            mapInstance.showComarcaName();
+
+            // Assertions
+            expect(global.$().show).toHaveBeenCalled();
+        });
+    });
+
+    describe('hideMapShowList', () => {
+        test.skip('should hide map wrapper and show list of comarques', () => {
+            // Executing the method to be tested
+            mapInstance.hideMapShowList();
+
+            // Assertions
+            expect(global.$('.map-wrapper').hide).toHaveBeenCalled();
+            expect(global.$('.llistaComarques').show).toHaveBeenCalled();
+        });
+    });
+
+    describe('loadMapAndText', () => {
+        test.skip('should create map, array of comarcas, and list of comarques', () => {
+
+            // Executing the method to be tested
+            mapInstance.loadMapAndText();
+
+            // Assertions
+            expect(mapInstance.paper.scaleAll).toHaveBeenCalledWith(1.2);
+            expect(mapInstance.createArrayComarcas).toHaveBeenCalled();
+            expect(mapInstance.createMap).toHaveBeenCalled();
+            expect(mapInstance.createLlistaComarquesText).toHaveBeenCalled();
+        });
+
+        test.skip('should update window location when onClick is true and newWindow is false', () => {
+            // Mocking necessary properties for testing
+            mapInstance.config.onClick = true;
+            mapInstance.config.newWindow = false;
+
+            // Executing the method to be tested
+            mapInstance.loadMapAndText();
+
+            // Assertions
+            expect(global.window.location).toEqual({ assign: expect.any(Function) });
+        });
+
+        test.skip('should not update window location when onClick is false', () => {
+            // Mocking necessary properties for testing
+            mapInstance.config.onClick = false;
+
+            // Executing the method to be tested
+            mapInstance.loadMapAndText();
+
+            // Assertions
+            expect(global.window.location).toEqual({});
+        });
+    });
+
 });
 
