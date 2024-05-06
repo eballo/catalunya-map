@@ -18,7 +18,11 @@ const $ = jest.fn().mockImplementation(selector => {
         data: jest.fn(),
         val: jest.fn(),
         hide: jest.fn(),
-        show: jest.fn(),
+        show: jest.fn().mockImplementation(()=>{
+            return {
+                click: jest.fn()
+            }
+        }),
         animate: jest.fn(),
         fadeIn: jest.fn(),
         fadeOut: jest.fn(),

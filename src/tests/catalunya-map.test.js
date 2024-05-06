@@ -1,3 +1,7 @@
+/**
+ * @jest-environment jsdom
+ */
+
 import CatMap from '../app/catalunya-map';
 import {afterEach, beforeEach, describe, expect, jest, test} from "@jest/globals";
 import $ from './mocks/jquery'
@@ -17,7 +21,6 @@ global.ScaleRaphael = jest.fn().mockImplementation(() => ({
 }));
 
 global.$ = $
-
 
 describe('CatMap', () => {
     let mapInstance;
@@ -65,21 +68,44 @@ describe('CatMap', () => {
         consoleLogMock.mockRestore();
     });
 
-    test('createArrayComarcas', () => {
-        mapInstance.createArrayComarcas()
-        expect(Object.keys(mapInstance.mcat).length).toBe(2)
-    });
+    describe("CreateArrayComarcas", ()=>{
+        test('createArrayComarcas - debug enabled', () => {
+            mapInstance.createArrayComarcas()
+            expect(Object.keys(mapInstance.mcat).length).toBe(2)
+            expect(consoleLogMock).toHaveBeenCalledWith('Create Array of Comarques');
+        });
 
-    test('showValues', () => {
-        mapInstance.showValues();
+        test('createArrayComarcas - debug disabled', () => {
+            mapInstance.debug = false
+            mapInstance.createArrayComarcas()
+            expect(Object.keys(mapInstance.mcat).length).toBe(2)
+            expect(consoleLogMock).not.toHaveBeenCalledWith('Create Array of Comarques');
+        });
+    })
 
-        // Check console.log has been called
-        expect(consoleLogMock).toHaveBeenCalledWith('ShowValues ...');
-        expect(consoleLogMock).toHaveBeenCalledWith(`Win Width: undefined Map with: 800 Map Height: 600 Ratio: undefined`);
-    });
+    describe('showValues',()=>{
+        test('showValues - debug enabled', () => {
+            mapInstance.showValues();
+
+            // Check console.log has been called
+            expect(consoleLogMock).toHaveBeenCalledWith('ShowValues ...');
+            expect(consoleLogMock).toHaveBeenCalledWith(`Win Width: undefined Map with: 800 Map Height: 600 Ratio: undefined`);
+        });
+
+        test('showValues - debug disabled', () => {
+            mapInstance.debug = false;
+            mapInstance.showValues();
+
+            // Check console.log has been called
+            expect(consoleLogMock).not.toHaveBeenCalledWith('ShowValues ...');
+            expect(consoleLogMock).not.toHaveBeenCalledWith(`Win Width: undefined Map with: 800 Map Height: 600 Ratio: undefined`);
+        });
+
+
+    })
 
     describe('createLlistaComarquesText', () => {
-        test('should create list of comarques', () => {
+        test('should create list of comarques - debug enabled', () => {
             // Mocking config
             mapInstance.config = {
                 useListText: true,
@@ -89,9 +115,10 @@ describe('CatMap', () => {
 
             // Assertions
             expect(global.$).toHaveBeenCalledTimes(2); // Twice because of loop
+            expect(consoleLogMock).toHaveBeenCalledWith(`Create list of Comarques`);
         });
 
-        test('should not create list of comarques when useListText is false', () => {
+        test('should not create list of comarques when useListText is false - debug enabled', () => {
             // Mocking config
             mapInstance.config = {
                 useListText: false,
@@ -101,6 +128,7 @@ describe('CatMap', () => {
 
             // Assertions
             expect(global.$).not.toHaveBeenCalled(); // jQuery should not be called
+            expect(consoleLogMock).toHaveBeenCalledWith(`Create list comarques is disabled`);
         });
     });
 
@@ -241,6 +269,82 @@ describe('CatMap', () => {
 
             expect(result.comarca_x).toBe(170);
             expect(result.comarca_y).toBe(262.5);
+        });
+    });
+
+    describe('onMapClick', () => {
+        test('should open link in same window if onClick is true', () => {
+            // Mocking necessary parameters for testing
+            const comarcaName = 'Comarca1';
+            const capitalComarca = 'Capital1';
+            const contentText = 'Info1';
+            const comarcaLink = 'http://example.com/comarca1';
+
+            // Executing the method to be tested
+            mapInstance.onMapClick(comarcaName, capitalComarca, contentText, comarcaLink);
+
+            // Assertions
+            expect(consoleLogMock).toHaveBeenCalledWith('onClick enabled');
+            expect(consoleLogMock).toHaveBeenCalledWith('newWindow disabled');
+        });
+
+        test('should open link in new window if onClick is true and newWindow is true', () => {
+            // Mocking necessary properties for testing
+            mapInstance.config.newWindow = true; // Enable opening in a new window
+
+            // Mocking necessary parameters for testing
+            const comarcaName = 'Comarca1';
+            const capitalComarca = 'Capital1';
+            const contentText = 'Info1';
+            const comarcaLink = 'http://example.com/comarca1';
+            window.open = jest.fn()
+
+            // Executing the method to be tested
+            mapInstance.onMapClick(comarcaName, capitalComarca, contentText, comarcaLink);
+
+            // Assertions
+            expect(consoleLogMock).toHaveBeenCalledWith('onClick enabled');
+            expect(consoleLogMock).toHaveBeenCalledWith('newWindow enabled');
+            expect(window.open).toHaveBeenCalled();
+        });
+
+        test('should not open link if onClick is false and button enabled', () => {
+            // Mocking necessary properties for testing
+            mapInstance.config.onClick = false; // Disable onClick functionality
+
+            // Mocking necessary parameters for testing
+            const comarcaName = 'Comarca1';
+            const capitalComarca = 'Capital1';
+            const contentText = 'Info1';
+            const comarcaLink = 'http://example.com/comarca1';
+
+            // Executing the method to be tested
+            mapInstance.onMapClick(comarcaName, capitalComarca, contentText, comarcaLink);
+
+            // Assertions
+            expect(consoleLogMock).toHaveBeenCalledWith('onClick disabled');
+            expect(consoleLogMock).toHaveBeenCalledWith('Button functionality enabled');
+
+        });
+
+        test('should not open link if onClick is false and button disabled', () => {
+            // Mocking necessary properties for testing
+            mapInstance.config.onClick = false; // Disable onClick functionality
+            mapInstance.config.button = false;
+
+            // Mocking necessary parameters for testing
+            const comarcaName = 'Comarca1';
+            const capitalComarca = 'Capital1';
+            const contentText = 'Info1';
+            const comarcaLink = 'http://example.com/comarca1';
+
+            // Executing the method to be tested
+            mapInstance.onMapClick(comarcaName, capitalComarca, contentText, comarcaLink);
+
+            // Assertions
+            expect(consoleLogMock).toHaveBeenCalledWith('onClick disabled');
+            expect(consoleLogMock).toHaveBeenCalledWith('Button functionality disabled');
+
         });
     });
 

@@ -219,12 +219,24 @@ class CatMap {
 
     onMapClick(comarcaName, capitalComarca, contentText, comarcaLink){
         if (this.config.onClick) {
+            if (this.debug) {
+                console.log('onClick enabled');
+            }
             if (this.config.newWindow) {
+                if (this.debug) {
+                    console.log('newWindow enabled');
+                }
                 window.open(comarcaLink);
             } else {
+                if (this.debug) {
+                    console.log('newWindow disabled');
+                }
                 window.location = comarcaLink;
             }
         } else {
+            if (this.debug) {
+                console.log('onClick disabled');
+            }
             if (this.config.button) {
                 if (this.debug) {
                     console.log('Button functionality enabled');
@@ -235,6 +247,10 @@ class CatMap {
                     return false;
                 });
 
+            }else{
+                if (this.debug) {
+                    console.log('Button functionality disabled');
+                }
             }
             $('#comarcaName').html('<h1>' + comarcaName + '</h1><h2>' + capitalComarca + '</h2>');
             $('#contentText').html(contentText);
