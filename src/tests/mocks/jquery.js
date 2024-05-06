@@ -1,4 +1,3 @@
-// __mocks__/jquery.js
 import {jest} from "@jest/globals";
 
 const $ = jest.fn().mockImplementation(selector => {
@@ -6,6 +5,7 @@ const $ = jest.fn().mockImplementation(selector => {
         ajax: jest.fn(),
         html: jest.fn(),
         append: jest.fn(),
+        appendTo: jest.fn(),
         text: jest.fn(),
         find: jest.fn(() => $(selector)),
         each: jest.fn((callback) => {

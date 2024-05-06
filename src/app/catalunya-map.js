@@ -111,7 +111,7 @@ class CatMap {
                 }
             }, obj, obj);
 
-            if (config.useText) {
+            if (config.useListText) {
                 if (this.debug) {
                     console.log("useText is enabled");
                 }

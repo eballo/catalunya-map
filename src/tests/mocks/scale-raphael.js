@@ -10,7 +10,7 @@ const mockSvgElement = () => ({
     node: { id: '' }
 });
 
-let ScaleRaphael = jest.fn().mockImplementation((containerId, width, height) => {
+const ScaleRaphael = jest.fn().mockImplementation((containerId, width, height) => {
     return {
         path: jest.fn().mockReturnValue(mockSvgElement()),
         text: jest.fn().mockReturnValue(mockSvgElement()),
