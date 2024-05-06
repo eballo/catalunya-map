@@ -29,6 +29,8 @@ const $ = jest.fn().mockImplementation(selector => {
         click: jest.fn(),
         toggle: jest.fn(),
         ready: jest.fn((callback) => callback()),
+        mouseenter: jest.fn(),
+        mouseleave: jest.fn(),
         length: 0
     };
 });

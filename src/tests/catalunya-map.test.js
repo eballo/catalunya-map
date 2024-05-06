@@ -105,7 +105,7 @@ describe('CatMap', () => {
     })
 
     describe('createLlistaComarquesText', () => {
-        test('should create list of comarques - debug enabled', () => {
+        test('should create list of comarques enabled - debug enabled', () => {
             // Mocking config
             mapInstance.config = {
                 useListText: true,
@@ -116,6 +116,20 @@ describe('CatMap', () => {
             // Assertions
             expect(global.$).toHaveBeenCalledTimes(2); // Twice because of loop
             expect(consoleLogMock).toHaveBeenCalledWith(`Create list of Comarques`);
+        });
+
+        test('should create list of comarques enabled - debug disabled', () => {
+            // Mocking config
+            mapInstance.debug = false
+            mapInstance.config = {
+                useListText: true,
+            };
+
+            mapInstance.createLlistaComarquesText();
+
+            // Assertions
+            expect(global.$).toHaveBeenCalledTimes(2); // Twice because of loop
+            expect(consoleLogMock).not.toHaveBeenCalledWith(`Create list of Comarques`);
         });
 
         test('should not create list of comarques when useListText is false - debug enabled', () => {
@@ -129,6 +143,20 @@ describe('CatMap', () => {
             // Assertions
             expect(global.$).not.toHaveBeenCalled(); // jQuery should not be called
             expect(consoleLogMock).toHaveBeenCalledWith(`Create list comarques is disabled`);
+        });
+
+        test('should not create list of comarques when useListText is false - debug disabled', () => {
+            mapInstance.debug = false;
+            // Mocking config
+            mapInstance.config = {
+                useListText: false,
+            };
+
+            mapInstance.createLlistaComarquesText();
+
+            // Assertions
+            expect(global.$).not.toHaveBeenCalled(); // jQuery should not be called
+            expect(consoleLogMock).not.toHaveBeenCalledWith(`Create list comarques is disabled`);
         });
     });
 
@@ -236,6 +264,41 @@ describe('CatMap', () => {
             expect(mapInstance.responsiveResize).not.toHaveBeenCalled();
         });
 
+        test('should create map with necessary properties and functions - useListText is true - responsive false - debug disabled', () => {
+            let mockObject = {
+                hover: jest.fn(),
+                click: jest.fn(),
+                touchstart: jest.fn(),
+            };
+
+            for (let i=0; i<3; ++i) {
+                mockObject[i] = {
+                    hover: jest.fn(),
+                    click: jest.fn(),
+                    touchstart: jest.fn(),
+                };
+            }
+            mapInstance.debug = false;
+            mapInstance.createRaphaelObject = jest.fn().mockReturnValue(mockObject);
+            mapInstance.responsiveResize = jest.fn();
+            mapInstance.resizeMap = jest.fn();
+            mapInstance.win = {
+                resize: jest.fn(), // Mocking the resize function
+            };
+
+            mapInstance.config.useListText = true;
+            mapInstance.config.responsive = false;
+
+            // Executing the method to be tested
+            mapInstance.createMap();
+
+            // Assertions
+            expect(global.ScaleRaphael).toHaveBeenCalledWith('map', expect.any(Number), expect.any(Number));
+            expect(global.console.log).not.toHaveBeenCalledWith('CreateMap');
+            expect(global.console.log).not.toHaveBeenCalledWith('useText is enabled');
+            expect(mapInstance.responsiveResize).not.toHaveBeenCalled();
+        });
+
     });
 
     describe('get_comarca_and_capital_positions_label', () => {
@@ -288,6 +351,22 @@ describe('CatMap', () => {
             expect(consoleLogMock).toHaveBeenCalledWith('newWindow disabled');
         });
 
+        test('should open link in same window if onClick is true - debug disabled', () => {
+            // Mocking necessary parameters for testing
+            const comarcaName = 'Comarca1';
+            const capitalComarca = 'Capital1';
+            const contentText = 'Info1';
+            const comarcaLink = 'http://example.com/comarca1';
+
+            // Executing the method to be tested
+            mapInstance.debug = false;
+            mapInstance.onMapClick(comarcaName, capitalComarca, contentText, comarcaLink);
+
+            // Assertions
+            expect(consoleLogMock).not.toHaveBeenCalledWith('onClick enabled');
+            expect(consoleLogMock).not.toHaveBeenCalledWith('newWindow disabled');
+        });
+
         test('should open link in new window if onClick is true and newWindow is true', () => {
             // Mocking necessary properties for testing
             mapInstance.config.newWindow = true; // Enable opening in a new window
@@ -305,6 +384,27 @@ describe('CatMap', () => {
             // Assertions
             expect(consoleLogMock).toHaveBeenCalledWith('onClick enabled');
             expect(consoleLogMock).toHaveBeenCalledWith('newWindow enabled');
+            expect(window.open).toHaveBeenCalled();
+        });
+
+        test('should open link in new window if onClick is true and newWindow is true - debug false', () => {
+            // Mocking necessary properties for testing
+            mapInstance.config.newWindow = true; // Enable opening in a new window
+
+            // Mocking necessary parameters for testing
+            const comarcaName = 'Comarca1';
+            const capitalComarca = 'Capital1';
+            const contentText = 'Info1';
+            const comarcaLink = 'http://example.com/comarca1';
+            window.open = jest.fn()
+
+            // Executing the method to be tested
+            mapInstance.debug = false;
+            mapInstance.onMapClick(comarcaName, capitalComarca, contentText, comarcaLink);
+
+            // Assertions
+            expect(consoleLogMock).not.toHaveBeenCalledWith('onClick enabled');
+            expect(consoleLogMock).not.toHaveBeenCalledWith('newWindow enabled');
             expect(window.open).toHaveBeenCalled();
         });
 
@@ -327,6 +427,26 @@ describe('CatMap', () => {
 
         });
 
+        test('should not open link if onClick is false and button enabled - debug false', () => {
+            // Mocking necessary properties for testing
+            mapInstance.config.onClick = false; // Disable onClick functionality
+
+            // Mocking necessary parameters for testing
+            const comarcaName = 'Comarca1';
+            const capitalComarca = 'Capital1';
+            const contentText = 'Info1';
+            const comarcaLink = 'http://example.com/comarca1';
+
+            // Executing the method to be tested
+            mapInstance.debug = false;
+            mapInstance.onMapClick(comarcaName, capitalComarca, contentText, comarcaLink);
+
+            // Assertions
+            expect(consoleLogMock).not.toHaveBeenCalledWith('onClick disabled');
+            expect(consoleLogMock).not.toHaveBeenCalledWith('Button functionality enabled');
+
+        });
+
         test('should not open link if onClick is false and button disabled', () => {
             // Mocking necessary properties for testing
             mapInstance.config.onClick = false; // Disable onClick functionality
@@ -346,6 +466,46 @@ describe('CatMap', () => {
             expect(consoleLogMock).toHaveBeenCalledWith('Button functionality disabled');
 
         });
+
+        test('should not open link if onClick is false and button disabled - debug false', () => {
+            // Mocking necessary properties for testing
+            mapInstance.config.onClick = false; // Disable onClick functionality
+            mapInstance.config.button = false;
+
+            // Mocking necessary parameters for testing
+            const comarcaName = 'Comarca1';
+            const capitalComarca = 'Capital1';
+            const contentText = 'Info1';
+            const comarcaLink = 'http://example.com/comarca1';
+
+            // Executing the method to be tested
+            mapInstance.debug = false;
+            mapInstance.onMapClick(comarcaName, capitalComarca, contentText, comarcaLink);
+
+            // Assertions
+            expect(consoleLogMock).not.toHaveBeenCalledWith('onClick disabled');
+            expect(consoleLogMock).not.toHaveBeenCalledWith('Button functionality disabled');
+
+        });
+    });
+
+    describe('resizeMap', () => {
+        test('should resize map and update CSS properties', () => {
+            // Mocking necessary parameters for testing
+            const expectedWidth = 600; // Initial width
+            const expectedHeight = 400; // Initial height
+
+            mapInstance.config.mapHeight = expectedHeight
+            mapInstance.config.mapWidth = expectedWidth
+
+            // Executing the method to be tested
+            mapInstance.resizeMap();
+
+            // Assertions
+            expect(mapInstance.paper.changeSize).toHaveBeenCalledWith(expectedWidth, expectedHeight, true, false);
+            expect(consoleLogMock).toHaveBeenCalledWith('ResizeMap')
+        });
+
     });
 
 });
