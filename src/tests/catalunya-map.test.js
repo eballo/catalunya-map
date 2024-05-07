@@ -561,5 +561,68 @@ describe('CatMap', () => {
         });
     });
 
+    describe('responsiveResize', () => {
+        test('should resize map and update CSS properties for window width > 960', () => {
+            mapInstance.win = {
+                width: jest.fn().mockReturnValue(1000)
+            }
+
+            mapInstance.resizeMap = jest.fn()
+            mapInstance.showValues = jest.fn()
+
+            mapInstance.responsiveResize();
+
+            expect(mapInstance.resizeMap).toHaveBeenCalled()
+            expect(mapInstance.showValues).toHaveBeenCalled();
+            expect(consoleLogMock).toHaveBeenCalledWith('WindowWith > 960')
+        });
+
+        test('should hide map and show list of comarques for window width 768 =< WindowWith < 960', () => {
+            mapInstance.win = {
+                width: jest.fn().mockReturnValue(800)
+            }
+
+            mapInstance.hideMapShowList = jest.fn()
+            mapInstance.showValues = jest.fn()
+
+            mapInstance.responsiveResize();
+
+            expect(mapInstance.hideMapShowList).toHaveBeenCalled()
+            expect(mapInstance.showValues).toHaveBeenCalled();
+            expect(consoleLogMock).toHaveBeenCalledWith('768 =< WindowWith < 960 ')
+        });
+
+        test('should hide map and show list of comarques for window width 480 =< WindowWith < 768', () => {
+            mapInstance.win = {
+                width: jest.fn().mockReturnValue(500)
+            }
+
+            mapInstance.hideMapShowList = jest.fn()
+            mapInstance.showValues = jest.fn()
+
+            mapInstance.responsiveResize();
+
+            expect(mapInstance.hideMapShowList).toHaveBeenCalled()
+            expect(mapInstance.showValues).toHaveBeenCalled();
+            expect(consoleLogMock).toHaveBeenCalledWith('480 =< WindowWith < 768 ')
+        });
+
+        test('should hide map and show list of comarques for window width 480 < WindowWith', () => {
+            mapInstance.win = {
+                width: jest.fn().mockReturnValue(300)
+            }
+
+            mapInstance.hideMapShowList = jest.fn()
+            mapInstance.showValues = jest.fn()
+
+            mapInstance.responsiveResize();
+
+            expect(mapInstance.hideMapShowList).toHaveBeenCalled()
+            expect(mapInstance.showValues).toHaveBeenCalled();
+            expect(consoleLogMock).toHaveBeenCalledWith('480 < WindowWith')
+        });
+
+    });
+
 });
 
