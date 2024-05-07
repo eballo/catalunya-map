@@ -531,39 +531,38 @@ describe('CatMap', () => {
     });
 
     describe('loadMapAndText', () => {
-        test.skip('should create map, array of comarcas, and list of comarques', () => {
+        test('should create map, array of comarcas, and list of comarques', () => {
+
+            mapInstance.createArrayComarcas = jest.fn()
+            mapInstance.createMap = jest.fn()
+            mapInstance.createLlistaComarquesText = jest.fn()
 
             // Executing the method to be tested
             mapInstance.loadMapAndText();
 
             // Assertions
-            expect(mapInstance.paper.scaleAll).toHaveBeenCalledWith(1.2);
+            expect(mapInstance.paper.scaleAll).toHaveBeenCalledWith(1.5);
             expect(mapInstance.createArrayComarcas).toHaveBeenCalled();
             expect(mapInstance.createMap).toHaveBeenCalled();
             expect(mapInstance.createLlistaComarquesText).toHaveBeenCalled();
+
+            expect(consoleLogMock).toHaveBeenCalledWith("Calling loadMapAndText ...")
         });
 
-        test.skip('should update window location when onClick is true and newWindow is false', () => {
+        test.skip('should create map, array of comarcas, and list of comarques - debug false', () => {
             // Mocking necessary properties for testing
-            mapInstance.config.onClick = true;
-            mapInstance.config.newWindow = false;
+            mapInstance.debug = false;
 
             // Executing the method to be tested
             mapInstance.loadMapAndText();
 
             // Assertions
-            expect(global.window.location).toEqual({ assign: expect.any(Function) });
-        });
+            expect(mapInstance.paper.scaleAll).toHaveBeenCalledWith(1.5);
+            expect(mapInstance.createArrayComarcas).toHaveBeenCalled();
+            expect(mapInstance.createMap).toHaveBeenCalled();
+            expect(mapInstance.createLlistaComarquesText).toHaveBeenCalled();
 
-        test.skip('should not update window location when onClick is false', () => {
-            // Mocking necessary properties for testing
-            mapInstance.config.onClick = false;
-
-            // Executing the method to be tested
-            mapInstance.loadMapAndText();
-
-            // Assertions
-            expect(global.window.location).toEqual({});
+            expect(consoleLogMock).not.toHaveBeenCalledWith("Calling loadMapAndText ...")
         });
     });
 

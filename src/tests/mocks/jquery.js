@@ -31,7 +31,8 @@ const $ = jest.fn().mockImplementation(selector => {
         ready: jest.fn((callback) => callback()),
         mouseenter: jest.fn(),
         mouseleave: jest.fn(),
-        length: 0
+        length: 0,
+        width: jest.fn(),
     };
 });
 
