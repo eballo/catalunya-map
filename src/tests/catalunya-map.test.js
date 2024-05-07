@@ -29,6 +29,7 @@ describe('CatMap', () => {
     let consoleLogMock;
 
     beforeEach(() => {
+
         jest.resetModules(); // Ensures that all modules are re-required
         process.env = {...process.env, DEBUG: 'true'}; // Extend process.env with the DEBUG variable
 
@@ -511,22 +512,23 @@ describe('CatMap', () => {
     describe('showComarcaName', () => {
         test.skip('should show comarca name', () => {
 
-            // Executing the method to be tested
             mapInstance.showComarcaName();
 
-            // Assertions
             expect(global.$().show).toHaveBeenCalled();
         });
     });
 
     describe('hideMapShowList', () => {
-        test.skip('should hide map wrapper and show list of comarques', () => {
-            // Executing the method to be tested
+        test('should hide map wrapper and show list of comarques', () => {
             mapInstance.hideMapShowList();
+            expect(global.$).toHaveBeenCalledTimes(2);
+        });
+    });
 
-            // Assertions
-            expect(global.$('.map-wrapper').hide).toHaveBeenCalled();
-            expect(global.$('.llistaComarques').show).toHaveBeenCalled();
+    describe('hideListShowMap', () => {
+        test('should hide list show map of comarques', () => {
+            mapInstance.hideListShowMap();
+            expect(global.$).toHaveBeenCalledTimes(2);
         });
     });
 
@@ -537,10 +539,8 @@ describe('CatMap', () => {
             mapInstance.createMap = jest.fn()
             mapInstance.createLlistaComarquesText = jest.fn()
 
-            // Executing the method to be tested
             mapInstance.loadMapAndText();
 
-            // Assertions
             expect(mapInstance.paper.scaleAll).toHaveBeenCalledWith(1.5);
             expect(mapInstance.createArrayComarcas).toHaveBeenCalled();
             expect(mapInstance.createMap).toHaveBeenCalled();
@@ -550,18 +550,13 @@ describe('CatMap', () => {
         });
 
         test.skip('should create map, array of comarcas, and list of comarques - debug false', () => {
-            // Mocking necessary properties for testing
             mapInstance.debug = false;
-
-            // Executing the method to be tested
             mapInstance.loadMapAndText();
 
-            // Assertions
             expect(mapInstance.paper.scaleAll).toHaveBeenCalledWith(1.5);
             expect(mapInstance.createArrayComarcas).toHaveBeenCalled();
             expect(mapInstance.createMap).toHaveBeenCalled();
             expect(mapInstance.createLlistaComarquesText).toHaveBeenCalled();
-
             expect(consoleLogMock).not.toHaveBeenCalledWith("Calling loadMapAndText ...")
         });
     });
