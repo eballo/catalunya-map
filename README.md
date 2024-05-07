@@ -114,7 +114,7 @@ Since version 10.0 uses [webpack](https://webpack.js.org/).
 ### Installation
 
 ### Configuration
-add a .env file and setup your google api key and the other required env variables. Check the .env.sample for more information, and create the following files: .env (local) .env.production (production)
+add a .env file and set up your google api key and the other required env variables. Check the .env.sample for more information, and create the following files: .env (local) .env.production (production)
 
 ```
 SERVER_HOST=/js/catalunya-map-path-sample-min.json
