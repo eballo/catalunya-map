@@ -1,11 +1,11 @@
+
 const MAP_CONFIG = {
 
-    url_json : "/wp-content/plugins/catalunya-medieval-plugins/plugins/refreshMap/pages/js/catalunya-map-path.json",
+    url_json : process.env.SERVER_HOST,
 
-    debug: false,        // enable/disable debug mode
     responsive: true,    // enable/disable responsive functionality
     useText: true,       // enable/disable list text comarques
-    useListText: true,   // enable/disable comarques list text
+    useListText: false,  // enable/disable comarques list text
     button: false,       // enable/disable button functionality
     onClick: false,      // enable/disable onclick open link
     newWindow: false,    // enable/disable open a page in a new window for onClick functionality
@@ -69,6 +69,10 @@ const MAP_CONFIG = {
         'z-index': 30
     }
 };
+
+export function stringToBoolean(string) {
+    return string.toLowerCase() === "false" ? false : Boolean(string);
+}
 
 export default MAP_CONFIG;
 
