@@ -7,7 +7,7 @@ const mockSvgElement = () => ({
     show: jest.fn(),
     toFront: jest.fn(),
     toBack: jest.fn(),
-    node: { id: '' }
+    node: {id: ''}
 });
 
 const ScaleRaphael = jest.fn().mockImplementation((containerId, width, height) => {

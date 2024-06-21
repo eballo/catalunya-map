@@ -17,7 +17,7 @@ $(document).ready(function () {
             $("#map").fadeIn(1000);
             $("#legend").fadeIn(1000);
         },
-        error: function(XMLHttpRequest, textStatus, errorThrown) {
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
             console.log("Error - url: " + url);
         }
     });
