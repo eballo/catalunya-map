@@ -86,10 +86,10 @@ describe('Catalunya map loader', () => {
 
     });
 
-    it('should log error when AJAX request fails', async() => {
+    it('should log error when AJAX request fails', async () => {
         const consoleSpy = jest.spyOn(console, 'log');
-        $.ajax = jest.fn().mockImplementation(({ error }) => {
-            error({ statusText: "Not Found" }, 'error', '404 Not Found');
+        $.ajax = jest.fn().mockImplementation(({error}) => {
+            error({statusText: "Not Found"}, 'error', '404 Not Found');
         });
 
         await require('../app/catalunya-map-main');

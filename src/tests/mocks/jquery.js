@@ -18,7 +18,7 @@ const $ = jest.fn().mockImplementation(selector => {
         data: jest.fn(),
         val: jest.fn(),
         hide: jest.fn(),
-        show: jest.fn().mockImplementation(()=>{
+        show: jest.fn().mockImplementation(() => {
             return {
                 click: jest.fn()
             }

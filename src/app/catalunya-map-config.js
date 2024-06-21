@@ -1,7 +1,6 @@
-
 const MAP_CONFIG = {
 
-    url_json : process.env.SERVER_HOST,
+    url_json: process.env.SERVER_HOST,
 
     responsive: true,    // enable/disable responsive functionality
     useText: true,       // enable/disable list text comarques

@@ -7,7 +7,7 @@
  */
 import {stringToBoolean} from "./catalunya-map-config";
 
-;
+
 
 class CatMap {
 
@@ -226,38 +226,47 @@ class CatMap {
             if (this.debug) {
                 console.log('onClick enabled');
             }
-            if (this.config.newWindow) {
-                if (this.debug) {
-                    console.log('newWindow enabled');
-                }
-                window.open(comarcaLink);
-            } else {
-                if (this.debug) {
-                    console.log('newWindow disabled');
-                }
-                window.location = comarcaLink;
-            }
+            this.on_click_enabled(comarcaLink);
         } else {
             if (this.debug) {
                 console.log('onClick disabled');
             }
-            if (this.config.button) {
-                if (this.debug) {
-                    console.log('Button functionality enabled');
-                }
-                $('#veure-contingut').show().click(function () {
-                    $(this).toggleClass("veure-clic");
-                    window.location = comarcaLink;
-                    return false;
-                });
+            this.on_click_disabled(comarcaLink, comarcaName, capitalComarca, contentText);
+        }
+    }
 
-            } else {
-                if (this.debug) {
-                    console.log('Button functionality disabled');
-                }
+    on_click_disabled(comarcaLink, comarcaName, capitalComarca, contentText) {
+
+        if (this.config.button) {
+            if (this.debug) {
+                console.log('Button functionality enabled');
             }
-            $('#comarcaName').html('<h1>' + comarcaName + '</h1><h2>' + capitalComarca + '</h2>');
-            $('#contentText').html(contentText);
+            $('#veure-contingut').show().click(function () {
+                $(this).toggleClass("veure-clic");
+                window.location = comarcaLink;
+                return false;
+            });
+
+        } else {
+            if (this.debug) {
+                console.log('Button functionality disabled');
+            }
+        }
+        $('#comarcaName').html('<h1>' + comarcaName + '</h1><h2>' + capitalComarca + '</h2>');
+        $('#contentText').html(contentText);
+    }
+
+    on_click_enabled(comarcaLink) {
+        if (this.config.newWindow) {
+            if (this.debug) {
+                console.log('newWindow enabled');
+            }
+            window.open(comarcaLink);
+        } else {
+            if (this.debug) {
+                console.log('newWindow disabled');
+            }
+            window.location = comarcaLink;
         }
     }
 

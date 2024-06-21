@@ -69,7 +69,7 @@ describe('CatMap', () => {
         consoleLogMock.mockRestore();
     });
 
-    describe("CreateArrayComarcas", ()=>{
+    describe("CreateArrayComarcas", () => {
         test('createArrayComarcas - debug enabled', () => {
             mapInstance.createArrayComarcas()
             expect(Object.keys(mapInstance.mcat).length).toBe(2)
@@ -84,7 +84,7 @@ describe('CatMap', () => {
         });
     })
 
-    describe('showValues',()=>{
+    describe('showValues', () => {
         test('showValues - debug enabled', () => {
             mapInstance.showValues();
 
@@ -170,7 +170,7 @@ describe('CatMap', () => {
                 touchstart: jest.fn(),
             };
 
-            for (let i=0; i<3; ++i) {
+            for (let i = 0; i < 3; ++i) {
                 mockObject[i] = {
                     hover: jest.fn(),
                     click: jest.fn(),
@@ -204,7 +204,7 @@ describe('CatMap', () => {
                 touchstart: jest.fn(),
             };
 
-            for (let i=0; i<3; ++i) {
+            for (let i = 0; i < 3; ++i) {
                 mockObject[i] = {
                     hover: jest.fn(),
                     click: jest.fn(),
@@ -238,7 +238,7 @@ describe('CatMap', () => {
                 touchstart: jest.fn(),
             };
 
-            for (let i=0; i<3; ++i) {
+            for (let i = 0; i < 3; ++i) {
                 mockObject[i] = {
                     hover: jest.fn(),
                     click: jest.fn(),
@@ -272,7 +272,7 @@ describe('CatMap', () => {
                 touchstart: jest.fn(),
             };
 
-            for (let i=0; i<3; ++i) {
+            for (let i = 0; i < 3; ++i) {
                 mockObject[i] = {
                     hover: jest.fn(),
                     click: jest.fn(),
@@ -306,7 +306,7 @@ describe('CatMap', () => {
         test('should return correct positions for comarca and capital labels', () => {
             // Mocking necessary parameters for testing
             const comarca = 'comarca1';
-            const bbox = { x: 100, y: 200, width: 50, height: 30 };
+            const bbox = {x: 100, y: 200, width: 50, height: 30};
 
             // Executing the method to be tested
             const result = mapInstance.get_comarca_and_capital_positions_label(comarca, bbox);
@@ -322,7 +322,7 @@ describe('CatMap', () => {
         test('should return correct positions for comarca and capital labels when extra_x and extra_y are not provided', () => {
             // Mocking necessary parameters for testing
             const comarca = 'comarca2';
-            const bbox = { x: 150, y: 250, width: 40, height: 25 };
+            const bbox = {x: 150, y: 250, width: 40, height: 25};
 
             // Executing the method to be tested
             const result = mapInstance.get_comarca_and_capital_positions_label(comarca, bbox);
