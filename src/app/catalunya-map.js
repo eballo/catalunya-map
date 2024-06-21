@@ -16,10 +16,10 @@ class CatMap {
         this.debug = stringToBoolean(process.env.DEBUG)
         this.mappaths = json
         this.paper = new ScaleRaphael('map', this.config.mapWidth, this.config.mapHeight);
-        this.winWidth = null;
-        this.win = null;
-        this.selected = null;
-        this.ratio = null;
+        this.winWidth = undefined;
+        this.win = undefined;
+        this.selected = undefined;
+        this.ratio = undefined;
         this.mcat = {}; //Array of comarques
     }
 
