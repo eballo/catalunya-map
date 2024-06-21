@@ -48,10 +48,12 @@ class CatMap {
 
             let llistaComarques = [];
             for (let comarca in this.mappaths) {
+                let total = null;
+                if(this.mappaths[comarca].total) { total = this.mappaths[comarca].total }
                 llistaComarques.push({
                     name: this.mappaths[comarca].name,
                     url: this.mappaths[comarca].url,
-                    total: this.mappaths[comarca].total
+                    total: total
                 });
             }
 
@@ -61,8 +63,16 @@ class CatMap {
             });
 
             // Create list with bootstrap styles
-            for (let i = 0; i < llistaComarques.length; i++) {
-                $("<li class='list-group-item'><a href='" + llistaComarques[i].url + "' class='list-group-item'>" + llistaComarques[i].name + "<span class='badge'>" + llistaComarques[i].total + "</span></a></li>").appendTo("ul.list");
+            for (let comarca of llistaComarques) {
+                let total_span = ""
+
+                if(comarca.total) {
+                    total_span = "<span class='badge'>" + comarca.total + "</span>"
+                }
+
+                $("<li class='list-group-item'>" +
+                    "<a href='" + comarca.url + "' class='list-group-item'>" + comarca.name +"" + total_span
+                    +"</a></li>").appendTo("ul.list");
             }
         } else {
             if (this.debug) {
