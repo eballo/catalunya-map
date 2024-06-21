@@ -48,13 +48,7 @@ class CatMap {
 
             let llistaComarques = [];
             for (let comarca in this.mappaths) {
-                let total = null;
-                if(this.mappaths[comarca].total) { total = this.mappaths[comarca].total }
-                llistaComarques.push({
-                    name: this.mappaths[comarca].name,
-                    url: this.mappaths[comarca].url,
-                    total: total
-                });
+                this.create_llista_comarques(comarca, llistaComarques);
             }
 
             // Order the list by name
@@ -64,21 +58,37 @@ class CatMap {
 
             // Create list with bootstrap styles
             for (let comarca of llistaComarques) {
-                let total_span = ""
-
-                if(comarca.total) {
-                    total_span = "<span class='badge'>" + comarca.total + "</span>"
-                }
-
-                $("<li class='list-group-item'>" +
-                    "<a href='" + comarca.url + "' class='list-group-item'>" + comarca.name +"" + total_span
-                    +"</a></li>").appendTo("ul.list");
+                this.create_list_group_item(comarca);
             }
         } else {
             if (this.debug) {
                 console.log("Create list comarques is disabled")
             }
         }
+    }
+
+    create_llista_comarques(comarca, llistaComarques) {
+        let total = null;
+        if (this.mappaths[comarca].total) {
+            total = this.mappaths[comarca].total
+        }
+        llistaComarques.push({
+            name: this.mappaths[comarca].name,
+            url: this.mappaths[comarca].url,
+            total: total
+        });
+    }
+
+    create_list_group_item(comarca) {
+        let total_span = ""
+
+        if (comarca.total) {
+            total_span = "<span class='badge'>" + comarca.total + "</span>"
+        }
+
+        $("<li class='list-group-item'>" +
+            "<a href='" + comarca.url + "' class='list-group-item'>" + comarca.name + "" + total_span
+            + "</a></li>").appendTo("ul.list");
     }
 
     createMap() {
