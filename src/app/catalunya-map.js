@@ -1,5 +1,3 @@
-
-
 /**
  * Catalunya Medieval 2015-2024 - Open Source Catalunya Map
  *
@@ -10,6 +8,7 @@
 import {stringToBoolean} from "./catalunya-map-config";
 
 ;
+
 class CatMap {
 
     constructor(config, json) {
@@ -17,14 +16,14 @@ class CatMap {
         this.debug = stringToBoolean(process.env.DEBUG)
         this.mappaths = json
         this.paper = new ScaleRaphael('map', this.config.mapWidth, this.config.mapHeight);
-        this.winWidth;
-        this.win;
-        this.selected;
-        this.ratio;
+        this.winWidth = undefined;
+        this.win = undefined;
+        this.selected = undefined;
+        this.ratio = undefined;
         this.mcat = {}; //Array of comarques
     }
 
-    showValues(){
+    showValues() {
         if (this.debug) {
             console.log('ShowValues ...');
             console.log("Win Width: " + this.winWidth + " Map with: " + this.config.mapWidth + " Map Height: " + this.config.mapHeight + " Ratio: " + this.ratio);
@@ -32,7 +31,7 @@ class CatMap {
         }
     }
 
-    createArrayComarcas(){
+    createArrayComarcas() {
         if (this.debug) {
             console.log('Create Array of Comarques');
         }
@@ -41,8 +40,8 @@ class CatMap {
         }
     }
 
-    createLlistaComarquesText(){
-        if(this.config.useListText) {
+    createLlistaComarquesText() {
+        if (this.config.useListText) {
             if (this.debug) {
                 console.log('Create list of Comarques');
             }
@@ -65,14 +64,14 @@ class CatMap {
             for (let i = 0; i < llistaComarques.length; i++) {
                 $("<li class='list-group-item'><a href='" + llistaComarques[i].url + "' class='list-group-item'>" + llistaComarques[i].name + "<span class='badge'>" + llistaComarques[i].total + "</span></a></li>").appendTo("ul.list");
             }
-        }else{
-            if(this.debug){
+        } else {
+            if (this.debug) {
                 console.log("Create list comarques is disabled")
             }
         }
     }
 
-    createMap(){
+    createMap() {
 
         if (this.debug) {
             console.log('CreateMap');
@@ -156,7 +155,12 @@ class CatMap {
         obj.push(path);
 
         const bbox = path.getBBox();
-        const {comarca_x, capital_x, comarca_y, capital_y} = this.get_comarca_and_capital_positions_label(comarca, bbox);
+        const {
+            comarca_x,
+            capital_x,
+            comarca_y,
+            capital_y
+        } = this.get_comarca_and_capital_positions_label(comarca, bbox);
 
         // Object 1 and 2 (comarca name / capital comarca name)
         obj.push(this.paper.text(comarca_x, comarca_y, this.mappaths[comarca].name).attr(this.config.nomComcarcaAttr_out));
@@ -203,7 +207,7 @@ class CatMap {
         return {comarca_x, capital_x, comarca_y, capital_y};
     }
 
-    remove_background(){
+    remove_background() {
         for (const comarca in this.mappaths) {
             let obj = this.mcat[comarca];
             if (obj[0].comarcaName !== this.selected) {
@@ -217,7 +221,7 @@ class CatMap {
         }
     }
 
-    onMapClick(comarcaName, capitalComarca, contentText, comarcaLink){
+    onMapClick(comarcaName, capitalComarca, contentText, comarcaLink) {
         if (this.config.onClick) {
             if (this.debug) {
                 console.log('onClick enabled');
@@ -247,7 +251,7 @@ class CatMap {
                     return false;
                 });
 
-            }else{
+            } else {
                 if (this.debug) {
                     console.log('Button functionality disabled');
                 }
@@ -257,7 +261,7 @@ class CatMap {
         }
     }
 
-    resizeMap(){
+    resizeMap() {
         if (this.debug) {
             console.log('ResizeMap');
         }
@@ -289,14 +293,14 @@ class CatMap {
         });
     }
 
-    showComarcaName(){
+    showComarcaName() {
         for (const comarca in this.mappaths) {
             let obj = this.mcat[comarca];
             obj[1].show();
         }
     }
 
-    hideComarcaName(){
+    hideComarcaName() {
         for (const comarca in this.mappaths) {
             let obj = this.mcat[comarca];
             if (obj[1].comarcaName !== this.selected) {
@@ -305,7 +309,7 @@ class CatMap {
         }
     }
 
-    responsiveResize(){
+    responsiveResize() {
         if (this.debug) {
             console.log('ResponsiveResize');
         }
@@ -340,17 +344,17 @@ class CatMap {
         this.showValues();
     }
 
-    hideMapShowList(){
+    hideMapShowList() {
         $('.map-wrapper').hide();
         $('.llistaComarques').show();
     }
 
-    hideListShowMap(){
+    hideListShowMap() {
         $('.llistaComarques').hide();
         $('.map-wrapper').show();
     }
 
-    loadMapAndText(){
+    loadMapAndText() {
 
         this.paper.scaleAll(this.config.scale);
         this.ratio = this.config.mapWidth / this.config.mapHeight;
