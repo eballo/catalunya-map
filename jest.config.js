@@ -1,5 +1,9 @@
 module.exports = {
     testEnvironment: 'node',
+    testEnvironmentOptions: {
+        url: 'http://localhost'
+    },
+    setupFiles: ['<rootDir>/jest.setup.js'],
     transform: {
         '^.+\\.jsx?$': 'babel-jest'
     },

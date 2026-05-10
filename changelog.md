@@ -1,92 +1,103 @@
-V1.0
-- Just the map
+# Changelog
 
-V2.0
-- Resize functionality using [raphael-scale.js](http://www.shapevent.com/scaleraphael/)
+All notable changes to this project will be documented in this file.
 
-V2.1
-- Debug information and better resize example
+## [12.0.0] - 2026-05-16
+### Added
+- Added `buildPlugin` command to compile the project for plugin usage and automate copying files to the plugin directory.
+- Fixed 20 npm security vulnerabilities via `npm audit fix`.
+- Resolved 4 low-severity vulnerabilities in jsdom dependency chain by upgrading Jest ecosystem from v29 to v30 (`jest`, `jest-environment-jsdom`, `@jest/globals`, `babel-jest`).
+- Fixed Jest v30 breaking change: replaced non-spec-compliant `delete window.location` test pattern with `testEnvironmentOptions.url` in Jest configuration.
 
-v3.0
-- Add comarca and capital names
+## [11.0.0]
+- Center names by default using `getBox`.
+- Update to 2.3.0 Raphaël JS library.
+- Add use of `extra_x` and `extra_y` to help to place names.
 
-v3.1
-- New catalunya-map-path.js
-- Add colors on mouse hover
+## [10.0.0]
+- Migration to Webpack.
+- Add Comarca Llucanès.
 
-V4.0
-- Add Comarca Info box on mouse click
+## [9.0.0]
+- Integration with BrowserSync.
+- Change build system to Gulp.
 
-V4.1
-- add touchStart for tablets (ipad)
+## [8.0.0]
+- Add `grunt-contrib-watch` package.
+- Add `grunt-replace` package.
+- Remove effect when clicking on comarca.
+- Add background grey color on mouse over.
+- Change typography to Droid Sans.
+- Add configuration file parameters (remove old configuration files for environment).
 
-v5.0
-- Add Comarca del Moianes : Source image Mapa_comarcal_de_Catalunya_v2.svg (Thanks for your Contribution Hector)
+## [7.5.0]
+- Background color lock when a comarca is selected.
+- Configuration option v3.
+- Add text and effects.
 
-v5.1
-- reposition of all the names
-- new screenshot
+## [7.4.0]
+- Larger text configuration.
 
-v5.2
-- add property onClick and newWindow (requested functionality by Hector)
+## [7.3.0]
+- Integration with Grunt.
+- Migration to Node.js.
+- Code refactoring.
+- SonarCloud fixes.
 
-v6.0
-- add Droid Sans Font
-- change colors
-- update Raphael JS and jQuery versions
-- add bootstrap
-- add all buildings
+## [7.2.0]
+- Style fixes.
 
-v6.1
-- Fix responsive design
+## [7.1.0]
+- Add button option configuration.
+- Styles for icons.
 
-v6.2
-- Object Oriented implementation (refactor)
+## [7.0.0]
+- Update README.
+- Create different configuration option files (v1, v2).
+- Beautified all code.
+- Code documentation.
 
-v7.0
-- update readme
-- create diferent configuration option files (v1,v2)
-- beautifyed all code
-- Documentation of the code
+## [6.2.0]
+- Object-Oriented implementation (refactor).
 
-v7.1
-- Add button option configuration (https://codepen.io/piecdesmit/details/OMYNZg/)
-- Styles for icons
+## [6.1.0]
+- Fix responsive design.
 
-v7.2
-- Fix styles
+## [6.0.0]
+- Add Droid Sans Font.
+- Change colors.
+- Update Raphaël JS and jQuery versions.
+- Add Bootstrap.
+- Add all buildings.
 
-v7.3
-- Grunt
-- nodejs
-- refactor
-- sonar fixes
+## [5.2.0]
+- Add `onClick` property and `newWindow` (requested functionality).
 
-v7.4
-- configuracion text mes gran.
+## [5.1.0]
+- Reposition of all the names.
+- New screenshot.
 
-v7.5
-- bloqueix de color de fons quan comarca esta seleccionada.
-- configuration option v3
-- Add text, and effects
+## [5.0.0]
+- Add Comarca del Moianès (Source image: `Mapa_comarcal_de_Catalunya_v2.svg`).
 
-v8.0
-- Add Grunt-contrib-watch package
-- Add Grunt-replace package
-- Remove effect when click on comarca
-- Add background grey color on mouse over
-- Change typhography -> Droid Sans
-- Add configuration file parameters (remove old configuration files for environment)
+## [4.1.0]
+- Add `touchStart` for tablets (iPad).
 
-v9.0
-- browserSync
-- change to gulp (gulp)
+## [4.0.0]
+- Add Comarca Info box on mouse click.
 
-v10.0
-- Migration to webpack
-- add Comarca Llucanes
+## [3.1.0]
+- New `catalunya-map-path.js`.
+- Add colors on mouse hover.
 
-V11.0
-- Center names by default using getBox
-- Update to 2.3.0 raphaeel JS library
-- Add use of extra_x and extra_y to help to place names
+## [3.0.0]
+- Add comarca and capital names.
+
+## [2.1.0]
+- Debug information and better resize example.
+
+## [2.0.0]
+- Resize functionality using [ScaleRaphael](http://www.shapevent.com/scaleraphael/).
+
+## [1.0.0]
+- Initial release with the map.

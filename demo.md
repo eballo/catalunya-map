@@ -21,3 +21,4 @@
 - Demo v9.0
 - Demo v10.0
 - [Demo v11.0](http://demo.catalunyamedieval.es/map11)
+- [Demo v12.0](http://demo.catalunyamedieval.es/map12)

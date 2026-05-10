@@ -9,8 +9,10 @@ Interactive vectorial map of Catalunya based on a SVG/VML and the library Rapha�
 ## Current versions
 * Raphaël JS - 2.3.0
 * ScaleRaphael - 0.8
-* jQuery - 3.1.1
+* jQuery - 3.2.1
 * Bootstrap - 3.3.7
+* Webpack - 5.x
+* Jest - 30.x
 
 ## Demo
 
@@ -113,6 +115,15 @@ Since version 10.0 uses [webpack](https://webpack.js.org/).
 
 ### Installation
 
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/eballo/catalunya-map.git
+   ```
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+
 ### Configuration
 add a .env file and set up your google api key and the other required env variables. Check the .env.sample for more information, and create the following files: .env (local) .env.production (production)
 
@@ -127,10 +138,10 @@ Building the theme requires [node.js](http://nodejs.org/download/). We recommend
 
 From the command line:
 
-1. Navigate to the theme directory, then run `npm install`
-3. Build `npm run buildLocal`
-4. Start `npm run start`
-5. (optional) buildWatch `npm run buildWatch`
+1. Navigate to the project directory, then run `npm install`
+2. Build local: `npm run buildLocal`
+3. Start development server: `npm run start`
+4. (optional) Build and watch: `npm run buildWatch`
 
 Open your browser [localhost:9000](http://localhost:9000/)
 
@@ -140,6 +151,7 @@ Open your browser [localhost:9000](http://localhost:9000/)
 * `testWatch`  — run all the tests while watching the changes of the files
 * `buildLocal` — Compile (local) and optimize the files in your web directory
 * `buildProd`  — Compile (production) and optimize the files in your web directory
+* `buildPlugin` — Compile (production) for plugin usage and copy to plugin directory
 * `buildWatch` — Compile (local) and optimize the files in your web directory and watch for changes to update the files
 * `start`      — Starts  a web server
 
