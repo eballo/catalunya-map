@@ -51,10 +51,6 @@ describe('Catalunya map loader', () => {
         $('#contentText').toggle = jest.fn();
         $('#legend').fadeIn = jest.fn();
 
-        // Setup or reset window.location mock
-        delete window.location;
-        window.location = {origin: 'http://localhost'};
-
         jest.clearAllMocks();
     });
 

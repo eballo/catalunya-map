@@ -2,7 +2,7 @@ import config from "./catalunya-map-config";
 import CatMap from "./catalunya-map";
 
 $(document).ready(function () {
-    let url = window.location.origin + config.url_json
+    let url = /^https?:\/\//.test(config.url_json) ? config.url_json : window.location.origin + config.url_json
     $.ajax({
         url: url,
         dataType: 'json',

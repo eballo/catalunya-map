@@ -1,8 +1,8 @@
 /**
- * Catalunya Medieval 2015-2024 - Open Source Catalunya Map
+ * Catalunya Medieval 2015-2026 - Open Source Catalunya Map
  *
  * Author  : Enric Ballo
- * version : 11.0
+ * version : 12.0
  *
  */
 import {stringToBoolean} from "./catalunya-map-config";

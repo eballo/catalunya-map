@@ -8,5 +8,7 @@ node_modules/
 .sonarlint/
 .idea/
 dist/
+.junie
+.claude
 
 web/js/catalunya-map.min.js

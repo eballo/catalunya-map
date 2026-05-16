@@ -1,31 +1,35 @@
+export function stringToBoolean(string) {
+    return string.toLowerCase() === "false" ? false : Boolean(string);
+}
+
 const MAP_CONFIG = {
 
-    url_json: process.env.SERVER_HOST,
+    url_json: (typeof catalunyaMapConfig !== 'undefined' && catalunyaMapConfig.jsonUrl)
+        ? catalunyaMapConfig.jsonUrl
+        : process.env.SERVER_HOST,
 
-    responsive: true,    // enable/disable responsive functionality
-    useText: true,       // enable/disable list text comarques
-    useListText: false,  // enable/disable comarques list text
-    button: false,       // enable/disable button functionality
-    onClick: false,      // enable/disable onclick open link
-    newWindow: false,    // enable/disable open a page in a new window for onClick functionality
+    responsive: stringToBoolean(process.env.RESPONSIVE ?? 'true'),
+    useText: stringToBoolean(process.env.USE_TEXT ?? 'true'),
+    useListText: stringToBoolean(process.env.USE_LIST_TEXT ?? 'false'),
+    button: stringToBoolean(process.env.BUTTON ?? 'false'),
+    onClick: stringToBoolean(process.env.ON_CLICK ?? 'false'),
+    newWindow: stringToBoolean(process.env.NEW_WINDOW ?? 'false'),
 
-    colorIn: '#fee8cb',  //color when the mouse is over
-    colorOut: '#fff',    //color when the mouse is not over
+    colorIn: process.env.COLOR_IN ?? '#fee8cb',
+    colorOut: process.env.COLOR_OUT ?? '#fff',
 
-    scale: 0.8,          //scale value
+    scale: parseFloat(process.env.SCALE ?? '0.8'),
 
-    mapInitWidth: 825,   //initial map width
-    mapInitHeight: 800,  //initial map height
-
-    textInitWidth: 250,  //initial text width
-
-    mapWidth: 825,       //map width variable
-    mapHeight: 800,      //map height variable
+    mapInitWidth: parseInt(process.env.MAP_INIT_WIDTH ?? '825'),
+    mapInitHeight: parseInt(process.env.MAP_INIT_HEIGHT ?? '800'),
+    textInitWidth: parseInt(process.env.TEXT_INIT_WIDTH ?? '250'),
+    mapWidth: parseInt(process.env.MAP_WIDTH ?? '825'),
+    mapHeight: parseInt(process.env.MAP_HEIGHT ?? '800'),
 
     // --------- Comarca style configuration
     comarcaAttr: {
         'fill': '#fff',
-        'stroke': '#c7ab89', //color for the limit line of comarca (clear brown)
+        'stroke': '#c7ab89',
         'stroke-width': 0.8,
         'stroke-linejoin': 'round',
         'font-family': 'Droid Sans,Verdana',
@@ -37,8 +41,8 @@ const MAP_CONFIG = {
 
     // --------- Nom comarca style configuration for hover in
     nomComcarcaAttr_in: {
-        'fill': '#a07a49',      // color for the text of comarca (dark brown)
-        'stroke': '#000000',    // black
+        'fill': '#a07a49',
+        'stroke': '#000000',
         'stroke-width': 0.4,
         'font-family': 'Droid Sans,Verdana',
         'font-size': '14px',
@@ -60,7 +64,7 @@ const MAP_CONFIG = {
 
     // --------- Nom capital comarca style configuration
     nomCapitalAttr: {
-        'fill': '#FF9900', //orange
+        'fill': '#FF9900',
         'font-family': 'Droid Sans, Arial, sans-serif',
         'font-size': '12px',
         'font-weight': 'bold',
@@ -69,10 +73,4 @@ const MAP_CONFIG = {
     }
 };
 
-export function stringToBoolean(string) {
-    return string.toLowerCase() === "false" ? false : Boolean(string);
-}
-
 export default MAP_CONFIG;
-
-
