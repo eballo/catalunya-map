@@ -4,9 +4,14 @@ export function stringToBoolean(string) {
 
 const MAP_CONFIG = {
 
-    url_json: (typeof catalunyaMapConfig !== 'undefined' && catalunyaMapConfig.jsonUrl)
-        ? catalunyaMapConfig.jsonUrl
-        : process.env.SERVER_HOST,
+    comarquesJsonUrl: (typeof catalunyaMapConfig !== 'undefined' && catalunyaMapConfig.comarquesJsonUrl)
+        ? catalunyaMapConfig.comarquesJsonUrl
+        : '',
+
+    // Needed to do the total calculation
+    markersJsonUrl: (typeof catalunyaMapConfig !== 'undefined' && catalunyaMapConfig.markersJsonUrl)
+        ? catalunyaMapConfig.markersJsonUrl
+        : '',
 
     responsive: stringToBoolean(process.env.RESPONSIVE ?? 'true'),
     useText: stringToBoolean(process.env.USE_TEXT ?? 'true'),
@@ -22,7 +27,7 @@ const MAP_CONFIG = {
 
     mapInitWidth: parseInt(process.env.MAP_INIT_WIDTH ?? '825'),
     mapInitHeight: parseInt(process.env.MAP_INIT_HEIGHT ?? '800'),
-    textInitWidth: parseInt(process.env.TEXT_INIT_WIDTH ?? '250'),
+    textInitWidth: parseInt(process.env.TEXT_INIT_WIDTH ?? '280'),
     mapWidth: parseInt(process.env.MAP_WIDTH ?? '825'),
     mapHeight: parseInt(process.env.MAP_HEIGHT ?? '800'),
 

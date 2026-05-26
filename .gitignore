@@ -1,6 +1,7 @@
 # exclude env configurations
 .env
 .env.production
+.env.demo
 
 .DS_Store
 .project
@@ -10,5 +11,6 @@ node_modules/
 dist/
 .junie
 .claude
+coverage/
 
 web/js/catalunya-map.min.js

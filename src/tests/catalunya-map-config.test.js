@@ -24,7 +24,8 @@ describe('stringToBoolean', () => {
 describe('MAP_CONFIG', () => {
     test('should exactly match the expected configuration', () => {
         const expectedConfig = {
-            url_json: process.env.SERVER_HOST,
+            comarquesJsonUrl: '',
+            markersJsonUrl: '',
             responsive: true,
             useText: true,
             useListText: false,
@@ -36,7 +37,7 @@ describe('MAP_CONFIG', () => {
             scale: 0.8,
             mapInitWidth: 825,
             mapInitHeight: 800,
-            textInitWidth: 250,
+            textInitWidth: 280,
             mapWidth: 825,
             mapHeight: 800,
             comarcaAttr: {

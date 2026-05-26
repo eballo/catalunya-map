@@ -307,8 +307,8 @@ class CatMap {
         });
 
         $(".map-wrapper").css({
-            'width': this.config.mapWidth + this.config.textInitWidth + 'px',
-            'height': '700px'
+            'width':  this.config.mapWidth + this.config.textInitWidth + 'px',
+            'height': (this.config.mapHeight + 100) + 'px'
         });
 
         //On mouse enter show comarca name
