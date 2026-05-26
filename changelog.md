@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file.
 
+## [13.0.0] - 2026-05-26
+### Added
+- Added `markersJsonUrl` config option to load a second JSON feed with building markers.
+- Added `buildComarcaStats()` helper that aggregates marker counts per comarca and building type, generating an HTML breakdown injected into each comarca's info panel.
+- Added `BUILDING_TYPES` constant listing all 15 supported building categories grouped by type (militar, civil, religios, altres).
+
+### Changed
+- Replaced `url_json` config key with `comarquesJsonUrl` (breaking rename).
+- Migrated data loading from jQuery `$.ajax` to `Promise.all([fetch(), fetch()])`, loading comarques and markers in parallel.
+- Map wrapper height is now dynamic (`mapHeight + 100 px`) instead of the hard-coded `700 px`.
+- Increased default `textInitWidth` from 250 to 280 px.
+- Redesigned side panel CSS: system font stack, scrollable panel, structured comarca-info component (`.cm-comarca-info`, `.cm-type-list`, `.cm-type-item`, `.cm-type-count`, `.cm-type-total`).
+- Redesigned legend with glassmorphism style (backdrop blur, rounded card, compact rows).
+- Removed legacy CSS classes: `.llistat-edificis`, `.button`, `.background`, `.badge`, `.greyBackground`, `#infoEdifici`, `#veure-contingut` (complex variant).
+
 ## [12.0.0] - 2026-05-16
 ### Added
 - Added `buildPlugin` command to compile the project for plugin usage and automate copying files to the plugin directory.

@@ -10,10 +10,13 @@ import {afterEach, beforeEach, describe, expect, it, jest} from "@jest/globals";
 // Mock modules
 jest.mock('../app/catalunya-map');
 jest.mock('../app/catalunya-map-config', () => ({
-    url_json: '/test.json'
+    comarquesJsonUrl: '/test.json',
+    markersJsonUrl: ''
 }));
 
 global.$ = $;
+
+const flushPromises = () => new Promise(resolve => setTimeout(resolve, 0));
 
 const mockJsonData = {
     "cat1": {
@@ -62,47 +65,60 @@ describe('Catalunya map loader', () => {
 
     it('should successfully fetch JSON and initialize the map on success', async () => {
 
-        // Mock jQuery AJAX
-        $.ajax = jest.fn().mockImplementation(({success}) => {
-            success(mockJsonData);
+        global.fetch = jest.fn().mockResolvedValue({
+            json: () => Promise.resolve(mockJsonData)
         });
 
         await require('../app/catalunya-map-main');
+        await flushPromises();
 
-        expect($.ajax).toHaveBeenCalledWith({
-            url: 'http://localhost/test.json',
-            dataType: 'json',
-            async: true,
-            success: expect.any(Function),
-            error: expect.any(Function)
-        });
-
+        expect(global.fetch).toHaveBeenCalledWith('/test.json');
         expect(CatMap).toHaveBeenCalledTimes(1);
-        expect(CatMap).toHaveBeenCalledWith(config, mockJsonData);
-
+        expect(CatMap).toHaveBeenCalledWith(config, expect.objectContaining({
+            cat1: expect.objectContaining({ name: "Vall d'Aran" }),
+            cat2: expect.objectContaining({ name: "Pallars Sobirà" })
+        }));
     });
 
-    it('should log error when AJAX request fails', async () => {
-        const consoleSpy = jest.spyOn(console, 'log');
-        $.ajax = jest.fn().mockImplementation(({error}) => {
-            error({statusText: "Not Found"}, 'error', '404 Not Found');
-        });
+    it('should log error when fetch fails', async () => {
+        const consoleSpy = jest.spyOn(console, 'error').mockImplementation(() => {});
+        global.fetch = jest.fn().mockRejectedValue(new Error('Network error'));
 
         await require('../app/catalunya-map-main');
+        await flushPromises();
 
-        expect($.ajax).toHaveBeenCalledWith({
-            url: 'http://localhost/test.json',
-            dataType: 'json',
-            async: true,
-            success: expect.any(Function),
-            error: expect.any(Function)
-        });
-
-        expect(CatMap).not.toHaveBeenCalledTimes(1);
-        expect(CatMap).not.toHaveBeenCalledWith(config, mockJsonData);
-
-        expect(consoleSpy).toHaveBeenCalledWith("Error - url: http://localhost/test.json");
+        expect(global.fetch).toHaveBeenCalledWith('/test.json');
+        expect(CatMap).not.toHaveBeenCalled();
+        expect(consoleSpy).toHaveBeenCalledWith('Error loading map data:', expect.any(Error));
         consoleSpy.mockRestore();
+    });
+
+    it('should fetch markers and group them by comarca when markersJsonUrl is set', async () => {
+        jest.resetModules();
+        jest.doMock('../app/catalunya-map-config', () => ({
+            comarquesJsonUrl: '/test.json',
+            markersJsonUrl: '/markers.json'
+        }));
+        jest.doMock('../app/catalunya-map', () => jest.fn().mockImplementation(() => ({
+            loadMapAndText: jest.fn()
+        })));
+
+        const mockMarkers = [
+            { comarca: "Vall d'Aran", tipus: 'castell' },
+            { comarca: "Vall d'Aran" },
+            { comarca: "Pallars Sobirà", tipus: 'monestir' },
+        ];
+
+        global.fetch = jest.fn()
+            .mockImplementationOnce(() => Promise.resolve({ json: () => Promise.resolve(mockJsonData) }))
+            .mockImplementationOnce(() => Promise.resolve({ json: () => Promise.resolve(mockMarkers) }));
+
+        await require('../app/catalunya-map-main');
+        await flushPromises();
+
+        expect(global.fetch).toHaveBeenCalledTimes(2);
+        expect(global.fetch).toHaveBeenCalledWith('/test.json');
+        expect(global.fetch).toHaveBeenCalledWith('/markers.json');
     });
 });
 
