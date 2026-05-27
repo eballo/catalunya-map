@@ -26,8 +26,8 @@ const SftpClient = require('ssh2-sftp-client');
 
 const ROOT    = path.resolve(__dirname, '..');
 const pkg     = JSON.parse(fs.readFileSync(path.join(ROOT, 'package.json'), 'utf8'));
-const MAJOR   = pkg.version.split('.')[0];
-const MAP_DIR = `map${MAJOR}`;
+const [MAJOR, MINOR] = pkg.version.split('.');
+const MAP_DIR = MINOR === '0' ? `map${MAJOR}` : `map${MAJOR}${MINOR}`;
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
 

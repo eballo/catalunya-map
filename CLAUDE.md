@@ -33,7 +33,10 @@ Only include sections that have entries. Use today's date.
 ### 4. Update `demo.md`
 Add a new entry at the bottom of the list following the existing pattern:
 `- [Demo vX.Y](http://demo.catalunyamedieval.es/mapXY)`
-(e.g. v13.0 → `map13`, v14.0 → `map14`)
+
+URL slug rules (matches the deploy script):
+- Minor = 0 → `map{major}` (e.g. v13.0 → `map13`, v14.0 → `map14`)
+- Minor > 0 → `map{major}{minor}` (e.g. v13.1 → `map131`, v13.2 → `map132`)
 
 ### 5. Update version string in `web/index.html`
 The `<title>` and `<h1>` tags contain the version (e.g. `Demo v12.0`). Update them to match the new version.
@@ -45,9 +48,8 @@ The `<title>` and `<h1>` tags contain the version (e.g. `Demo v12.0`). Update th
 - **Stop the server** after the screenshot: `kill $(lsof -ti :9090)` — leaving it running blocks the port for future sessions.
 
 ### 7. Deploy
-Actualitza `SFTP_REMOTE_PATH` a `.env.production` amb el nou path (e.g. `/var/www/html/map13`), fes el build i puja:
+El script llegeix la configuració de `.env.demo` i construeix el path remot automàticament a partir de la versió de `package.json` (mateixos slug rules del pas 4). No cal editar cap fitxer `.env` manualment. Simplement executa:
 ```bash
-npm run buildProd
 npm run deploy
 ```
 
