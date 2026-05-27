@@ -88,6 +88,7 @@ $(document).ready(function () {
             });
 
             const map = new CatMap(config, comarques);
+            window.cmMapManager = map;
             map.loadMapAndText();
 
             $("#map").show();

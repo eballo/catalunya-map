@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
+## [13.1.0] - 2026-05-27
+### Added
+- Exposed map instance as `window.cmMapManager` so host pages can access the map programmatically.
+- Added `recalcPositions()` method to `CatMap` to recompute and reposition comarca and capital labels (useful after dynamic layout changes).
+
 ## [13.0.0] - 2026-05-26
 ### Added
 - Added `markersJsonUrl` config option to load a second JSON feed with building markers.
