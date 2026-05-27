@@ -338,6 +338,18 @@ class CatMap {
         }
     }
 
+    recalcPositions() {
+        for (const comarca in this.mappaths) {
+            const obj = this.mcat[comarca];
+            const bbox = obj[0].getBBox();
+            if (bbox.width === 0 && bbox.height === 0) continue;
+            const { comarca_x, capital_x, comarca_y, capital_y } =
+                this.get_comarca_and_capital_positions_label(comarca, bbox);
+            obj[1].attr({ x: comarca_x, y: comarca_y });
+            obj[2].attr({ x: capital_x, y: capital_y });
+        }
+    }
+
     responsiveResize() {
         if (this.debug) {
             console.log('ResponsiveResize');
