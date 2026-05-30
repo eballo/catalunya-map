@@ -32,11 +32,12 @@ Only include sections that have entries. Use today's date.
 
 ### 4. Update `demo.md`
 Add a new entry at the bottom of the list following the existing pattern:
-`- [Demo vX.Y](http://demo.catalunyamedieval.es/mapXY)`
+`- [Demo vX.Y.Z](http://demo.catalunyamedieval.es/mapXYZ)`
 
-URL slug rules (matches the deploy script):
-- Minor = 0 → `map{major}` (e.g. v13.0 → `map13`, v14.0 → `map14`)
-- Minor > 0 → `map{major}{minor}` (e.g. v13.1 → `map131`, v13.2 → `map132`)
+The deploy script uses the same logic:
+- `13.0.0` → `map13`   (minor=0, patch=0)
+- `13.1.0` → `map131`  (patch=0)
+- `13.1.1` → `map1311` (patch≠0)
 
 ### 5. Update version string in `web/index.html`
 The `<title>` and `<h1>` tags contain the version (e.g. `Demo v12.0`). Update them to match the new version.

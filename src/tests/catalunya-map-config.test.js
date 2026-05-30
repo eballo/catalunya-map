@@ -1,5 +1,5 @@
 import MAP_CONFIG, {stringToBoolean} from '../app/catalunya-map-config'
-import {describe, expect, test} from "@jest/globals";
+import {describe, expect, test, jest} from "@jest/globals";
 
 describe('stringToBoolean', () => {
     test('should return true for "true" string', () => {
@@ -18,6 +18,20 @@ describe('stringToBoolean', () => {
     test('should handle uppercase and mixed case inputs', () => {
         expect(stringToBoolean("FALSE")).toBe(false);
         expect(stringToBoolean("True")).toBe(true);
+    });
+});
+
+describe('MAP_CONFIG with catalunyaMapConfig defined', () => {
+    test('uses catalunyaMapConfig values when defined', () => {
+        global.catalunyaMapConfig = {
+            comarquesJsonUrl: 'http://test.com/comarques.json',
+            markersJsonUrl:   'http://test.com/markers.json',
+        };
+        jest.resetModules();
+        const freshConfig = require('../app/catalunya-map-config').default;
+        expect(freshConfig.comarquesJsonUrl).toBe('http://test.com/comarques.json');
+        expect(freshConfig.markersJsonUrl).toBe('http://test.com/markers.json');
+        delete global.catalunyaMapConfig;
     });
 });
 

@@ -10,7 +10,10 @@
  *   SFTP_PRIVATE_KEY  Path to private key    (optional — skips password prompt if set)
  *   SFTP_DEBUG        Set to "true" for verbose output
  *
- * The target directory is built as: SFTP_REMOTE_PATH/map{major} (e.g. /www/demo/map13)
+ * The target directory is built from the version in package.json:
+ *   13.0.0 → map13   (minor=0, patch=0)
+ *   13.1.0 → map131  (patch=0)
+ *   13.1.1 → map1311 (patch≠0)
  * The version is read automatically from package.json.
  * The password is always prompted interactively unless SFTP_PRIVATE_KEY is set.
  *
@@ -26,8 +29,10 @@ const SftpClient = require('ssh2-sftp-client');
 
 const ROOT    = path.resolve(__dirname, '..');
 const pkg     = JSON.parse(fs.readFileSync(path.join(ROOT, 'package.json'), 'utf8'));
-const [MAJOR, MINOR] = pkg.version.split('.');
-const MAP_DIR = MINOR === '0' ? `map${MAJOR}` : `map${MAJOR}${MINOR}`;
+const [MAJOR, MINOR, PATCH] = pkg.version.split('.');
+const MAP_DIR = MINOR === '0' ? `map${MAJOR}`
+    : PATCH === '0' ? `map${MAJOR}${MINOR}`
+    : `map${MAJOR}${MINOR}${PATCH}`;
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
 
@@ -105,7 +110,7 @@ async function getConfig() {
 
     if (env.SFTP_REMOTE_PATH.startsWith('~')) {
         logError('SFTP_REMOTE_PATH cannot start with ~ (tilde is not expanded over SFTP).');
-        logError('Use an absolute path, e.g. /home/cataluny/www/demo');
+        logError('Use an absolute path, e.g. /home/user/www/demo');
         process.exit(1);
     }
 

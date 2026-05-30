@@ -9,8 +9,10 @@ const $ = jest.fn().mockImplementation(selector => {
         text: jest.fn(),
         find: jest.fn(() => $(selector)),
         each: jest.fn((callback) => {
-            $(selector).each(callback);
+            if (typeof callback === 'function') callback.call({});
+            return $(selector);
         }),
+        toggleClass: jest.fn(),
         on: jest.fn(),
         off: jest.fn(),
         css: jest.fn(),

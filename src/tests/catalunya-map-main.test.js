@@ -93,6 +93,49 @@ describe('Catalunya map loader', () => {
         consoleSpy.mockRestore();
     });
 
+    it('handles empty comarquesJsonUrl (covers imagesUrl falsy branch)', async () => {
+        jest.resetModules();
+        jest.doMock('../app/catalunya-map-config', () => ({
+            comarquesJsonUrl: '',
+            markersJsonUrl: ''
+        }));
+        jest.doMock('../app/catalunya-map', () => jest.fn().mockImplementation(() => ({
+            loadMapAndText: jest.fn()
+        })));
+
+        global.fetch = jest.fn().mockResolvedValue({ json: () => Promise.resolve(mockJsonData) });
+
+        await require('../app/catalunya-map-main');
+        await flushPromises();
+
+        expect(global.fetch).toHaveBeenCalledWith('');
+    });
+
+    it('handles marker without comarca property (assigns to empty-string key)', async () => {
+        jest.resetModules();
+        jest.doMock('../app/catalunya-map-config', () => ({
+            comarquesJsonUrl: '/test.json',
+            markersJsonUrl: '/markers.json'
+        }));
+        jest.doMock('../app/catalunya-map', () => jest.fn().mockImplementation(() => ({
+            loadMapAndText: jest.fn()
+        })));
+
+        const markersWithMissing = [
+            { comarca: "Vall d'Aran", tipus: 'castell' },
+            { tipus: 'monestir' },
+        ];
+
+        global.fetch = jest.fn()
+            .mockImplementationOnce(() => Promise.resolve({ json: () => Promise.resolve(mockJsonData) }))
+            .mockImplementationOnce(() => Promise.resolve({ json: () => Promise.resolve(markersWithMissing) }));
+
+        await require('../app/catalunya-map-main');
+        await flushPromises();
+
+        expect(global.fetch).toHaveBeenCalledTimes(2);
+    });
+
     it('should fetch markers and group them by comarca when markersJsonUrl is set', async () => {
         jest.resetModules();
         jest.doMock('../app/catalunya-map-config', () => ({
