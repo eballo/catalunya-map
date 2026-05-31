@@ -151,6 +151,16 @@ describe('CatMap', () => {
             expect(global.$).not.toHaveBeenCalled();
             expect(consoleLogMock).not.toHaveBeenCalledWith(`Create list comarques is disabled`);
         });
+
+        test('useListText true - comarca without total skips badge', () => {
+            mapInstance.mappaths = {
+                comarca1: { name: 'NoTotal', url: 'http://url', capital: 'Cap' }
+            };
+            mapInstance.config = { useListText: true };
+            $.mockClear();
+            mapInstance.createLlistaComarquesText();
+            expect(global.$).toHaveBeenCalled();
+        });
     });
 
     // ── createRaphaelObject ───────────────────────────────────────────────────
@@ -338,6 +348,23 @@ describe('CatMap', () => {
             expect(mockObject[2].hide).toHaveBeenCalled();
         });
 
+        test('hover out callback does nothing extra when comarca is selected', () => {
+            const mockObject = buildMockObject();
+            mapInstance.createRaphaelObject = jest.fn().mockReturnValue(mockObject);
+            mapInstance.responsiveResize = jest.fn();
+            mapInstance.win = { resize: jest.fn() };
+            mapInstance.config.useListText = false;
+            mapInstance.config.responsive = true;
+            mapInstance.selected = 'Comarca1'; // matches mockObject[0].comarcaName
+
+            mapInstance.createMap();
+
+            const [, hoverOut] = mockObject.hover.mock.calls[0];
+            hoverOut.call(mockObject);
+
+            expect(mockObject[0].animate).not.toHaveBeenCalled();
+        });
+
         test('win resize callback calls responsiveResize', () => {
             const mockObject = buildMockObject();
             mapInstance.createRaphaelObject = jest.fn().mockReturnValue(mockObject);
@@ -351,6 +378,46 @@ describe('CatMap', () => {
             resizeCb();
 
             expect(mapInstance.responsiveResize).toHaveBeenCalledTimes(2);
+        });
+
+        test('click handler on map object triggers onMapClick', () => {
+            const mockObject = buildMockObject();
+            mapInstance.createRaphaelObject = jest.fn().mockReturnValue(mockObject);
+            mapInstance.responsiveResize = jest.fn();
+            mapInstance.win = { resize: jest.fn() };
+            mapInstance.remove_background = jest.fn();
+            mapInstance.onMapClick = jest.fn();
+            mapInstance.config.useListText = true;
+            mapInstance.config.responsive = true;
+
+            mapInstance.createMap();
+
+            const clickHandler = mockObject[0].click.mock.calls[0][0];
+            clickHandler.call({ comarcaName: 'Comarca1', capitalComarca: 'Capital1', contentText: 'Info', comarcaLink: 'http://url' });
+
+            expect(mapInstance.selected).toBe('Comarca1');
+            expect(mapInstance.remove_background).toHaveBeenCalled();
+            expect(mapInstance.onMapClick).toHaveBeenCalledWith('Comarca1', 'Capital1', 'Info', 'http://url');
+        });
+
+        test('touchstart handler on map object triggers onMapClick', () => {
+            const mockObject = buildMockObject();
+            mapInstance.createRaphaelObject = jest.fn().mockReturnValue(mockObject);
+            mapInstance.responsiveResize = jest.fn();
+            mapInstance.win = { resize: jest.fn() };
+            mapInstance.remove_background = jest.fn();
+            mapInstance.onMapClick = jest.fn();
+            mapInstance.config.useListText = true;
+            mapInstance.config.responsive = true;
+
+            mapInstance.createMap();
+
+            const touchHandler = mockObject[0].touchstart.mock.calls[0][0];
+            touchHandler.call({ comarcaName: 'Comarca1', capitalComarca: 'Capital1', contentText: 'Info', comarcaLink: 'http://url' });
+
+            expect(mapInstance.selected).toBe('Comarca1');
+            expect(mapInstance.remove_background).toHaveBeenCalled();
+            expect(mapInstance.onMapClick).toHaveBeenCalledWith('Comarca1', 'Capital1', 'Info', 'http://url');
         });
     });
 
@@ -453,6 +520,19 @@ describe('CatMap', () => {
             mapInstance.onMapClick(...params);
             expect(consoleLogMock).not.toHaveBeenCalledWith('Button functionality disabled');
         });
+
+        test('on_click_disabled button click handler invokes navigation', () => {
+            $.mockClear();
+            mapInstance.config.onClick = false;
+            mapInstance.config.button = true;
+            mapInstance.on_click_disabled('http://example.com/comarca1', 'Comarca1', 'Capital1', 'Info');
+
+            const showResult = $.mock.results[0].value.show.mock.results[0].value;
+            const clickHandler = showResult.click.mock.calls[0][0];
+            const result = clickHandler.call({});
+
+            expect(result).toBe(false);
+        });
     });
 
     // ── resizeMap ──────────────────────────────────────────────────────────────
@@ -464,6 +544,27 @@ describe('CatMap', () => {
             mapInstance.resizeMap();
             expect(mapInstance.paper.changeSize).toHaveBeenCalledWith(600, 400, true, false);
             expect(consoleLogMock).toHaveBeenCalledWith('ResizeMap');
+        });
+
+        test('mouseenter handler calls showComarcaName', () => {
+            $.mockClear();
+            mapInstance.showComarcaName = jest.fn();
+            mapInstance.hideComarcaName = jest.fn();
+            mapInstance.resizeMap();
+            // calls: [0] $('.map'), [1] $('.map-wrapper'), [2] $('#map') mouseenter, [3] $('#map') mouseleave
+            const mouseenterHandler = $.mock.results[2].value.mouseenter.mock.calls[0][0];
+            mouseenterHandler();
+            expect(mapInstance.showComarcaName).toHaveBeenCalled();
+        });
+
+        test('mouseleave handler calls hideComarcaName', () => {
+            $.mockClear();
+            mapInstance.showComarcaName = jest.fn();
+            mapInstance.hideComarcaName = jest.fn();
+            mapInstance.resizeMap();
+            const mouseleaveHandler = $.mock.results[3].value.mouseleave.mock.calls[0][0];
+            mouseleaveHandler();
+            expect(mapInstance.hideComarcaName).toHaveBeenCalled();
         });
     });
 
@@ -535,6 +636,50 @@ describe('CatMap', () => {
         });
     });
 
+    // ── recalcPositions ───────────────────────────────────────────────────────
+
+    describe('recalcPositions', () => {
+        test('skips zero-size bbox comarca and updates non-zero-size comarca', () => {
+            const zeroBbox = { getBBox: jest.fn().mockReturnValue({ x: 0, y: 0, width: 0, height: 0 }) };
+            const nonZeroBbox = { getBBox: jest.fn().mockReturnValue({ x: 10, y: 20, width: 50, height: 40 }) };
+            const label1 = { attr: jest.fn() };
+            const label2 = { attr: jest.fn() };
+            const label3 = { attr: jest.fn() };
+            const label4 = { attr: jest.fn() };
+
+            mapInstance.mcat = {
+                comarca1: [zeroBbox, label1, label2],
+                comarca2: [nonZeroBbox, label3, label4],
+            };
+
+            mapInstance.recalcPositions();
+
+            expect(label1.attr).not.toHaveBeenCalled();
+            expect(label2.attr).not.toHaveBeenCalled();
+            expect(label3.attr).toHaveBeenCalled();
+            expect(label4.attr).toHaveBeenCalled();
+        });
+    });
+
+    // ── jQuery mock coverage ──────────────────────────────────────────────────
+
+    describe('jQuery mock', () => {
+        test('find executes its lambda and returns a jQuery instance', () => {
+            const result = $('parent').find('child');
+            expect(result).toBeDefined();
+        });
+
+        test('each calls the provided callback', () => {
+            const cb = jest.fn();
+            $('selector').each(cb);
+            expect(cb).toHaveBeenCalled();
+        });
+
+        test('each does not throw when callback is not a function', () => {
+            expect(() => $('selector').each(42)).not.toThrow();
+        });
+    });
+
     // ── loadMapAndText ────────────────────────────────────────────────────────
 
     describe('loadMapAndText', () => {
@@ -550,6 +695,18 @@ describe('CatMap', () => {
             expect(mapInstance.createMap).toHaveBeenCalled();
             expect(mapInstance.createLlistaComarquesText).toHaveBeenCalled();
             expect(consoleLogMock).toHaveBeenCalledWith("Calling loadMapAndText ...");
+        });
+
+        test('debug false - skips logging', () => {
+            mapInstance.debug = false;
+            mapInstance.createArrayComarcas       = jest.fn();
+            mapInstance.createMap                 = jest.fn();
+            mapInstance.createLlistaComarquesText = jest.fn();
+
+            mapInstance.loadMapAndText();
+
+            expect(mapInstance.createArrayComarcas).toHaveBeenCalled();
+            expect(consoleLogMock).not.toHaveBeenCalledWith('Calling loadMapAndText ...');
         });
     });
 
@@ -590,6 +747,56 @@ describe('CatMap', () => {
             mapInstance.responsiveResize();
             expect(mapInstance.hideMapShowList).toHaveBeenCalled();
             expect(consoleLogMock).toHaveBeenCalledWith('480 < WindowWith');
+        });
+
+        test('debug false - width >= 960 calls resizeMap without logging', () => {
+            mapInstance.debug = false;
+            mapInstance.win = { width: jest.fn().mockReturnValue(1000) };
+            mapInstance.resizeMap = jest.fn();
+            mapInstance.showValues = jest.fn();
+            mapInstance.config.mapInitWidth = 825;
+            mapInstance.config.mapInitHeight = 800;
+            mapInstance.responsiveResize();
+            expect(mapInstance.resizeMap).toHaveBeenCalled();
+            expect(consoleLogMock).not.toHaveBeenCalledWith('ResponsiveResize');
+        });
+
+        test('debug false - 768 <= width < 960 hides map without logging', () => {
+            mapInstance.debug = false;
+            mapInstance.win = { width: jest.fn().mockReturnValue(800) };
+            mapInstance.hideMapShowList = jest.fn();
+            mapInstance.showValues = jest.fn();
+            mapInstance.responsiveResize();
+            expect(mapInstance.hideMapShowList).toHaveBeenCalled();
+            expect(consoleLogMock).not.toHaveBeenCalledWith('768 =< WindowWith < 960 ');
+        });
+
+        test('debug false - 480 <= width < 768 hides map without logging', () => {
+            mapInstance.debug = false;
+            mapInstance.win = { width: jest.fn().mockReturnValue(500) };
+            mapInstance.hideMapShowList = jest.fn();
+            mapInstance.showValues = jest.fn();
+            mapInstance.responsiveResize();
+            expect(mapInstance.hideMapShowList).toHaveBeenCalled();
+            expect(consoleLogMock).not.toHaveBeenCalledWith('480 =< WindowWith < 768 ');
+        });
+
+        test('debug false - width < 480 hides map without logging', () => {
+            mapInstance.debug = false;
+            mapInstance.win = { width: jest.fn().mockReturnValue(300) };
+            mapInstance.hideMapShowList = jest.fn();
+            mapInstance.showValues = jest.fn();
+            mapInstance.responsiveResize();
+            expect(mapInstance.hideMapShowList).toHaveBeenCalled();
+            expect(consoleLogMock).not.toHaveBeenCalledWith('480 < WindowWith');
+        });
+
+        test('NaN winWidth skips all else-if branches', () => {
+            mapInstance.win = { width: jest.fn().mockReturnValue(NaN) };
+            mapInstance.hideMapShowList = jest.fn();
+            mapInstance.showValues = jest.fn();
+            mapInstance.responsiveResize();
+            expect(mapInstance.hideMapShowList).not.toHaveBeenCalled();
         });
     });
 });

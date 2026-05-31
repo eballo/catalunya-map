@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [13.1.1] - 2026-05-30
+### Changed
+- Improved test suite to reach 100% coverage across all source files (statements, branches, functions, lines)
+- Added `scripts/deploy.js` for SFTP deployment (`npm run deploy`)
+- Added `CLAUDE.md` with release checklist and development notes
+
 ## [13.1.0] - 2026-05-27
 ### Added
 - Exposed map instance as `window.cmMapManager` so host pages can access the map programmatically.

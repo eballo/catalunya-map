@@ -1,6 +1,9 @@
-const path = require('path');
-const fs   = require('fs');
-const Dotenv = require('dotenv-webpack');
+const path         = require('path');
+const fs           = require('fs');
+const webpack      = require('webpack');
+const Dotenv       = require('dotenv-webpack');
+const TerserPlugin = require('terser-webpack-plugin');
+const pkg          = require('./package.json');
 
 function readPluginPath() {
     const envFile = path.join(__dirname, '.env.production');
@@ -37,8 +40,14 @@ module.exports = (env, argv) => {
             filename: '[name].js',
             path: path.resolve(__dirname, './'),
         },
+        optimization: {
+            minimizer: [
+                new TerserPlugin({ extractComments: false }),
+            ],
+        },
         plugins: [
-            new Dotenv({ path: envPath })
+            new Dotenv({ path: envPath }),
+            new webpack.BannerPlugin({ banner: `/*! catalunya-map v${pkg.version} */`, raw: true }),
         ],
         devServer: {
             static: { directory: path.join(__dirname, './web') },
