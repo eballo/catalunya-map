@@ -60,7 +60,7 @@ $(document).ready(function () {
     var markersUrl   = config.markersJsonUrl   || '';
 
     var imagesUrl = comarquesUrl
-        ? comarquesUrl.replace('pages/js/catalunya-comarques.json', 'pages/images/')
+        ? comarquesUrl.split('?')[0].replace('pages/js/catalunya-comarques.json', 'pages/images/')
         : '';
 
     var p1 = fetch(comarquesUrl).then(function (r) { return r.json(); });

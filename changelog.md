@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [13.1.2] - 2026-06-07
+### Fixed
+- `createLlistaComarquesText`: guard against `null` comarca name in sort comparator (`null ?? ''`) to prevent `TypeError: Cannot read properties of null (reading 'localeCompare')` when map data has missing names
+- `buildComarcaStats`: strip query string (`?ver=…`) from `comarquesJsonUrl` before deriving `imagesUrl`, preventing broken marker icon paths when WordPress appends cache-busting parameters
+- `createLlistaComarquesText`: filter out comarques with empty or missing names before rendering the list, preventing blank entries at the top when map data has entries with no name
+
 ## [13.1.1] - 2026-05-30
 ### Changed
 - Improved test suite to reach 100% coverage across all source files (statements, branches, functions, lines)
