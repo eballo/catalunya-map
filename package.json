@@ -1,6 +1,6 @@
 {
   "name": "catalunya-map",
-  "version": "13.1.1",
+  "version": "13.1.2",
   "description": "Interactive vectorial map of Catalunya based on a SVG/VML and the library RaphaëlJs.",
   "main": "index.js",
   "devDependencies": {

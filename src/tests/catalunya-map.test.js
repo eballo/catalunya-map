@@ -161,6 +161,16 @@ describe('CatMap', () => {
             mapInstance.createLlistaComarquesText();
             expect(global.$).toHaveBeenCalled();
         });
+
+        test('useListText true - comarca with null name does not throw', () => {
+            mapInstance.mappaths = {
+                comarca1: { name: null,   url: 'http://url1', capital: 'Cap1' },
+                comarca2: { name: 'Bages', url: 'http://url2', capital: 'Cap2' }
+            };
+            mapInstance.config = { useListText: true };
+            $.mockClear();
+            expect(() => mapInstance.createLlistaComarquesText()).not.toThrow();
+        });
     });
 
     // ── createRaphaelObject ───────────────────────────────────────────────────

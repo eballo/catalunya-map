@@ -2,7 +2,7 @@
  * Catalunya Medieval 2015-2026 - Open Source Catalunya Map
  *
  * Author  : Enric Ballo
- * version : 12.0
+ * version : 13.1.2
  *
  */
 import {stringToBoolean} from "./catalunya-map-config";
@@ -51,9 +51,14 @@ class CatMap {
                 this.create_llistaComarques_array(comarca, llistaComarques);
             }
 
+            // Skip entries whose name is missing or empty
+            llistaComarques = llistaComarques.filter(c => c.name);
+
             // Order the list by name
             llistaComarques = llistaComarques.sort(function (a, b) {
-                return a.name.localeCompare(b.name);
+                const na = a.name ?? '';
+                const nb = b.name ?? '';
+                return na.localeCompare(nb);
             });
 
             // Create list with bootstrap styles
