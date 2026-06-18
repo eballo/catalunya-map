@@ -91,11 +91,10 @@ $(document).ready(function () {
             window.cmMapManager = map;
             map.loadMapAndText();
 
-            $("#map").show();
             $("#text").fadeIn(1000);
-            $("#contentText").toggle(2000);
-            $("#map").fadeIn(1000);
+            $("#contentText").show();
             $("#legend").fadeIn(1000);
+            $("#map-overlay").fadeOut(1500);
         })
         .catch(function (err) {
             console.error('Error loading map data:', err);
