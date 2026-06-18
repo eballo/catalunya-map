@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
+## [13.1.3] - 2026-06-17
+### Fixed
+- `catalunya-map-main.js`: substituït `show()` + `fadeIn()` redundants i `toggle()` per un fade de blanc via `#map-overlay` — el mapa apareix ara amb transició suau en lloc de sobtadament
+
 ## [13.1.2] - 2026-06-07
 ### Fixed
 - `createLlistaComarquesText`: guard against `null` comarca name in sort comparator (`null ?? ''`) to prevent `TypeError: Cannot read properties of null (reading 'localeCompare')` when map data has missing names
