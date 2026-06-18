@@ -15,7 +15,7 @@
     "ssh2-sftp-client": "^12.1.1",
     "webpack": "^5.88.2",
     "webpack-cli": "^7.0.2",
-    "webpack-dev-server": "^5.2.4"
+    "webpack-dev-server": "^5.2.5"
   },
   "scripts": {
     "test": "jest",
