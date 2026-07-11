@@ -14,8 +14,8 @@
     "jest-environment-jsdom": "^30.4.1",
     "ssh2-sftp-client": "^12.1.1",
     "webpack": "^5.88.2",
-    "webpack-cli": "^7.0.2",
-    "webpack-dev-server": "^5.2.4"
+    "webpack-cli": "^7.2.1",
+    "webpack-dev-server": "^6.0.0"
   },
   "scripts": {
     "test": "jest",
