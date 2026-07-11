@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
+## [13.2.0] - 2026-07-11
+
+### Changed
+- add auto release
+
 ## [13.1.3] - 2026-06-17
 ### Fixed
 - `catalunya-map-main.js`: substituït `show()` + `fadeIn()` redundants i `toggle()` per un fade de blanc via `#map-overlay` — el mapa apareix ara amb transició suau en lloc de sobtadament
