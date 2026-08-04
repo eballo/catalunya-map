@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
+## [13.4.0] - 2026-08-04
+
+### Changed
+- Upgrade dependencies: security patches + webpack-dev-server 6
+
 ## [13.3.0] - 2026-07-11
 
 ### Changed
