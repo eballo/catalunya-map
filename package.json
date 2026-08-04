@@ -4,8 +4,8 @@
   "description": "Interactive vectorial map of Catalunya based on a SVG/VML and the library RaphaëlJs.",
   "main": "index.js",
   "devDependencies": {
-    "@babel/core": "^7.24.5",
-    "@babel/preset-env": "^7.24.5",
+    "@babel/core": "^7.29.7",
+    "@babel/preset-env": "^7.29.7",
     "@jest/globals": "^30.4.1",
     "babel-jest": "^30.4.1",
     "dotenv": "^17.4.2",
@@ -14,8 +14,8 @@
     "jest-environment-jsdom": "^30.4.1",
     "ssh2-sftp-client": "^12.1.1",
     "webpack": "^5.88.2",
-    "webpack-cli": "^7.0.2",
-    "webpack-dev-server": "^5.2.4"
+    "webpack-cli": "^7.2.2",
+    "webpack-dev-server": "^6.0.0"
   },
   "scripts": {
     "test": "jest",
