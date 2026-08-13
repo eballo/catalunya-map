@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
+## [13.4.1] - 2026-08-13
+
+### Changed
+- Make the text panel background transparent instead of white
+
 ## [13.4.0] - 2026-08-04
 
 ### Changed
