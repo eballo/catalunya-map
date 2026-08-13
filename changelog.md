@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
+## [13.5.0] - 2026-08-13
+
+### Changed
+- Add release screenshot for v13.4.1
+
 ## [13.4.1] - 2026-08-13
 
 ### Changed
