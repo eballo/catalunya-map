@@ -13,6 +13,15 @@ const MAP_CONFIG = {
         ? catalunyaMapConfig.markersJsonUrl
         : '',
 
+    // Base URL for the building-type icons. Optional: when empty, it's derived
+    // from comarquesJsonUrl (see catalunya-map-main.js). Set it explicitly when
+    // comarquesJsonUrl doesn't look like a path to the JSON file — e.g. when the
+    // host serves that JSON through an API endpoint rather than a static file,
+    // which makes the derivation impossible.
+    imagesUrl: (typeof catalunyaMapConfig !== 'undefined' && catalunyaMapConfig.imagesUrl)
+        ? catalunyaMapConfig.imagesUrl
+        : '',
+
     responsive: stringToBoolean(process.env.RESPONSIVE ?? 'true'),
     useText: stringToBoolean(process.env.USE_TEXT ?? 'true'),
     useListText: stringToBoolean(process.env.USE_LIST_TEXT ?? 'false'),

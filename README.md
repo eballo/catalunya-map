@@ -90,6 +90,24 @@ Source files Explanation :
 
 3. Reload the page and all you should be able to see the map
 
+### Host page configuration (`window.catalunyaMapConfig`)
+
+The host page can pass these options; all are optional and default to `''`:
+
+| Option | Description |
+|---|---|
+| `comarquesJsonUrl` | URL the comarca data is fetched from |
+| `markersJsonUrl` | URL the building markers are fetched from (used for the per-comarca totals) |
+| `imagesUrl` | Base URL of the building-type icons, e.g. `.../pages/images/`. When omitted it's derived from `comarquesJsonUrl` by replacing the `pages/js/catalunya-comarques.json` suffix — **set it explicitly whenever `comarquesJsonUrl` isn't a path to that file** (e.g. an API endpoint serving the JSON), since the derivation can't work there and every icon would 404. |
+
+```js
+window.catalunyaMapConfig = {
+    comarquesJsonUrl: '/api/comarques?token=abc',
+    markersJsonUrl:   '/api/markers?token=abc',
+    imagesUrl:        '/assets/map/images/'
+};
+```
+
 ## Sources
 - [Mapa SVG de Catalunya](http://commons.wikimedia.org/wiki/File:Mapa_comarcal_de_Catalunya.svg)
 - [RaphaëlJs](http://raphaeljs.com)

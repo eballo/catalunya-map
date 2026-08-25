@@ -163,5 +163,69 @@ describe('Catalunya map loader', () => {
         expect(global.fetch).toHaveBeenCalledWith('/test.json');
         expect(global.fetch).toHaveBeenCalledWith('/markers.json');
     });
+
+    /**
+     * Loads the module with the given config and returns the comarques object
+     * CatMap was constructed with, so tests can assert on the generated `info`
+     * HTML (which is where the icon URLs actually end up).
+     */
+    async function renderWithConfig(mapConfig) {
+        jest.resetModules();
+        jest.doMock('../app/catalunya-map-config', () => mapConfig);
+
+        const CatMapMock = jest.fn().mockImplementation(() => ({ loadMapAndText: jest.fn() }));
+        jest.doMock('../app/catalunya-map', () => CatMapMock);
+
+        global.fetch = jest.fn()
+            .mockImplementationOnce(() => Promise.resolve({ json: () => Promise.resolve(mockJsonData) }))
+            .mockImplementationOnce(() => Promise.resolve({
+                json: () => Promise.resolve([{ comarca: "Vall d'Aran", tipus: 'castell' }])
+            }));
+
+        await require('../app/catalunya-map-main');
+        await flushPromises();
+
+        return CatMapMock.mock.calls[0][1];
+    }
+
+    it('uses an explicitly configured imagesUrl for the type icons', async () => {
+        const comarques = await renderWithConfig({
+            comarquesJsonUrl: '/test.json',
+            markersJsonUrl: '/markers.json',
+            imagesUrl: 'https://example.com/assets/images/'
+        });
+
+        expect(comarques.cat1.info).toContain(
+            "src='https://example.com/assets/images/militar/castell/castell8.png'"
+        );
+    });
+
+    it('uses imagesUrl even when comarquesJsonUrl is an API endpoint the path derivation cannot rewrite', async () => {
+        // The reason this config option exists: with the JSON served through an
+        // endpoint there's no "pages/js/catalunya-comarques.json" path to
+        // string-replace, so the derivation alone would yield the endpoint URL
+        // itself as the icon base and every icon would 404.
+        const comarques = await renderWithConfig({
+            comarquesJsonUrl: '/wp-admin/admin-ajax.php?action=cm_get_comarques&nonce=abc123',
+            markersJsonUrl: '/markers.json',
+            imagesUrl: '/wp-content/plugins/cm/pages/images/'
+        });
+
+        expect(comarques.cat1.info).toContain(
+            "src='/wp-content/plugins/cm/pages/images/militar/castell/castell8.png'"
+        );
+        expect(comarques.cat1.info).not.toContain('admin-ajax.php');
+    });
+
+    it('falls back to deriving imagesUrl from comarquesJsonUrl when imagesUrl is not set', async () => {
+        const comarques = await renderWithConfig({
+            comarquesJsonUrl: 'https://example.com/plugin/pages/js/catalunya-comarques.json?ver=123',
+            markersJsonUrl: '/markers.json'
+        });
+
+        expect(comarques.cat1.info).toContain(
+            "src='https://example.com/plugin/pages/images/militar/castell/castell8.png'"
+        );
+    });
 });
 
