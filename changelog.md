@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
+## [13.5.1] - 2026-08-25
+
+### Changed
+- Fix/explicit images url
+
 ## [13.5.0] - 2026-08-13
 
 ### Changed
