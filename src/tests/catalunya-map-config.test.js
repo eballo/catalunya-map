@@ -26,11 +26,13 @@ describe('MAP_CONFIG with catalunyaMapConfig defined', () => {
         global.catalunyaMapConfig = {
             comarquesJsonUrl: 'http://test.com/comarques.json',
             markersJsonUrl:   'http://test.com/markers.json',
+            imagesUrl:        'http://test.com/images/',
         };
         jest.resetModules();
         const freshConfig = require('../app/catalunya-map-config').default;
         expect(freshConfig.comarquesJsonUrl).toBe('http://test.com/comarques.json');
         expect(freshConfig.markersJsonUrl).toBe('http://test.com/markers.json');
+        expect(freshConfig.imagesUrl).toBe('http://test.com/images/');
         delete global.catalunyaMapConfig;
     });
 });
@@ -40,6 +42,7 @@ describe('MAP_CONFIG', () => {
         const expectedConfig = {
             comarquesJsonUrl: '',
             markersJsonUrl: '',
+            imagesUrl: '',
             responsive: true,
             useText: true,
             useListText: false,

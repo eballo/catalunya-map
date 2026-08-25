@@ -59,9 +59,14 @@ $(document).ready(function () {
     var comarquesUrl = config.comarquesJsonUrl;
     var markersUrl   = config.markersJsonUrl   || '';
 
-    var imagesUrl = comarquesUrl
-        ? comarquesUrl.split('?')[0].replace('pages/js/catalunya-comarques.json', 'pages/images/')
-        : '';
+    // Prefer an explicitly configured imagesUrl; fall back to deriving it from
+    // comarquesJsonUrl's path. The derivation only works while that URL really
+    // is the path to the JSON file — a host serving it through an API endpoint
+    // instead has no such path to rewrite, and must set imagesUrl itself.
+    var imagesUrl = config.imagesUrl
+        || (comarquesUrl
+            ? comarquesUrl.split('?')[0].replace('pages/js/catalunya-comarques.json', 'pages/images/')
+            : '');
 
     var p1 = fetch(comarquesUrl).then(function (r) { return r.json(); });
     var p2 = markersUrl
