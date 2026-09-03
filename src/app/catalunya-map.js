@@ -96,6 +96,48 @@ class CatMap {
         });
     }
 
+    /**
+     * Re-apply the comarca styling after the host page switches theme.
+     *
+     * The colours in the config are getters over CSS custom properties, but
+     * Raphael writes them onto the SVG as presentation attributes, so shapes
+     * drawn under the previous theme keep their old colours until something
+     * paints them again. Hovering would do it one comarca at a time; this
+     * does the whole map at once. Wired to a MutationObserver in
+     * watchThemeChanges().
+     */
+    refreshTheme() {
+        for (const comarca in this.mappaths) {
+            const obj = this.mcat[comarca];
+            if (!obj || obj.length < 3) {
+                continue;
+            }
+            obj[0].attr(this.config.comarcaAttr);
+            if (obj[0].comarcaName === this.selected) {
+                // Keep the selected comarca highlighted rather than resetting it.
+                obj[0].attr({'fill': this.config.colorIn});
+                obj[1].attr(this.config.nomComcarcaAttr_in);
+            } else {
+                obj[1].attr(this.config.nomComcarcaAttr_out);
+            }
+            obj[2].attr(this.config.nomCapitalAttr);
+        }
+    }
+
+    /**
+     * Repaint whenever the host toggles data-theme on <html>. No-op where
+     * there is no DOM (tests) or no MutationObserver.
+     */
+    watchThemeChanges() {
+        if (typeof MutationObserver === 'undefined' || typeof document === 'undefined') {
+            return;
+        }
+        const self = this;
+        new MutationObserver(function () {
+            self.refreshTheme();
+        }).observe(document.documentElement, {attributes: true, attributeFilter: ['data-theme']});
+    }
+
     createMap() {
 
         if (this.debug) {

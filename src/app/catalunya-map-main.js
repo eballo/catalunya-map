@@ -95,6 +95,7 @@ $(document).ready(function () {
             const map = new CatMap(config, comarques);
             window.cmMapManager = map;
             map.loadMapAndText();
+            map.watchThemeChanges();
 
             $("#text").fadeIn(1000);
             $("#contentText").show();
