@@ -33,3 +33,4 @@
 - [Demo v13.4.1](http://demo.catalunyamedieval.es/map1341)
 - [Demo v13.5](http://demo.catalunyamedieval.es/map135)
 - [Demo v13.5.1](http://demo.catalunyamedieval.es/map1351)
+- [Demo v13.6](http://demo.catalunyamedieval.es/map136)

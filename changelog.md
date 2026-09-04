@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
+## [13.6.0] - 2026-09-04
+
+### Changed
+- Follow the host page's dark theme
+
 ## [13.5.1] - 2026-08-25
 
 ### Changed
