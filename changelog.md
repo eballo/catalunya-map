@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
+## [13.7.0] - 2026-09-04
+
+### Changed
+- Add the release screenshot for v13.6 and point the README at it
+
 ## [13.6.0] - 2026-09-04
 
 ### Changed
