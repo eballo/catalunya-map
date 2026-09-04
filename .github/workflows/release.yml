@@ -1,0 +1,134 @@
+#
+# Cut a release without waiting for a merge.
+#
+# build.yml already releases on every push to main, taking the bump level from
+# the source branch name. This is the manual counterpart: same steps, same
+# outputs, but you choose the level and write the note yourself. Use it when a
+# release is due and there is nothing to merge, or when the branch name would
+# have inferred the wrong level.
+#
+# The commit message keeps the "Bump version:" prefix, which is what stops
+# build.yml from releasing again on top of this one.
+#
+name: Release (manual)
+
+on:
+  workflow_dispatch:
+    inputs:
+      level:
+        description: How big is this release?
+        type: choice
+        options: [patch, minor, major]
+        default: patch
+        required: true
+      summary:
+        description: One line for the changelog and the release notes
+        type: string
+        required: true
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    name: Bump version, tag and release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout main (full history + tags)
+        uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+          ref: main
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 22.x
+          cache: 'npm'
+
+      - run: npm ci
+      - run: npm run build --if-present
+
+      # Nothing is tagged unless the suite is green.
+      - run: npm test
+
+      # Attributed to whoever pressed the button: a manual release is a person's
+      # decision, and it should read that way in the history.
+      - name: Configure Git
+        run: |
+          git config user.name  "${{ github.actor }}"
+          git config user.email "${{ github.actor_id }}+${{ github.actor }}@users.noreply.github.com"
+
+      - name: Bump version (package.json + package-lock.json)
+        id: version
+        run: |
+          set -euo pipefail
+          OLD_VERSION=$(node -p "require('./package.json').version")
+          npm version "${{ inputs.level }}" --no-git-tag-version
+          NEW_VERSION=$(node -p "require('./package.json').version")
+
+          echo "old_version=$OLD_VERSION" >> "$GITHUB_OUTPUT"
+          echo "new_version=$NEW_VERSION" >> "$GITHUB_OUTPUT"
+
+      # Lifted unchanged from build.yml so a manual release writes exactly what
+      # an automatic one writes — including this repo's own demo slug and the
+      # end of demo.md it grows from.
+      - name: Update changelog.md, demo.md and web/index.html
+        env:
+          NEW_VERSION: ${{ steps.version.outputs.new_version }}
+          PR_TITLE: ${{ inputs.summary }}
+        run: |
+          set -euo pipefail
+          node - <<'JS'
+          const fs = require('fs');
+
+          const version = process.env.NEW_VERSION.trim();
+          const title = (process.env.PR_TITLE || '').trim() || 'Maintenance update';
+          const [major, minor, patch] = version.split('.').map(Number);
+
+          const slug = (minor === 0 && patch === 0) ? `map${major}`
+                     : (patch === 0) ? `map${major}${minor}`
+                     : `map${major}${minor}${patch}`;
+          const label = (patch === 0) ? `v${major}.${minor}` : `v${major}.${minor}.${patch}`;
+
+          // changelog.md
+          const changelogPath = 'changelog.md';
+          const changelog = fs.readFileSync(changelogPath, 'utf8');
+          const date = new Date().toISOString().slice(0, 10);
+          const entry = `## [${version}] - ${date}\n\n### Changed\n- ${title}\n\n`;
+          const marker = 'All notable changes to this project will be documented in this file.\n\n';
+          const idx = changelog.indexOf(marker);
+          const insertAt = idx === -1 ? 0 : idx + marker.length;
+          fs.writeFileSync(changelogPath, changelog.slice(0, insertAt) + entry + changelog.slice(insertAt));
+
+          // demo.md (this project appends newest entry at the bottom)
+          const demoPath = 'demo.md';
+          const demo = fs.readFileSync(demoPath, 'utf8').replace(/\n+$/, '');
+          fs.writeFileSync(demoPath, `${demo}\n- [Demo ${label}](http://demo.catalunyamedieval.es/${slug})\n`);
+
+          // web/index.html (preserve each tag's own V/v capitalisation)
+          const htmlPath = 'web/index.html';
+          const html = fs.readFileSync(htmlPath, 'utf8');
+          const updatedHtml = html.replace(/Demo ([Vv])\d+(\.\d+){1,2}/g, (_, vChar) => `Demo ${vChar}${label.slice(1)}`);
+          fs.writeFileSync(htmlPath, updatedHtml);
+
+          // Release notes reused for the GitHub Release
+          fs.writeFileSync('/tmp/release-notes.md', `## ${label}\n\n### Changed\n- ${title}\n`);
+          JS
+
+      - name: Commit, tag and push
+        run: |
+          set -euo pipefail
+          git add package.json package-lock.json changelog.md demo.md web/index.html
+          git commit -m "Bump version: ${{ steps.version.outputs.old_version }} -> ${{ steps.version.outputs.new_version }}"
+          git tag -a "v${{ steps.version.outputs.new_version }}" -m "Release v${{ steps.version.outputs.new_version }}"
+          git push --follow-tags origin main
+
+      - name: Create GitHub Release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NEW_VERSION: ${{ steps.version.outputs.new_version }}
+        run: |
+          gh release create "v${NEW_VERSION}" \
+            --title "v${NEW_VERSION}" \
+            --notes-file /tmp/release-notes.md \
+            --latest
