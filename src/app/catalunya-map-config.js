@@ -2,6 +2,22 @@ export function stringToBoolean(string) {
     return string.toLowerCase() === "false" ? false : Boolean(string);
 }
 
+/**
+ * Value of a CSS custom property on <html>, or `fallback` when it is not set
+ * (or there is no DOM at all, e.g. under Jest).
+ *
+ * Raphael paints the comarca shapes with SVG presentation attributes, so a
+ * stylesheet cannot restyle them the way it can the side panel. Reading the
+ * same tokens the stylesheet defines keeps both in step, and reading them on
+ * every access — the colours below are getters — means a theme switch is
+ * picked up on the next hover or redraw without re-creating the map.
+ */
+export function cssColour(name, fallback) {
+    if (typeof document === 'undefined' || !document.documentElement) return fallback;
+    const value = getComputedStyle(document.documentElement).getPropertyValue(name);
+    return value?.trim() || fallback;
+}
+
 const MAP_CONFIG = {
 
     comarquesJsonUrl: (typeof catalunyaMapConfig !== 'undefined' && catalunyaMapConfig.comarquesJsonUrl)
@@ -29,8 +45,8 @@ const MAP_CONFIG = {
     onClick: stringToBoolean(process.env.ON_CLICK ?? 'false'),
     newWindow: stringToBoolean(process.env.NEW_WINDOW ?? 'false'),
 
-    colorIn: process.env.COLOR_IN ?? '#fee8cb',
-    colorOut: process.env.COLOR_OUT ?? '#fff',
+    get colorIn() { return cssColour('--cm-comarca-fill-hover', process.env.COLOR_IN ?? '#fee8cb'); },
+    get colorOut() { return cssColour('--cm-comarca-fill', process.env.COLOR_OUT ?? '#fff'); },
 
     scale: parseFloat(process.env.SCALE ?? '0.8'),
 
@@ -42,8 +58,8 @@ const MAP_CONFIG = {
 
     // --------- Comarca style configuration
     comarcaAttr: {
-        'fill': '#fff',
-        'stroke': '#c7ab89',
+        get 'fill'() { return cssColour('--cm-comarca-fill', '#fff'); },
+        get 'stroke'() { return cssColour('--cm-comarca-stroke', '#c7ab89'); },
         'stroke-width': 0.8,
         'stroke-linejoin': 'round',
         'font-family': 'Droid Sans,Verdana',
@@ -55,8 +71,8 @@ const MAP_CONFIG = {
 
     // --------- Nom comarca style configuration for hover in
     nomComcarcaAttr_in: {
-        'fill': '#a07a49',
-        'stroke': '#000000',
+        get 'fill'() { return cssColour('--cm-comarca-name', '#a07a49'); },
+        get 'stroke'() { return cssColour('--cm-comarca-label', '#000000'); },
         'stroke-width': 0.4,
         'font-family': 'Droid Sans,Verdana',
         'font-size': '14px',
@@ -67,7 +83,7 @@ const MAP_CONFIG = {
 
     // --------- Nom comarca style configuration for hover out
     nomComcarcaAttr_out: {
-        'fill': '#a07a49',
+        get 'fill'() { return cssColour('--cm-comarca-name', '#a07a49'); },
         'stroke-width': 0,
         'font-family': 'Droid Sans,Verdana',
         'font-size': '14px',
@@ -78,7 +94,7 @@ const MAP_CONFIG = {
 
     // --------- Nom capital comarca style configuration
     nomCapitalAttr: {
-        'fill': '#FF9900',
+        get 'fill'() { return cssColour('--cm-comarca-capital', '#FF9900'); },
         'font-family': 'Droid Sans, Arial, sans-serif',
         'font-size': '12px',
         'font-weight': 'bold',

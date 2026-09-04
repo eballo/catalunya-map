@@ -1,4 +1,11 @@
 /* ── Design tokens ───────────────────────────────── */
+/* Every colour in this file goes through one of these, so the map can follow
+   a dark theme without any rule below caring. The light values are exactly
+   the literals they replaced. The block further down reacts to the same
+   data-theme attribute catalunyamedieval sets on <html>; standalone pages
+   never set it and keep the light values. The comarca fill/stroke tokens are
+   also read from JS (catalunya-map-config.js), because Raphael paints the
+   SVG paths with presentation attributes rather than CSS. */
 :root {
     --cm-brown:    #6b4f2e;
     --cm-amber:    #c47f17;
@@ -6,6 +13,54 @@
     --cm-civil:    #2d6a4f;
     --cm-religios: #1e4e8c;
     --cm-altres:   #7b3f9e;
+
+    /* Side panel */
+    --cm-panel-ink:      #3d2b1f;
+    --cm-panel-heading:  #1a202c;
+    --cm-panel-body:     #4a3728;
+    --cm-panel-rule:     rgba(0, 0, 0, .06);
+    --cm-panel-rule-2:   rgba(0, 0, 0, .05);
+    --cm-panel-hover:    #fafaf8;
+    --cm-panel-track:    rgba(0, 0, 0, .06);
+    --cm-panel-sunken:   #f5ede4;
+    --cm-tooltip-bg:     rgba(255, 255, 255, .92);
+    --cm-tooltip-shadow: rgba(0, 0, 0, .10);
+
+    /* Comarca shapes (also read by the JS) */
+    --cm-comarca-fill:       #fff;
+    --cm-comarca-fill-hover: #fee8cb;
+    --cm-comarca-stroke:     #c7ab89;
+    --cm-comarca-name:       #a07a49;
+    --cm-comarca-capital:    #FF9900;
+    --cm-comarca-label:      #000000;  /* outline behind the hovered comarca name */
+}
+
+/* Dark theme, keyed off the attribute the host page sets on <html>. */
+:root[data-theme="dark"] {
+    --cm-brown:    #c8b9a4;
+    --cm-amber:    #ffd08c;
+    --cm-militar:  #d9695f;
+    --cm-civil:    #6bbf8f;
+    --cm-religios: #6fa8dc;
+    --cm-altres:   #b98ad6;
+
+    --cm-panel-ink:      #e7dccd;
+    --cm-panel-heading:  #f2e9dc;
+    --cm-panel-body:     #e7dccd;
+    --cm-panel-rule:     rgba(255, 255, 255, .10);
+    --cm-panel-rule-2:   rgba(255, 255, 255, .08);
+    --cm-panel-hover:    #2f271f;
+    --cm-panel-track:    rgba(255, 255, 255, .10);
+    --cm-panel-sunken:   #372e25;
+    --cm-tooltip-bg:     rgba(35, 28, 23, .95);
+    --cm-tooltip-shadow: rgba(0, 0, 0, .55);
+
+    --cm-comarca-fill:       #2f2720;
+    --cm-comarca-fill-hover: #4a3b2e;
+    --cm-comarca-stroke:     #6b5a48;
+    --cm-comarca-name:       #c9a877;
+    --cm-comarca-capital:    #ffb340;
+    --cm-comarca-label:      #14100c;  /* stays dark: it outlines light text */
 }
 
 /* ── Map layout ──────────────────────────────────── */
@@ -26,7 +81,7 @@
     box-sizing: border-box;
     width: 320px;
     height: 100%;
-    color: #3d2b1f;
+    color: var(--cm-panel-ink);
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     font-size: 14px;
     line-height: 1.55;
@@ -40,11 +95,11 @@
 /* ── Comarca name header ─────────────────────────── */
 #comarcaName {
     padding: 14px 16px 10px;
-    border-bottom: 1px solid rgba(0, 0, 0, .06);
+    border-bottom: 1px solid var(--cm-panel-rule);
 }
 
 #comarcaName h1 {
-    color: #1a202c;
+    color: var(--cm-panel-heading);
     font-family: Georgia, serif;
     font-style: normal;
     font-size: 18px;
@@ -72,7 +127,7 @@
     padding: 14px 16px;
     font-size: 13.5px;
     line-height: 1.6;
-    color: #4a3728;
+    color: var(--cm-panel-body);
 }
 
 .selecciona-comarca {
@@ -116,7 +171,7 @@
 }
 
 .cm-type-item {
-    border-bottom: 1px solid rgba(0, 0, 0, .05);
+    border-bottom: 1px solid var(--cm-panel-rule-2);
 }
 
 .cm-type-item > a {
@@ -129,7 +184,7 @@
 }
 
 .cm-type-item > a:hover {
-    background: #fafaf8;
+    background: var(--cm-panel-hover);
     text-decoration: none;
 }
 
@@ -158,7 +213,7 @@
     text-align: center;
     padding: 1px 6px;
     border-radius: 10px;
-    background: rgba(0, 0, 0, .06);
+    background: var(--cm-panel-track);
     flex-shrink: 0;
 }
 
@@ -183,7 +238,7 @@
     color: var(--cm-brown);
     font-size: 11px;
     font-weight: 700;
-    background: #f5ede4;
+    background: var(--cm-panel-sunken);
 }
 
 /* ── Legend ──────────────────────────────────────── */
@@ -194,11 +249,11 @@
     position: absolute;
     bottom: 60px;
     right: 0;
-    background: rgba(255, 255, 255, .92);
+    background: var(--cm-tooltip-bg);
     backdrop-filter: blur(4px);
     border-radius: 8px;
     padding: 8px 12px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, .10);
+    box-shadow: 0 2px 8px var(--cm-tooltip-shadow);
 }
 
 .legend {
