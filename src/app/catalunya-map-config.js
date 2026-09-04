@@ -15,7 +15,7 @@ export function stringToBoolean(string) {
 export function cssColour(name, fallback) {
     if (typeof document === 'undefined' || !document.documentElement) return fallback;
     const value = getComputedStyle(document.documentElement).getPropertyValue(name);
-    return value && value.trim() ? value.trim() : fallback;
+    return value?.trim() || fallback;
 }
 
 const MAP_CONFIG = {
