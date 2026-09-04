@@ -132,10 +132,8 @@ class CatMap {
         if (typeof MutationObserver === 'undefined' || typeof document === 'undefined') {
             return;
         }
-        const self = this;
-        new MutationObserver(function () {
-            self.refreshTheme();
-        }).observe(document.documentElement, {attributes: true, attributeFilter: ['data-theme']});
+        new MutationObserver(() => this.refreshTheme())
+            .observe(document.documentElement, {attributes: true, attributeFilter: ['data-theme']});
     }
 
     createMap() {
