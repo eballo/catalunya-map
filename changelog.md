@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
+## [13.9.0] - 2026-09-19
+
+### Changed
+- Send the host's map-data nonce as an X-CM-Nonce header instead of relying on the URL
+
 ## [13.8.2] - 2026-09-18
 
 ### Changed
