@@ -93,6 +93,23 @@ describe('Catalunya map loader', () => {
         consoleSpy.mockRestore();
     });
 
+    it('sends config.mapDataNonce as X-CM-Nonce header on the JSON fetches', async () => {
+        // resetModules() runs after each test, so the module under test picks up this mock
+        jest.doMock('../app/catalunya-map-config', () => ({
+            comarquesJsonUrl: '/test.json',
+            markersJsonUrl: '/markers.json',
+            mapDataNonce: 'n0nce'
+        }));
+        global.fetch = jest.fn().mockResolvedValue({ json: () => Promise.resolve(mockJsonData) });
+
+        await require('../app/catalunya-map-main');
+        await flushPromises();
+
+        const headers = { headers: { 'X-CM-Nonce': 'n0nce' } };
+        expect(global.fetch).toHaveBeenCalledWith('/test.json', headers);
+        expect(global.fetch).toHaveBeenCalledWith('/markers.json', headers);
+    });
+
     it('handles empty comarquesJsonUrl (covers imagesUrl falsy branch)', async () => {
         jest.resetModules();
         jest.doMock('../app/catalunya-map-config', () => ({

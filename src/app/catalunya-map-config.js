@@ -29,6 +29,12 @@ const MAP_CONFIG = {
         ? catalunyaMapConfig.markersJsonUrl
         : '',
 
+    // Sent as X-CM-Nonce on both JSON fetches, so the host can keep its
+    // nonce out of the URL (stable, cacheable, no new crawler 403 per rotation)
+    mapDataNonce: (typeof catalunyaMapConfig !== 'undefined' && catalunyaMapConfig.mapDataNonce)
+        ? catalunyaMapConfig.mapDataNonce
+        : '',
+
     // Base URL for the building-type icons. Optional: when empty, it's derived
     // from comarquesJsonUrl (see catalunya-map-main.js). Set it explicitly when
     // comarquesJsonUrl doesn't look like a path to the JSON file — e.g. when the

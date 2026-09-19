@@ -68,10 +68,13 @@ $(document).ready(function () {
             ? comarquesUrl.split('?')[0].replace('pages/js/catalunya-comarques.json', 'pages/images/')
             : '');
 
-    var p1 = fetch(comarquesUrl).then(function (r) { return r.json(); });
-    var p2 = markersUrl
-        ? fetch(markersUrl).then(function (r) { return r.json(); })
-        : Promise.resolve([]);
+    var fetchOptions = config.mapDataNonce ? { headers: { 'X-CM-Nonce': config.mapDataNonce } } : undefined;
+    var fetchJson = function (url) {
+        return (fetchOptions ? fetch(url, fetchOptions) : fetch(url)).then(function (r) { return r.json(); });
+    };
+
+    var p1 = fetchJson(comarquesUrl);
+    var p2 = markersUrl ? fetchJson(markersUrl) : Promise.resolve([]);
 
     Promise.all([p1, p2])
         .then(function (results) {
