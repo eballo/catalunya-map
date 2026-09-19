@@ -98,12 +98,14 @@ The host page can pass these options; all are optional and default to `''`:
 |---|---|
 | `comarquesJsonUrl` | URL the comarca data is fetched from |
 | `markersJsonUrl` | URL the building markers are fetched from (used for the per-comarca totals) |
+| `mapDataNonce` | Sent as an `X-CM-Nonce` request header on both JSON fetches, so a host that protects its endpoints with a nonce can keep it out of the URL (stable, cacheable URL; no new crawler 403 every time the nonce rotates) |
 | `imagesUrl` | Base URL of the building-type icons, e.g. `.../pages/images/`. When omitted it's derived from `comarquesJsonUrl` by replacing the `pages/js/catalunya-comarques.json` suffix — **set it explicitly whenever `comarquesJsonUrl` isn't a path to that file** (e.g. an API endpoint serving the JSON), since the derivation can't work there and every icon would 404. |
 
 ```js
 window.catalunyaMapConfig = {
     comarquesJsonUrl: '/api/comarques?token=abc',
     markersJsonUrl:   '/api/markers?token=abc',
+    mapDataNonce:     'abc',
     imagesUrl:        '/assets/map/images/'
 };
 ```
