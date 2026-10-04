@@ -1,17 +1,42 @@
-# exclude env configurations
-.env
-.env.production
-.env.demo
+# .gitignore — catalunya-medieval-skills/docs/gitignore.md
+# Blocks in this order: common, then one per technology, then "This repo".
 
+# ---- Common ----------------------------------------------------------------
+# OS
 .DS_Store
-.project
-node_modules/
-.sonarlint/
+._*
+Thumbs.db
+
+# Editors and IDEs
 .idea/
-dist/
-.junie
-.claude
+*.iml
+.junie/
+.sonarlint/
+.project
+.buildpath
+.settings/
+.cproject
+
+# Claude Code: personal settings and worktrees only. CLAUDE.md, skills/ and
+# commands/ under .claude/ are shared and committed.
+.claude/settings.local.json
+.claude/worktrees/
+
+# Secrets: environment files never reach git; the committed templates
+# (.env.example, .env.<target>.example, .env.sample) document them
+.env
+.env.*
+!.env.example
+!.env.*.example
+!.env.sample
+
+# ---- Node ------------------------------------------------------------------
+node_modules/
+npm-debug.log*
 coverage/
 
+# ---- This repo -------------------------------------------------------------
+# Build output (webpack); the demo deploy publishes it
+dist/
 web/js/catalunya-map.min.js
 web/js/catalunya-map.min.js.LICENSE.txt
