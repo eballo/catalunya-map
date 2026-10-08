@@ -47,6 +47,14 @@ jobs:
     if: github.event_name == 'push' && !contains(github.event.head_commit.message, 'Bump version:')
     needs: [ sonarcloud, build ]
     runs-on: ubuntu-latest
+    # One release at a time (shared with release.yml): a run that starts while
+    # another is releasing waits instead of racing it to push main. GitHub keeps
+    # only one pending run per group, so an intermediate one can be cancelled —
+    # that is fine, because each run releases every PR merged since the last
+    # tag, not just its own. See catalunya-medieval-skills/docs/releases.md.
+    concurrency:
+      group: release-main
+      cancel-in-progress: false
     permissions:
       contents: write
       pull-requests: read
@@ -63,50 +71,68 @@ jobs:
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
 
-      - name: Determine bump level from source branch
+      - name: Collect PRs since the last tag and determine bump level
         id: bump
         env:
-          SHA: ${{ github.sha }}
           REPO: ${{ github.repository }}
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           set -euo pipefail
 
-          # Find the PR associated with this commit (works for merge & squash)
-          PR_JSON=$(curl -sS -H "Authorization: Bearer $GH_TOKEN" \
-                           -H "Accept: application/vnd.github+json" \
-                           "https://api.github.com/repos/$REPO/commits/$SHA/pulls")
-          SRC_BRANCH=$(printf '%s' "$PR_JSON" | jq -r '.[0].head.ref // empty')
-          PR_TITLE=$(printf '%s' "$PR_JSON" | jq -r '.[0].title // empty')
+          LAST_TAG=$(git describe --tags --abbrev=0 --match 'v[0-9]*' 2>/dev/null || true)
+          RANGE="${LAST_TAG:+$LAST_TAG..}HEAD"
+          echo "Last tag: ${LAST_TAG:-<none>}"
 
-          # Fallback: parse default merge message if no PR is linked
-          if [ -z "$SRC_BRANCH" ]; then
-            MERGE_MSG=$(git log -1 --pretty=%B)
-            SRC_FULL=$(printf '%s' "$MERGE_MSG" | sed -n 's/.*from \([^ ]*\).*/\1/p')
-            SRC_BRANCH="${SRC_FULL#*/}"
+          # Highest level wins: major > minor > patch
+          RANK=0
+          : > /tmp/release-entries.txt
+          for SHA in $(git log --reverse --format=%H "$RANGE"); do
+            SUBJECT=$(git log -1 --format=%s "$SHA")
+            BODY=$(git log -1 --format=%B "$SHA")
+            case "$SUBJECT" in "Bump version:"*) continue ;; esac
+
+            PR_JSON=$(gh api "repos/$REPO/commits/$SHA/pulls" 2>/dev/null || echo '[]')
+            PR_NUMBER=$(printf '%s' "$PR_JSON" | jq -r '.[0].number // empty')
+
+            if [ -n "$PR_NUMBER" ]; then
+              SRC_BRANCH=$(printf '%s' "$PR_JSON" | jq -r '.[0].head.ref // empty')
+              ENTRY="$(printf '%s' "$PR_JSON" | jq -r '.[0].title') (#$PR_NUMBER)"
+            else
+              # Direct pushes to main that skipped CI (docs, templates) are not releases
+              case "$BODY" in *"[skip ci]"*|*"[ci skip]"*) continue ;; esac
+              SRC_BRANCH=""
+              ENTRY="$SUBJECT"
+            fi
+
+            case "$SRC_BRANCH" in
+              fix/*)   R=1 ;;
+              major/*) R=3 ;;
+              *)       R=2 ;;
+            esac
+            [ "$R" -gt "$RANK" ] && RANK=$R
+
+            echo "  ${SRC_BRANCH:-<no PR>} -> $ENTRY"
+            printf '%s\n' "$ENTRY" >> /tmp/release-entries.txt
+          done
+
+          if [ "$RANK" -eq 0 ]; then
+            echo "Nothing to release: an earlier run already released these changes."
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+            exit 0
           fi
-          if [ -z "$PR_TITLE" ]; then
-            PR_TITLE=$(git log -1 --pretty=%s)
-          fi
 
-          echo "Source branch: ${SRC_BRANCH:-<unknown>}"
-          echo "PR title: ${PR_TITLE:-<unknown>}"
-
-          case "$SRC_BRANCH" in
-            fix/*)   LEVEL=patch ;;
-            major/*) LEVEL=major ;;
-            *)       LEVEL=minor ;;
+          case "$RANK" in
+            1) LEVEL=patch ;;
+            2) LEVEL=minor ;;
+            3) LEVEL=major ;;
           esac
-
+          echo "Bump level: $LEVEL"
+          echo "skip=false" >> "$GITHUB_OUTPUT"
           echo "level=$LEVEL" >> "$GITHUB_OUTPUT"
-          {
-            echo "pr_title<<EOF"
-            echo "$PR_TITLE"
-            echo "EOF"
-          } >> "$GITHUB_OUTPUT"
 
       - name: Bump version (package.json + package-lock.json)
         id: version
+        if: steps.bump.outputs.skip != 'true'
         run: |
           set -euo pipefail
           OLD_VERSION=$(node -p "require('./package.json').version")
@@ -117,17 +143,18 @@ jobs:
           echo "new_version=$NEW_VERSION" >> "$GITHUB_OUTPUT"
 
       - name: Update changelog.md, demo.md and web/index.html
-        id: notes
+        if: steps.bump.outputs.skip != 'true'
         env:
           NEW_VERSION: ${{ steps.version.outputs.new_version }}
-          PR_TITLE: ${{ steps.bump.outputs.pr_title }}
         run: |
           set -euo pipefail
           node - <<'JS'
           const fs = require('fs');
 
           const version = process.env.NEW_VERSION.trim();
-          const title = (process.env.PR_TITLE || '').trim() || 'Maintenance update';
+          const entries = fs.readFileSync('/tmp/release-entries.txt', 'utf8')
+            .split('\n').map((line) => line.trim()).filter(Boolean);
+          const items = (entries.length ? entries : ['Maintenance update']).map((e) => `- ${e}`).join('\n');
           const [major, minor, patch] = version.split('.').map(Number);
 
           const slug = (minor === 0 && patch === 0) ? `map${major}`
@@ -139,7 +166,7 @@ jobs:
           const changelogPath = 'changelog.md';
           const changelog = fs.readFileSync(changelogPath, 'utf8');
           const date = new Date().toISOString().slice(0, 10);
-          const entry = `## [${version}] - ${date}\n\n### Changed\n- ${title}\n\n`;
+          const entry = `## [${version}] - ${date}\n\n### Changed\n${items}\n\n`;
           const marker = 'All notable changes to this project will be documented in this file.\n\n';
           const idx = changelog.indexOf(marker);
           const insertAt = idx === -1 ? 0 : idx + marker.length;
@@ -157,18 +184,46 @@ jobs:
           fs.writeFileSync(htmlPath, updatedHtml);
 
           // Release notes reused for the GitHub Release
-          fs.writeFileSync('/tmp/release-notes.md', `## ${label}\n\n### Changed\n- ${title}\n`);
+          fs.writeFileSync('/tmp/release-notes.md', `## ${label}\n\n### Changed\n${items}\n`);
           JS
 
       - name: Commit, tag and push
+        id: push
+        if: steps.bump.outputs.skip != 'true'
+        env:
+          NEW_VERSION: ${{ steps.version.outputs.new_version }}
+          OLD_VERSION: ${{ steps.version.outputs.old_version }}
         run: |
           set -euo pipefail
           git add package.json package-lock.json changelog.md demo.md web/index.html
-          git commit -m "Bump version: ${{ steps.version.outputs.old_version }} -> ${{ steps.version.outputs.new_version }}"
-          git tag -a "v${{ steps.version.outputs.new_version }}" -m "Release v${{ steps.version.outputs.new_version }}"
-          git push --follow-tags origin main
+          git commit -m "Bump version: ${OLD_VERSION} -> ${NEW_VERSION}"
+
+          # main may have moved while this ran. Commits that start no release of
+          # their own (skip-ci docs) are rebased under the bump. Anything else is
+          # a merged PR whose run is queued behind this one and will release
+          # everything since the last tag, this run's PRs included: stand down
+          # rather than tag over a PR this changelog does not describe.
+          git fetch -q origin main
+          if ! git merge-base --is-ancestor origin/main HEAD; then
+            for SHA in $(git rev-list HEAD..origin/main); do
+              case "$(git log -1 --format=%B "$SHA")" in
+                *"[skip ci]"*) ;;
+                *)
+                  echo "::notice::main moved on during the release ($(git log -1 --format=%s "$SHA")); the queued run releases these changes too"
+                  echo "pushed=false" >> "$GITHUB_OUTPUT"
+                  exit 0
+                  ;;
+              esac
+            done
+            git rebase -q origin/main
+          fi
+
+          git tag -a "v${NEW_VERSION}" -m "Release v${NEW_VERSION}"
+          git push --atomic origin HEAD:main "v${NEW_VERSION}"
+          echo "pushed=true" >> "$GITHUB_OUTPUT"
 
       - name: Create GitHub Release
+        if: steps.push.outputs.pushed == 'true'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NEW_VERSION: ${{ steps.version.outputs.new_version }}
