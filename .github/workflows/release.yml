@@ -29,6 +29,13 @@ on:
 permissions:
   contents: write
 
+# Shared with build.yml's release job: one release run at a time. If a merge
+# lands on main while this runs, the atomic push below is rejected and the run
+# fails — run it again (catalunya-medieval-skills/docs/releases.md).
+concurrency:
+  group: release-main
+  cancel-in-progress: false
+
 jobs:
   release:
     name: Bump version, tag and release
@@ -121,7 +128,7 @@ jobs:
           git add package.json package-lock.json changelog.md demo.md web/index.html
           git commit -m "Bump version: ${{ steps.version.outputs.old_version }} -> ${{ steps.version.outputs.new_version }}"
           git tag -a "v${{ steps.version.outputs.new_version }}" -m "Release v${{ steps.version.outputs.new_version }}"
-          git push --follow-tags origin main
+          git push --atomic origin HEAD:main "v${{ steps.version.outputs.new_version }}"
 
       - name: Create GitHub Release
         env:
