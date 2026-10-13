@@ -1,4 +1,4 @@
-import MAP_CONFIG, {stringToBoolean} from '../app/catalunya-map-config'
+import MAP_CONFIG, {stringToBoolean, choroplethClass} from '../app/catalunya-map-config'
 import {describe, expect, test, jest} from "@jest/globals";
 
 describe('stringToBoolean', () => {
@@ -42,6 +42,8 @@ describe('MAP_CONFIG with catalunyaMapConfig defined', () => {
 describe('MAP_CONFIG', () => {
     test('should exactly match the expected configuration', () => {
         const expectedConfig = {
+            choropleth: false,
+            choroplethSteps: 5,
             comarquesJsonUrl: '',
             markersJsonUrl: '',
             mapDataNonce: '',
@@ -101,5 +103,46 @@ describe('MAP_CONFIG', () => {
         };
 
         expect(MAP_CONFIG).toEqual(expectedConfig);
+    });
+});
+
+describe('MAP_CONFIG choropleth switch', () => {
+    test('is on only when the host asks for it', () => {
+        jest.resetModules();
+        global.catalunyaMapConfig = {choropleth: true};
+        const on = require('../app/catalunya-map-config').default;
+        expect(on.choropleth).toBe(true);
+
+        jest.resetModules();
+        global.catalunyaMapConfig = {};
+        const off = require('../app/catalunya-map-config').default;
+        expect(off.choropleth).toBe(false);
+
+        delete global.catalunyaMapConfig;
+    });
+});
+
+describe('choroplethClass', () => {
+    test('is 0 for a comarca without buildings or when nothing is known', () => {
+        expect(choroplethClass(0, 100)).toBe(0);
+        expect(choroplethClass(undefined, 100)).toBe(0);
+        expect(choroplethClass(5, 0)).toBe(0);
+    });
+
+    test('gives the top class to the comarca with the most buildings', () => {
+        expect(choroplethClass(100, 100)).toBe(5);
+    });
+
+    test('never drops below 1 for a comarca that has any', () => {
+        expect(choroplethClass(1, 1000)).toBe(1);
+    });
+
+    test('uses the square root so one big comarca does not flatten the rest', () => {
+        // 25 of 100 is a quarter of the buildings but half-way on the colour scale.
+        expect(choroplethClass(25, 100)).toBe(3);
+    });
+
+    test('is not above the number of steps', () => {
+        expect(choroplethClass(500, 100, 5)).toBe(5);
     });
 });

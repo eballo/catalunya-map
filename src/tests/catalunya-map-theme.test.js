@@ -216,3 +216,71 @@ describe('CatMap theme repainting', () => {
         });
     });
 });
+
+// ── Choropleth ─────────────────────────────────────────────────────────────
+
+describe('CatMap choropleth', () => {
+    const tokens = ['#fbe9d0', '#f3c99a', '#e0a066', '#c46a3a', '#8f2a1c'];
+
+    function build(choropleth) {
+        process.env = {...process.env, DEBUG: 'false'};
+        document.body.innerHTML = '<div id="map"></div>';
+        tokens.forEach((value, i) => document.documentElement.style.setProperty('--cm-choropleth-' + (i + 1), value));
+
+        const config = {
+            mapWidth: 800, mapHeight: 600, scale: 1, responsive: false,
+            useListText: false, onClick: false, newWindow: false, button: false,
+            textInitWidth: 280,
+            choropleth, choroplethSteps: 5,
+            colorIn: '#fee8cb', colorOut: '#fff',
+            comarcaAttr: {fill: '#fff', stroke: '#c7ab89'},
+            nomComcarcaAttr_in: {fill: '#a07a49', stroke: '#000000'},
+            nomComcarcaAttr_out: {fill: '#a07a49'},
+            nomCapitalAttr: {fill: '#FF9900'},
+        };
+        const json = {
+            empty: {path: 'M1,1L2,2', name: 'Empty', url: 'u0', total: 0, info: '', capital: 'C0'},
+            small: {path: 'M3,3L4,4', name: 'Small', url: 'u1', total: 4, info: '', capital: 'C1'},
+            big:   {path: 'M5,5L6,6', name: 'Big', url: 'u2', total: 100, info: '', capital: 'C2'},
+        };
+        const map = new CatMap(config, json);
+        map.debug = false;
+        map.createArrayComarcas();
+        map.createMap();
+        return map;
+    }
+
+    afterEach(() => {
+        document.documentElement.removeAttribute('style');
+    });
+
+    test('paints each comarca by how many buildings it has', () => {
+        const map = build(true);
+
+        expect(map.mcat.big[0].attr).toHaveBeenCalledWith({fill: tokens[4]});
+        expect(map.mcat.small[0].attr).toHaveBeenCalledWith({fill: tokens[0]});
+    });
+
+    test('leaves a comarca without buildings in the plain colour', () => {
+        const map = build(true);
+
+        expect(map.mcat.empty[0].attr).toHaveBeenCalledWith({fill: '#fff'});
+    });
+
+    test('keeps the plain colour everywhere when the host did not ask for it', () => {
+        const map = build(false);
+
+        expect(map.mcat.big[0].attr).toHaveBeenCalledWith({fill: '#fff'});
+        expect(map.mcat.small[0].attr).toHaveBeenCalledWith({fill: '#fff'});
+    });
+
+    test('repaints with the new tokens after a theme switch', () => {
+        const map = build(true);
+        document.documentElement.style.setProperty('--cm-choropleth-5', '#112233');
+        map.mcat.big[0].attr.mockClear();
+
+        map.refreshTheme();
+
+        expect(map.mcat.big[0].attr).toHaveBeenCalledWith({fill: '#112233'});
+    });
+});

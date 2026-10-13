@@ -5,7 +5,7 @@
  * version : 13.1.2
  *
  */
-import {stringToBoolean} from "./catalunya-map-config";
+import {stringToBoolean, choroplethClass, cssColour} from "./catalunya-map-config";
 
 
 
@@ -97,6 +97,19 @@ class CatMap {
     }
 
     /**
+     * The resting fill of a comarca: the plain one, or its choropleth colour
+     * when the host turned that on and the comarca has buildings.
+     */
+    fillFor(comarca) {
+        if (!this.config.choropleth) {
+            return this.config.colorOut;
+        }
+        const totals = Object.values(this.mappaths).map(c => c.total || 0);
+        const step = choroplethClass(this.mappaths[comarca].total, Math.max(0, ...totals), this.config.choroplethSteps);
+        return step > 0 ? cssColour('--cm-choropleth-' + step, this.config.colorOut) : this.config.colorOut;
+    }
+
+    /**
      * Re-apply the comarca styling after the host page switches theme.
      *
      * The colours in the config are getters over CSS custom properties, but
@@ -113,6 +126,7 @@ class CatMap {
                 continue;
             }
             obj[0].attr(this.config.comarcaAttr);
+            obj[0].attr({'fill': this.fillFor(comarca)});
             if (obj[0].comarcaName === this.selected) {
                 // Keep the selected comarca highlighted rather than resetting it.
                 obj[0].attr({'fill': this.config.colorIn});
@@ -161,7 +175,7 @@ class CatMap {
                 this[2].show();
             }, function () { // hoverOut function
                 let params = {
-                    'fill': config.colorOut
+                    'fill': self.fillFor(this[0].comarcaKey)
                 };
                 //if it is not the selected comarca remove styles
                 if (self.selected !== this[0].comarcaName) {
@@ -215,6 +229,7 @@ class CatMap {
 
         const path = this.paper.path(this.mappaths[comarca].path);
         path.attr(this.config.comarcaAttr)
+        path.attr({'fill': this.fillFor(comarca)})
 
         // Raphael Object - object 0 (the map)
         obj.push(path);
@@ -237,6 +252,7 @@ class CatMap {
             obj[i].capitalComarca = this.mappaths[comarca].capital;
             obj[i].contentText = this.mappaths[comarca].info;
             obj[i].comarcaLink = this.mappaths[comarca].url;
+            obj[i].comarcaKey = comarca;
         }
 
         obj[0].node.id = i;
@@ -277,7 +293,7 @@ class CatMap {
             let obj = this.mcat[comarca];
             if (obj[0].comarcaName !== this.selected) {
                 let params = {
-                    'fill': this.config.colorOut
+                    'fill': this.fillFor(comarca)
                 };
                 obj[0].animate(params, 100);
                 obj[1].attr(this.config.nomComcarcaAttr_out);
