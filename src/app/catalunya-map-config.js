@@ -18,7 +18,22 @@ export function cssColour(name, fallback) {
     return value?.trim() || fallback;
 }
 
+/**
+ * Colour class (1..steps) of a comarca for the choropleth, or 0 when it has
+ * no buildings. The square root keeps a few comarques with hundreds of
+ * entries from flattening the rest into the lightest class.
+ */
+export function choroplethClass(total, max, steps = 5) {
+    if (!total || total <= 0 || !max || max <= 0) return 0;
+    return Math.min(steps, Math.max(1, Math.ceil(steps * Math.sqrt(total / max))));
+}
+
 const MAP_CONFIG = {
+
+    // Colour each comarca by how many buildings it has (the host defines
+    // --cm-choropleth-1 … --cm-choropleth-5). Off unless the host asks.
+    choropleth: (typeof catalunyaMapConfig !== 'undefined' && !!catalunyaMapConfig.choropleth),
+    choroplethSteps: 5,
 
     comarquesJsonUrl: (typeof catalunyaMapConfig !== 'undefined' && catalunyaMapConfig.comarquesJsonUrl)
         ? catalunyaMapConfig.comarquesJsonUrl
