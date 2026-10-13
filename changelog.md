@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
+## [13.12.0] - 2026-10-13
+
+### Changed
+- Optional choropleth: colour each comarca by how many buildings it has (#107)
+
 ## [13.11.0] - 2026-10-08
 
 ### Changed
