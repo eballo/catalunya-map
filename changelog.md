@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
+## [13.14.1] - 2026-10-21
+
+### Changed
+- Demo data points to production instead of localhost (#111)
+
 ## [13.14.0] - 2026-10-21
 
 ### Changed
