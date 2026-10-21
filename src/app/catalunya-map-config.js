@@ -3,6 +3,15 @@ export function stringToBoolean(string) {
 }
 
 /**
+ * A yes/no option the host page may set on `window.catalunyaMapConfig` as a
+ * real boolean; when it does not, the build-time `.env` value decides.
+ */
+function hostFlag(name, envValue) {
+    const host = (typeof catalunyaMapConfig !== 'undefined') ? catalunyaMapConfig[name] : undefined;
+    return typeof host === 'boolean' ? host : stringToBoolean(envValue);
+}
+
+/**
  * Value of a CSS custom property on <html>, or `fallback` when it is not set
  * (or there is no DOM at all, e.g. under Jest).
  *
@@ -61,10 +70,10 @@ const MAP_CONFIG = {
 
     responsive: stringToBoolean(process.env.RESPONSIVE ?? 'true'),
     useText: stringToBoolean(process.env.USE_TEXT ?? 'true'),
-    useListText: stringToBoolean(process.env.USE_LIST_TEXT ?? 'false'),
-    button: stringToBoolean(process.env.BUTTON ?? 'false'),
-    onClick: stringToBoolean(process.env.ON_CLICK ?? 'false'),
-    newWindow: stringToBoolean(process.env.NEW_WINDOW ?? 'false'),
+    useListText: hostFlag('useListText', process.env.USE_LIST_TEXT ?? 'false'),
+    button: hostFlag('button', process.env.BUTTON ?? 'false'),
+    onClick: hostFlag('onClick', process.env.ON_CLICK ?? 'false'),
+    newWindow: hostFlag('newWindow', process.env.NEW_WINDOW ?? 'false'),
 
     get colorIn() { return cssColour('--cm-comarca-fill-hover', process.env.COLOR_IN ?? '#fee8cb'); },
     get colorOut() { return cssColour('--cm-comarca-fill', process.env.COLOR_OUT ?? '#fff'); },

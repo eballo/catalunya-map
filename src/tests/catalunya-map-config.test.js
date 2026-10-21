@@ -1,5 +1,5 @@
 import MAP_CONFIG, {stringToBoolean, choroplethClass} from '../app/catalunya-map-config'
-import {describe, expect, test, jest} from "@jest/globals";
+import {afterEach, describe, expect, test, jest} from "@jest/globals";
 
 describe('stringToBoolean', () => {
     test('should return true for "true" string', () => {
@@ -103,6 +103,47 @@ describe('MAP_CONFIG', () => {
         };
 
         expect(MAP_CONFIG).toEqual(expectedConfig);
+    });
+});
+
+describe('MAP_CONFIG host-set switches', () => {
+    const FLAGS = ['useListText', 'button', 'onClick', 'newWindow'];
+
+    afterEach(() => {
+        delete global.catalunyaMapConfig;
+        jest.resetModules();
+    });
+
+    test('a boolean from the host page beats the build-time value, in both directions', () => {
+        jest.resetModules();
+        global.catalunyaMapConfig = {useListText: true, button: true, onClick: true, newWindow: true};
+        const on = require('../app/catalunya-map-config').default;
+        FLAGS.forEach(flag => expect(on[flag]).toBe(true));
+
+        jest.resetModules();
+        process.env.ON_CLICK = 'true';
+        global.catalunyaMapConfig = {onClick: false};
+        const off = require('../app/catalunya-map-config').default;
+        expect(off.onClick).toBe(false);
+        delete process.env.ON_CLICK;
+    });
+
+    test('without a host value the build-time value is used', () => {
+        jest.resetModules();
+        process.env.NEW_WINDOW = 'true';
+        global.catalunyaMapConfig = {};
+        const config = require('../app/catalunya-map-config').default;
+        expect(config.newWindow).toBe(true);
+        expect(config.button).toBe(false);
+        delete process.env.NEW_WINDOW;
+    });
+
+    test('a non-boolean host value is ignored', () => {
+        jest.resetModules();
+        global.catalunyaMapConfig = {onClick: 'yes', button: 1};
+        const config = require('../app/catalunya-map-config').default;
+        expect(config.onClick).toBe(false);
+        expect(config.button).toBe(false);
     });
 });
 

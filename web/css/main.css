@@ -35,3 +35,58 @@ a:hover {
 .description strong {
 	padding: 10px;
 }
+
+/* ------ demo: choropleth ramp (the map reads --cm-choropleth-1 … 5 from the page) --------*/
+
+:root {
+	--cm-choropleth-1: #fbe9c6;
+	--cm-choropleth-2: #f3cf8a;
+	--cm-choropleth-3: #e3a85a;
+	--cm-choropleth-4: #c97a3a;
+	--cm-choropleth-5: #8b3a1c;
+}
+
+/* ------ demo: feature buttons --------*/
+
+.demo-options {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: center;
+	gap: 8px;
+	margin: 0 auto 10px;
+	padding: 0 12px;
+}
+
+.demo-options__title {
+	font-weight: bold;
+}
+
+.demo-option {
+	padding: 6px 14px;
+	border: 1px solid #c9bda8;
+	border-radius: 16px;
+	background: #fff;
+	color: #333;
+	cursor: pointer;
+}
+
+.demo-option:hover:not(:disabled),
+.demo-option:focus-visible {
+	border-color: #8b3a1c;
+}
+
+.demo-option--on {
+	border-color: #8b3a1c;
+	background: #8b3a1c;
+	color: #fff;
+}
+
+.demo-option:disabled {
+	opacity: 0.45;
+	cursor: not-allowed;
+}
+
+.demo-options__reset {
+	margin-left: 6px;
+}
