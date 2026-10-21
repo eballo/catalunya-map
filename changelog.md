@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
+## [13.15.0] - 2026-10-21
+
+### Changed
+- Demo buttons to switch map features (#112)
+
 ## [13.14.1] - 2026-10-21
 
 ### Changed
