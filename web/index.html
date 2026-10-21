@@ -32,6 +32,26 @@
 
 <body>
 <h1 class="page-header">Interactive Map of Catalunya SVG/VML and RaphaëlJs - Demo v13.14.1</h1>
+
+<div class="demo-options" role="group" aria-label="Funcionalitats del mapa">
+    <span class="demo-options__title">Funcionalitats:</span>
+    <button type="button" class="demo-option" data-option="choropleth" aria-pressed="false"
+            title="Pinta cada comarca segons el nombre d'edificacions">Mapa de calor
+    </button>
+    <button type="button" class="demo-option" data-option="useListText" aria-pressed="false"
+            title="Mostra la llista de comarques sota el mapa i permet clicar-les. Les opcions següents en depenen">Llista i clic a les comarques
+    </button>
+    <button type="button" class="demo-option" data-option="onClick" aria-pressed="false"
+            title="Clicar una comarca va directament a la seva pàgina, sense panell">Clic directe a la pàgina
+    </button>
+    <button type="button" class="demo-option" data-option="newWindow" aria-pressed="false"
+            title="Obre la pàgina de la comarca en una pestanya nova (cal el clic directe)">Pestanya nova
+    </button>
+    <button type="button" class="demo-option" data-option="button" aria-pressed="false"
+            title="Mostra el botó «Veure contingut» al panell (només sense clic directe)">Botó «Veure contingut»
+    </button>
+    <a class="demo-options__reset" href="?">Restableix</a>
+</div>
 <div id="container row">
     <div class="map-wrapper">
         <div id="text" class="col-md-4" style="display:none;">
@@ -122,9 +142,61 @@
 
 <footer>
     <script>
-        window.catalunyaMapConfig = {
-            comarquesJsonUrl: 'js/catalunya-map-path-sample.json'
-        };
+        // The feature buttons keep their state in the URL and reload the page, so any
+        // configuration can be shared as a link. Only what differs from the defaults is written
+        // (?choropleth=1&onClick=1, or ?useListText=0 to switch the click/list off).
+        (function () {
+            var DEFAULTS = {choropleth: false, useListText: true, onClick: false, newWindow: false, button: false};
+            // The map only wires clicks when useListText is on; newWindow only applies to onClick,
+            // and the "Veure contingut" button only to the panel (no direct click).
+            var NEEDS = {onClick: ['useListText'], newWindow: ['useListText', 'onClick'], button: ['useListText']};
+            var EXCLUDES = {button: ['onClick']};
+            var names = Object.keys(DEFAULTS);
+
+            function normalize(state) {
+                names.forEach(function (name) {
+                    var blocked = (NEEDS[name] || []).some(function (dep) { return !state[dep]; })
+                        || (EXCLUDES[name] || []).some(function (other) { return state[other]; });
+                    if (blocked) state[name] = false;
+                });
+                return state;
+            }
+
+            var params = new URLSearchParams(window.location.search);
+            var state = {};
+            names.forEach(function (name) {
+                state[name] = params.has(name) ? params.get(name) === '1' : DEFAULTS[name];
+            });
+            normalize(state);
+
+            window.catalunyaMapConfig = Object.assign({
+                comarquesJsonUrl: 'js/catalunya-map-path-sample.json',
+                markersJsonUrl: 'js/catalunya-markers-sample.json',
+                // The building-type icons of the panel are served by the production site.
+                imagesUrl: 'https://www.catalunyamedieval.es/wp-content/plugins/catalunya-medieval-plugins/plugins/refreshMap/pages/images/'
+            }, state);
+
+            document.querySelectorAll('.demo-option').forEach(function (btn) {
+                var name = btn.dataset.option;
+                btn.setAttribute('aria-pressed', String(state[name]));
+                btn.classList.toggle('demo-option--on', state[name]);
+                // Disabled when switching it on would be ignored.
+                var probe = Object.assign({}, state);
+                probe[name] = true;
+                btn.disabled = !state[name] && !normalize(probe)[name];
+
+                btn.addEventListener('click', function () {
+                    var next = Object.assign({}, state);
+                    next[name] = !state[name];
+                    normalize(next);
+                    var query = new URLSearchParams();
+                    names.forEach(function (option) {
+                        if (next[option] !== DEFAULTS[option]) query.set(option, next[option] ? '1' : '0');
+                    });
+                    window.location.search = query.toString();
+                });
+            });
+        })();
     </script>
     <script type="text/javascript" src="js/catalunya-map.min.js"></script>
 </footer>

@@ -100,6 +100,11 @@ The host page can pass these options; all are optional and default to `''`:
 | `markersJsonUrl` | URL the building markers are fetched from (used for the per-comarca totals) |
 | `mapDataNonce` | Sent as an `X-CM-Nonce` request header on both JSON fetches, so a host that protects its endpoints with a nonce can keep it out of the URL (stable, cacheable URL; no new crawler 403 every time the nonce rotates) |
 | `imagesUrl` | Base URL of the building-type icons, e.g. `.../pages/images/`. When omitted it's derived from `comarquesJsonUrl` by replacing the `pages/js/catalunya-comarques.json` suffix — **set it explicitly whenever `comarquesJsonUrl` isn't a path to that file** (e.g. an API endpoint serving the JSON), since the derivation can't work there and every icon would 404. |
+| `choropleth` | `true` colours each comarca by how many buildings it has (needs `markersJsonUrl`; the host defines `--cm-choropleth-1` … `--cm-choropleth-5`). Default `false` |
+| `useListText` | Boolean. Shows the list of comarques under the map and makes the comarques clickable. The three options below only work with it on. Falls back to `USE_LIST_TEXT` of the build `.env` |
+| `onClick` | Boolean. A click goes straight to the comarca's page instead of filling the side panel. Falls back to `ON_CLICK` |
+| `newWindow` | Boolean. With `onClick`, opens the page in a new tab. Falls back to `NEW_WINDOW` |
+| `button` | Boolean. Without `onClick`, shows the «Veure contingut» button in the panel. Falls back to `BUTTON` |
 
 ```js
 window.catalunyaMapConfig = {
@@ -109,6 +114,9 @@ window.catalunyaMapConfig = {
     imagesUrl:        '/assets/map/images/'
 };
 ```
+
+The [demo](./demo.md) has a button for each of these options; its state lives in the URL
+(`?choropleth=1&onClick=1`, or `?useListText=0`), so a configuration can be shared as a link.
 
 ## Sources
 - [Mapa SVG de Catalunya](http://commons.wikimedia.org/wiki/File:Mapa_comarcal_de_Catalunya.svg)
