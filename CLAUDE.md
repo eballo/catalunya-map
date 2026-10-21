@@ -24,10 +24,13 @@ Once the CI release job has run (new version tagged and released), finish the re
 - **Stop the server** after the screenshot: `kill $(lsof -ti :9090)` — leaving it running blocks the port for future sessions.
 
 ### 2. Deploy
-Only the latest version is kept on the demo site: `npm run deploy` always uploads to `<SFTP_REMOTE_PATH>/map` (`http://demo.catalunyamedieval.es/map`) and **wipes that directory first**. `SFTP_REMOTE_PATH` is the **base** directory (e.g. `/home/user/www/demo`), never versioned. It builds the demo itself, so no manual build is needed. The password prompt is interactive: hand this step to the user.
+Only the latest version is kept on the demo site, in the fixed directory `/map/` (`https://demo.catalunyamedieval.es/map/`). Publish it from `catalunya-medieval-ops` (SSH key, no password; it builds the demo from this repo, so `main` must be pulled and clean). Dry run first, then the real one; both are outward-facing, so ask the user before the second:
 ```bash
-npm run deploy
+cd ../catalunya-medieval-ops
+make deploy-demo ONLY=map ARGS='--dry-run'
+make deploy-demo ONLY=map
 ```
+Steps, safety and the landing page (versions stamped from each `package.json`): `catalunya-medieval-ops/docs/demo.md`. The older `npm run deploy` (SFTP, interactive password: hand it to the user) still writes to the same directory.
 
 ---
 
