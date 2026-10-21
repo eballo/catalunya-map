@@ -77,9 +77,8 @@ jobs:
           echo "new_version=$NEW_VERSION" >> "$GITHUB_OUTPUT"
 
       # Lifted unchanged from build.yml so a manual release writes exactly what
-      # an automatic one writes — including this repo's own demo slug and the
-      # end of demo.md it grows from.
-      - name: Update changelog.md, demo.md and web/index.html
+      # an automatic one writes — including the version shown on the demo page.
+      - name: Update changelog.md and web/index.html
         env:
           NEW_VERSION: ${{ steps.version.outputs.new_version }}
           PR_TITLE: ${{ inputs.summary }}
@@ -92,9 +91,6 @@ jobs:
           const title = (process.env.PR_TITLE || '').trim() || 'Maintenance update';
           const [major, minor, patch] = version.split('.').map(Number);
 
-          const slug = (minor === 0 && patch === 0) ? `map${major}`
-                     : (patch === 0) ? `map${major}${minor}`
-                     : `map${major}${minor}${patch}`;
           const label = (patch === 0) ? `v${major}.${minor}` : `v${major}.${minor}.${patch}`;
 
           // changelog.md
@@ -106,11 +102,6 @@ jobs:
           const idx = changelog.indexOf(marker);
           const insertAt = idx === -1 ? 0 : idx + marker.length;
           fs.writeFileSync(changelogPath, changelog.slice(0, insertAt) + entry + changelog.slice(insertAt));
-
-          // demo.md (this project appends newest entry at the bottom)
-          const demoPath = 'demo.md';
-          const demo = fs.readFileSync(demoPath, 'utf8').replace(/\n+$/, '');
-          fs.writeFileSync(demoPath, `${demo}\n- [Demo ${label}](http://demo.catalunyamedieval.es/${slug})\n`);
 
           // web/index.html (preserve each tag's own V/v capitalisation)
           const htmlPath = 'web/index.html';
@@ -125,7 +116,7 @@ jobs:
       - name: Commit, tag and push
         run: |
           set -euo pipefail
-          git add package.json package-lock.json changelog.md demo.md web/index.html
+          git add package.json package-lock.json changelog.md web/index.html
           git commit -m "Bump version: ${{ steps.version.outputs.old_version }} -> ${{ steps.version.outputs.new_version }}"
           git tag -a "v${{ steps.version.outputs.new_version }}" -m "Release v${{ steps.version.outputs.new_version }}"
           git push --atomic origin HEAD:main "v${{ steps.version.outputs.new_version }}"

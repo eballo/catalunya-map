@@ -142,7 +142,7 @@ jobs:
           echo "old_version=$OLD_VERSION" >> "$GITHUB_OUTPUT"
           echo "new_version=$NEW_VERSION" >> "$GITHUB_OUTPUT"
 
-      - name: Update changelog.md, demo.md and web/index.html
+      - name: Update changelog.md and web/index.html
         if: steps.bump.outputs.skip != 'true'
         env:
           NEW_VERSION: ${{ steps.version.outputs.new_version }}
@@ -157,9 +157,6 @@ jobs:
           const items = (entries.length ? entries : ['Maintenance update']).map((e) => `- ${e}`).join('\n');
           const [major, minor, patch] = version.split('.').map(Number);
 
-          const slug = (minor === 0 && patch === 0) ? `map${major}`
-                     : (patch === 0) ? `map${major}${minor}`
-                     : `map${major}${minor}${patch}`;
           const label = (patch === 0) ? `v${major}.${minor}` : `v${major}.${minor}.${patch}`;
 
           // changelog.md
@@ -171,11 +168,6 @@ jobs:
           const idx = changelog.indexOf(marker);
           const insertAt = idx === -1 ? 0 : idx + marker.length;
           fs.writeFileSync(changelogPath, changelog.slice(0, insertAt) + entry + changelog.slice(insertAt));
-
-          // demo.md (this project appends newest entry at the bottom)
-          const demoPath = 'demo.md';
-          const demo = fs.readFileSync(demoPath, 'utf8').replace(/\n+$/, '');
-          fs.writeFileSync(demoPath, `${demo}\n- [Demo ${label}](http://demo.catalunyamedieval.es/${slug})\n`);
 
           // web/index.html (preserve each tag's own V/v capitalisation)
           const htmlPath = 'web/index.html';
@@ -195,7 +187,7 @@ jobs:
           OLD_VERSION: ${{ steps.version.outputs.old_version }}
         run: |
           set -euo pipefail
-          git add package.json package-lock.json changelog.md demo.md web/index.html
+          git add package.json package-lock.json changelog.md web/index.html
           git commit -m "Bump version: ${OLD_VERSION} -> ${NEW_VERSION}"
 
           # main may have moved while this ran. Commits that start no release of
