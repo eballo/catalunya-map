@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
+## [13.16.0] - 2026-10-22
+
+### Changed
+- Bump launch-editor from 2.14.1 to 2.14.2 (#110)
+
 ## [13.15.0] - 2026-10-21
 
 ### Changed
