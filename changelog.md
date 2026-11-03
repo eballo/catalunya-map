@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
+## [13.18.0] - 2026-11-03
+
+### Changed
+- Bump qs from 6.16.0 to 6.17.1 (#114)
+
 ## [13.17.0] - 2026-11-03
 
 ### Changed
