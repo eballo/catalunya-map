@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
+## [13.17.0] - 2026-11-03
+
+### Changed
+- Bump fast-uri from 3.1.8 to 3.1.9 (#113)
+
 ## [13.16.0] - 2026-10-22
 
 ### Changed
